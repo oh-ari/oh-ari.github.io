@@ -43,7 +43,18 @@ body {
     height: 50px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+.navbar::-webkit-scrollbar {
+    display: none;
+}
+
+.navbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 .navbar-content {
@@ -53,7 +64,9 @@ body {
     gap: 1.5rem;
     max-width: 1200px;
     width: 100%;
+    min-width: max-content;
     padding: 0 2rem;
+    flex-shrink: 0;
 }
 
 .navbar-link {

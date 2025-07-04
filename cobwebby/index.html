@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slot Usage Leaderboard</title>
+    <title>Cobwebby Index</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -14,29 +14,45 @@
         <div class="navbar-content">
             <a href="../index.html" class="navbar-link">Treaty Generator</a>
             <div class="navbar-divider"></div>
-            <a href="#" class="navbar-link active">Slot Usage Leaderboard</a>
+            <a href="../aid/index.html" class="navbar-link">Slot Usage Leaderboard</a>
             <div class="navbar-divider"></div>
-            <a href="../cobwebby/index.html" class="navbar-link">Cobwebby</a>
+            <a href="#" class="navbar-link active">Cobwebby Index</a>
         </div>
     </nav>
     
     <div class="container">
         <header class="header-top">
             <div class="title-wrapper">
-                <h1 class="title">Slot Leaderboards</h1>
-                <p class="work-in-progress">Work in Progress</p>
+                <h1 class="title">Cobwebby</h1>
             </div>
         </header>
         
         <main class="main-content">
             <div class="leaderboard-section">
+                <div class="search-controls" style="display: none;">
+                    <div class="search-inputs">
+                        <div class="search-group">
+                            <label for="ruler-search" class="search-label">Search Ruler:</label>
+                            <input type="text" id="ruler-search" class="search-input" placeholder="Type ruler name..." autocomplete="off">
+                        </div>
+                        <div class="search-group">
+                            <label for="alliance-search" class="search-label">Search Alliance:</label>
+                            <input type="text" id="alliance-search" class="search-input" placeholder="Type alliance name..." autocomplete="off">
+                        </div>
+                    </div>
+                    <button id="clear-search" class="clear-search-btn">Clear Filters</button>
+                </div>
+                
                 <div class="loading-state">
-                    <p class="loading-text">Loading leaderboard data...</p>
+                    <p class="loading-text">Loading cobwebby data...</p>
                 </div>
                 
                 <div class="leaderboard-table-container" style="display: none;">
                     <div class="leaderboard-controls">
                         <div class="last-updated"><span id="last-updated-time">--</span></div>
+                        <div class="pagination-info">
+                            <span id="pagination-info">--</span>
+                        </div>
                     </div>
                     
                     <div class="leaderboard-table-wrapper">
@@ -44,22 +60,28 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Ruler</th>
                                     <th>Alliance</th>
-                                    <th>Members</th>
-                                    <th>Slots Used</th>
-                                    <th>Max Slots</th>
-                                    <th>Usage %</th>
+                                    <th>Att. Casualties</th>
+                                    <th>Def. Casualties</th>
+                                    <th>CPDI</th>
                                 </tr>
                             </thead>
                             <tbody id="leaderboard-tbody">
                             </tbody>
                         </table>
                     </div>
+                    
+                    <div class="pagination-controls">
+                        <button id="prev-page" class="pagination-btn">← Previous</button>
+                        <div class="page-numbers" id="page-numbers"></div>
+                        <button id="next-page" class="pagination-btn">Next →</button>
+                    </div>
                 </div>
                 
                 <div class="error-state" style="display: none;">
-                    <p class="error-text">Error loading data</p>
-                    <p class="error-subtitle">Please try refreshing the page</p>
+                    <p class="error-text">Error loading data for some reason.</p>
+                    <p class="error-subtitle">Please try refreshing the page? Who knows.</p>
                 </div>
             </div>
         </main>

@@ -7,6 +7,19 @@ class SlotLeaderboard {
         this.init();
     }
     
+    normalizeAllianceName(name) {
+        if (!name) return '';
+        return name.toLowerCase()
+            .replace(/\s+/g, ' ')
+            .trim()
+            .replace(/\bof\b/g, 'of')
+            .replace(/\band\b/g, 'and') 
+            .replace(/\bthe\b/g, 'the')
+            .replace(/\bin\b/g, 'in')
+            .replace(/\bto\b/g, 'to')
+            .replace(/[.,;:!?]/g, '');
+    }
+    
     async init() {
         console.log('Initializing Slot Usage Leaderboard');
         await this.loadLeaderboard();
@@ -75,6 +88,13 @@ class SlotLeaderboard {
         console.log('Column indices:', { declaringAllianceIndex, receivingAllianceIndex, statusIndex, dateIndex });
         
         this.slotUsageData = {};
+        this.normalizedToDisplayName = {};
+        if (this.allianceConfig && this.allianceConfig.alliances) {
+            this.allianceConfig.alliances.forEach(alliance => {
+                const normalizedName = this.normalizeAllianceName(alliance.name);
+                this.normalizedToDisplayName[normalizedName] = alliance.name;
+            });
+        }
         
         const now = new Date();
         const centralTime = new Date(now.toLocaleString("en-US", {timeZone: "America/Chicago"}));
@@ -113,15 +133,18 @@ class SlotLeaderboard {
             }
             
             if (declaringAlliance) {
-                this.slotUsageData[declaringAlliance] = (this.slotUsageData[declaringAlliance] || 0) + 1;
+                const normalizedName = this.normalizeAllianceName(declaringAlliance);
+                this.slotUsageData[normalizedName] = (this.slotUsageData[normalizedName] || 0) + 1;
             }
             
             if (receivingAlliance) {
-                this.slotUsageData[receivingAlliance] = (this.slotUsageData[receivingAlliance] || 0) + 1;
+                const normalizedName = this.normalizeAllianceName(receivingAlliance);
+                this.slotUsageData[normalizedName] = (this.slotUsageData[normalizedName] || 0) + 1;
             }
         }
         
         console.log('Slot usage data calculated with expiration logic:', Object.keys(this.slotUsageData).length, 'alliances');
+        console.log('Normalized name mappings:', Object.keys(this.normalizedToDisplayName).length, 'configured alliances');
     }
     
     calculateSlotUsage() {
@@ -135,7 +158,8 @@ class SlotLeaderboard {
         tbody.innerHTML = '';
         
         const leaderboardData = this.allianceConfig.alliances.map((alliance, index) => {
-            const usedSlots = this.slotUsageData[alliance.name] || 0;
+            const normalizedName = this.normalizeAllianceName(alliance.name);
+            const usedSlots = this.slotUsageData[normalizedName] || 0;
             const maxSlots = alliance.maxSlots;
             const percentage = maxSlots > 0 ? ((usedSlots / maxSlots) * 100).toFixed(2) : 0;
             

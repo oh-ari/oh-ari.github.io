@@ -391,4 +391,16 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+    
+    const footerCredit = document.querySelector('.footer-credit');
+    if (footerCredit) {
+        footerCredit.addEventListener('click', function() {
+            if (window.matchMedia('(hover: none)').matches) {
+                this.classList.toggle('tapped');
+                setTimeout(() => {
+                    this.classList.remove('tapped');
+                }, 3000);
+            }
+        });
+    }
 }); 

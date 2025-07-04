@@ -150,6 +150,23 @@ body {
     position: relative;
 }
 
+.work-in-progress {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #f39c12;
+    background: rgba(243, 156, 18, 0.1);
+    border: 1px solid rgba(243, 156, 18, 0.3);
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    margin: 1rem auto 0;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    max-width: 200px;
+    opacity: 0.9;
+}
+
 .main-content {
     flex: 1;
     width: 100%;

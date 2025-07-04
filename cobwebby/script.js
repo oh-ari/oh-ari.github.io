@@ -345,8 +345,35 @@ class CobwebbyLeaderboard {
     }
 }
 
+function setupNavbarScrollIndicator() {
+    const navbar = document.querySelector('.navbar');
+    const scrollIndicator = document.querySelector('.navbar-scroll-indicator');
+    
+    if (!navbar || !scrollIndicator) return;
+    
+    function updateScrollIndicator() {
+        if (window.innerWidth <= 768) {
+            const canScroll = navbar.scrollWidth > navbar.clientWidth;
+            const isAtEnd = navbar.scrollLeft >= (navbar.scrollWidth - navbar.clientWidth - 5);
+            
+            if (canScroll && !isAtEnd) {
+                scrollIndicator.classList.add('visible');
+            } else {
+                scrollIndicator.classList.remove('visible');
+            }
+        } else {
+            scrollIndicator.classList.remove('visible');
+        }
+    }
+    
+    navbar.addEventListener('scroll', updateScrollIndicator);
+    window.addEventListener('resize', updateScrollIndicator);
+    updateScrollIndicator();
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Cobwebby Leaderboard page loaded');
+    setupNavbarScrollIndicator();
     new CobwebbyLeaderboard();
     
     const footerCredit = document.querySelector('.footer-credit');

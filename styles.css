@@ -70,6 +70,36 @@ body {
     flex-shrink: 0;
 }
 
+@media (max-width: 768px) {
+    .navbar {
+        justify-content: flex-start;
+        padding-left: 1rem;
+    }
+    
+    .navbar-content {
+        justify-content: flex-start;
+        padding: 0 1rem;
+        margin-left: 0;
+    }
+    
+    .navbar-scroll-indicator {
+        position: fixed;
+        top: 0;
+        right: -40px;
+        width: 80px;
+        height: 50px;
+        background: linear-gradient(to left, var(--bg-secondary) 30%, rgba(139, 113, 214, 0.4) 70%, transparent 100%);
+        pointer-events: none;
+        z-index: 1001;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .navbar-scroll-indicator.visible {
+        opacity: 1;
+    }
+}
+
 .navbar-link {
     font-family: 'Inter', sans-serif;
     font-size: 0.9rem;
@@ -130,6 +160,8 @@ body {
     0% { transform: translate(0, 0); }
     100% { transform: translate(50px, 50px); }
 }
+
+
 
 .container {
     min-height: calc(100vh - 80px);

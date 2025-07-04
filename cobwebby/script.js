@@ -62,13 +62,14 @@ class CobwebbyLeaderboard {
             const columns = line.split('|');
             if (columns.length < 37) continue;
             
+            const nationId = columns[0]?.trim();
             const ruler = columns[1]?.trim();
             const alliance = columns[3]?.trim();
             const createdDate = columns[10]?.trim();
             const attackingCasualties = parseInt(columns[35]?.trim() || '0');
             const defensiveCasualties = parseInt(columns[36]?.trim() || '0');
             
-            if (!ruler || !alliance || !createdDate) continue;
+            if (!nationId || !ruler || !alliance || !createdDate) continue;
             const created = new Date(createdDate);
             const now = new Date();
             const ageInDays = Math.floor((now - created) / (1000 * 60 * 60 * 24));
@@ -78,6 +79,7 @@ class CobwebbyLeaderboard {
             const cpdi = totalCasualties / ageInDays;
             
             results.push({
+                nationId,
                 ruler,
                 alliance,
                 attackingCasualties,
@@ -254,7 +256,7 @@ class CobwebbyLeaderboard {
             
             row.innerHTML = `
                 <td>${entry.globalRank}</td>
-                <td class="ruler-name">${entry.ruler}</td>
+                <td class="ruler-name"><a href="https://www.cybernations.net/nation_drill_display.asp?Nation_ID=${entry.nationId}" target="_blank" rel="noopener noreferrer">${entry.ruler}</a></td>
                 <td class="alliance-name">${entry.alliance}</td>
                 <td class="casualties-number">${this.formatNumber(entry.attackingCasualties)}</td>
                 <td class="casualties-number">${this.formatNumber(entry.defensiveCasualties)}</td>

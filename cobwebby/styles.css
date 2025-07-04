@@ -467,6 +467,18 @@ body {
     color: var(--text-primary);
 }
 
+.leaderboard-table .ruler-name a {
+    color: #c9a8ff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.leaderboard-table .ruler-name a:hover {
+    color: #d4b3ff;
+    text-decoration: underline;
+}
+
 .leaderboard-table .alliance-name {
     font-weight: 500;
     color: var(--text-primary);

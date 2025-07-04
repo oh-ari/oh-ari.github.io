@@ -43,6 +43,7 @@ body {
     height: 50px;
     display: flex;
     align-items: center;
+    justify-content: center;
     overflow-x: auto;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
@@ -63,7 +64,7 @@ body {
     justify-content: center;
     gap: 1.5rem;
     max-width: 1200px;
-    width: 100%;
+    width: auto;
     min-width: max-content;
     padding: 0 2rem;
     flex-shrink: 0;

@@ -222,7 +222,7 @@ class SlotLeaderboard {
         const hoursSinceUpdate = Math.floor((centralTime - lastUpdateTime) / (1000 * 60 * 60));
         const hoursText = hoursSinceUpdate === 1 ? "1 hour ago" : `${hoursSinceUpdate} hours ago`;
         
-        return `Updated: ${dataFile} (${hoursText}) | ${formattedDate} | Slots >10 days excluded`;
+        return `Updated: ${dataFile} (${hoursText}) | ${formattedDate}`;
     }
     
     showLoadingState() {

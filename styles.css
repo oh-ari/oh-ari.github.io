@@ -30,6 +30,73 @@ body {
     position: relative;
 }
 
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-default);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    max-width: 1200px;
+    width: 100%;
+    padding: 0 2rem;
+}
+
+.navbar-link {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    position: relative;
+    white-space: nowrap;
+}
+
+.navbar-link:hover {
+    color: var(--text-primary);
+    background: var(--bg-tertiary);
+}
+
+.navbar-link.active {
+    color: #c9a8ff;
+    background: rgba(201, 168, 255, 0.1);
+}
+
+.navbar-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #c9a8ff;
+    border-radius: 2px 2px 0 0;
+}
+
+.navbar-divider {
+    width: 1px;
+    height: 20px;
+    background: var(--border-default);
+    flex-shrink: 0;
+}
+
 .grid-bg {
     position: fixed;
     top: 0;
@@ -51,19 +118,19 @@ body {
 }
 
 .container {
-    min-height: 100vh;
+    min-height: calc(100vh - 80px);
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     padding: 2rem;
+    padding-top: calc(50px + 2rem);
     position: relative;
     z-index: 1;
 }
 
 .header {
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 2.5rem;
     animation: slideInUp 0.8s ease-out;
 }
 
@@ -102,7 +169,7 @@ body {
     border: 1px solid var(--border-default);
     border-radius: 4px;
     padding: 3rem;
-    margin-top: 2rem;
+    margin-top: 1rem;
     min-height: 300px;
     display: flex;
     align-items: center;
@@ -607,6 +674,16 @@ body {
 @media (max-width: 768px) {
     .container {
         padding: 1rem;
+        padding-top: calc(50px + 1rem);
+    }
+
+    .navbar-content {
+        padding: 0 1rem;
+    }
+
+    .navbar-link {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.8rem;
     }
     
     .header {
@@ -732,15 +809,15 @@ body {
 }
 
 .footer-credit {
-    position: fixed;
-    bottom: 1.5rem;
-    right: 1.5rem;
+    text-align: center;
+    margin-top: 1.5rem;
+    padding: 1.5rem;
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.8rem;
     color: var(--text-muted);
     opacity: 0.7;
-    z-index: 10;
     transition: opacity 0.3s ease;
+    border-top: 1px solid var(--border-muted);
 }
 
 .footer-credit:hover {

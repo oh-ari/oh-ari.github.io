@@ -83,7 +83,8 @@ const WAR_REASONS = [
     "crimes against good taste in forum signatures",
     "casualties",
     "copying our flag",
-    "sitting too long on a CB"
+    "sitting too long on a CB",
+    "impacting our daily login bonus"
 ];
 
 function getRandomWarFormat() {

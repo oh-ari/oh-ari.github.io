@@ -86,7 +86,13 @@ class CobwebbyLeaderboard {
             });
         }
         
-        return results.sort((a, b) => b.cpdi - a.cpdi);
+
+        const sortedResults = results.sort((a, b) => b.cpdi - a.cpdi);
+        sortedResults.forEach((entry, index) => {
+            entry.globalRank = index + 1;
+        });
+        
+        return sortedResults;
     }
     
     formatNumber(num) {
@@ -247,7 +253,7 @@ class CobwebbyLeaderboard {
             else if (entry.cpdi >= 5) cpdiClass = 'cpdi-very-low';
             
             row.innerHTML = `
-                <td>${startIndex + index + 1}</td>
+                <td>${entry.globalRank}</td>
                 <td class="ruler-name">${entry.ruler}</td>
                 <td class="alliance-name">${entry.alliance}</td>
                 <td class="casualties-number">${this.formatNumber(entry.attackingCasualties)}</td>

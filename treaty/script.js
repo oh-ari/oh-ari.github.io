@@ -32,9 +32,9 @@ function filterAlliances(searchTerm) {
         }
     });
     
-    if (hasVisibleOptions && searchTerm !== '') {
+    if (hasVisibleOptions) {
         showDropdown();
-    } else if (searchTerm === '') {
+    } else {
         hideDropdown();
     }
 }
@@ -186,10 +186,20 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     allianceInput.addEventListener('focus', function() {
-        if (this.value) {
-            filterAlliances(this.value);
-        }
+        filterAlliances(this.value);
     });
+    
+    allianceInput.addEventListener('click', function() {
+        filterAlliances(this.value);
+    });
+    
+    const dropdownArrow = document.querySelector('.dropdown-arrow');
+    if (dropdownArrow) {
+        dropdownArrow.addEventListener('click', function() {
+            allianceInput.focus();
+            filterAlliances(allianceInput.value);
+        });
+    }
     
     options.forEach(option => {
         option.addEventListener('click', function() {

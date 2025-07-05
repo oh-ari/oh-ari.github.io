@@ -21,7 +21,6 @@ class SlotLeaderboard {
     }
     
     async init() {
-        console.log('Initializing Slot Usage Leaderboard');
         await this.loadLeaderboard();
     }
     
@@ -35,7 +34,6 @@ class SlotLeaderboard {
             await this.loadAllianceConfig();
             await this.loadCSVData();
 
-            this.calculateSlotUsage();
             this.displayLeaderboard();
             this.showLeaderboardState();
             
@@ -53,7 +51,6 @@ class SlotLeaderboard {
             if (!response.ok) throw new Error('Failed to load alliance configuration');
             
             this.allianceConfig = await response.json();
-            console.log('Alliance configuration loaded:', this.allianceConfig.alliances.length, 'alliances');
         } catch (error) {
             console.error('Error loading alliance config:', error);
             throw error;
@@ -68,7 +65,6 @@ class SlotLeaderboard {
             const aidText = await aidResponse.text();
             this.processForeignAidData(aidText);
             
-            console.log('Foreign aid data processed');
         } catch (error) {
             console.error('Error loading CSV data:', error);
             throw error;
@@ -83,9 +79,6 @@ class SlotLeaderboard {
         const receivingAllianceIndex = headers.indexOf('Receiving Alliance');
         const statusIndex = headers.indexOf('Status');
         const dateIndex = headers.indexOf('Date');
-        
-        console.log('CSV Headers:', headers);
-        console.log('Column indices:', { declaringAllianceIndex, receivingAllianceIndex, statusIndex, dateIndex });
         
         this.slotUsageData = {};
         this.normalizedToDisplayName = {};
@@ -142,13 +135,6 @@ class SlotLeaderboard {
                 this.slotUsageData[normalizedName] = (this.slotUsageData[normalizedName] || 0) + 1;
             }
         }
-        
-        console.log('Slot usage data calculated with expiration logic:', Object.keys(this.slotUsageData).length, 'alliances');
-        console.log('Normalized name mappings:', Object.keys(this.normalizedToDisplayName).length, 'configured alliances');
-    }
-    
-    calculateSlotUsage() {
-        console.log('Calculating slot usage for top alliances');
     }
     
     displayLeaderboard() {
@@ -209,7 +195,7 @@ class SlotLeaderboard {
             lastUpdatedElement.textContent = this.formatDataFileInfo();
         }
         
-        console.log('Leaderboard displayed with', leaderboardData.length, 'entries');
+        console.log("What'cha doing looking here?");
     }
     
     formatDataFileInfo() {
@@ -295,7 +281,6 @@ function setupNavbarScrollIndicator() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Slot Usage Leaderboard page loaded');
     setupNavbarScrollIndicator();
     new SlotLeaderboard();
     

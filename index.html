@@ -3,185 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CN Treaty Generator</title>
+    <title>Mochi's Lab</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="navbar-content">
-            <a href="#" class="navbar-link active">Treaty Generator</a>
-            <div class="navbar-divider"></div>
-            <a href="aid/index.html" class="navbar-link">Aid Usage Leaderboard</a>
-            <div class="navbar-divider"></div>
-            <a href="cobwebby/index.html" class="navbar-link">Cobwebby Index</a>
-        </div>
-        <div class="navbar-scroll-indicator"></div>
-    </nav>
-    
     <div class="container">
         <header class="header">
             <div class="title-wrapper">
-                <h1 class="title">CN Treaty Generator</h1>
+                <h1 class="title">Mochi's Lab</h1>
             </div>
-            <div class="subtitle">This is definitely the future. Powered by totally advanced RNG.</div>
+            <div class="subtitle">A bunch of things I made for fun.</div>
         </header>
         
         <main class="main-content">
-            <div class="generator-section">
-                <div class="alliance-selection-phase">
-                    <div class="input-group">
-                        <label class="input-label">Choose your alliance:</label>
-                        <div class="custom-dropdown">
-                            <div class="dropdown-input-wrapper">
-                                <input type="text" class="alliance-input" placeholder="Type or select an alliance..." autocomplete="off">
-                                <div class="dropdown-arrow">
-                                    <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
-                                        <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="dropdown-options">
-                                <div class="dropdown-option" data-value="new-pacific-order">New Pacific Order</div>
-                                <div class="dropdown-option" data-value="independent-republic-orange-nations">Independent Republic Of Orange Nations</div>
-                                <div class="dropdown-option" data-value="the-legion">The Legion</div>
-                                <div class="dropdown-option" data-value="knights-round-table">Knights Of The Round Table</div>
-                                <div class="dropdown-option" data-value="claws">CLAWS</div>
-                                <div class="dropdown-option" data-value="dark-templar">The Dark Templar</div>
-                                <div class="dropdown-option" data-value="non-grata">Non Grata</div>
-                                <div class="dropdown-option" data-value="new-polar-order">New Polar Order</div>
-                                <div class="dropdown-option" data-value="gato">Global Alliance And Treaty Organization</div>
-                                <div class="dropdown-option" data-value="freehold-wolves">Freehold of The Wolves</div>
-                                <div class="dropdown-option" data-value="post-grunge-supergroup">Post Grunge Supergroup</div>
-                                <div class="dropdown-option" data-value="nato">NATO</div>
-                                <div class="dropdown-option" data-value="orange-defense-network">Orange Defense Network</div>
-                                <div class="dropdown-option" data-value="argent">Argent</div>
-                                <div class="dropdown-option" data-value="green-protection-agency">Green Protection Agency</div>
-                                <div class="dropdown-option" data-value="viridian-entente">Viridian Entente</div>
-                                <div class="dropdown-option" data-value="doombrella">Doombrella</div>
-                                <div class="dropdown-option" data-value="doombird-doomcave">DOOMBIRD DOOMCAVE</div>
-                                <div class="dropdown-option" data-value="doom-squad">Doom Squad</div>
-                                <div class="dropdown-option" data-value="fark">Fark</div>
-                                <div class="dropdown-option" data-value="christian-coalition-countries">Christian Coalition Of Countries</div>
-                                <div class="dropdown-option" data-value="order-black-rose">The Order Of The Black Rose</div>
-                                <div class="dropdown-option" data-value="nuclear-proliferation-league">Nuclear Proliferation League</div>
-                                <div class="dropdown-option" data-value="sparta">Sparta</div>
-                                <div class="dropdown-option" data-value="templar-knights">The Templar Knights</div>
-                                <div class="dropdown-option" data-value="last-remnants">The Last Remnants</div>
-                                <div class="dropdown-option" data-value="disciples-duckroll">Disciples of Duckroll</div>
-                                <div class="dropdown-option" data-value="federation-armed-nations">Federation Of Armed Nations</div>
-                                <div class="dropdown-option" data-value="coalition-royal-allied-powers">Coalition of Royal Allied Powers</div>
-                                <div class="dropdown-option" data-value="prussian-empire">The Prussian Empire</div>
-                                <div class="dropdown-option" data-value="mostly-harmless-alliance">Mostly Harmless Alliance</div>
-                                <div class="dropdown-option" data-value="grand-lodge-freemasons">The Grand Lodge Of Freemasons</div>
-                                <div class="dropdown-option" data-value="nordreich">Nordreich</div>
-                                <div class="dropdown-option" data-value="old-guard">Old Guard</div>
-                                <div class="dropdown-option" data-value="random-insanity-alliance">Random Insanity Alliance</div>
-                                <div class="dropdown-option" data-value="agw-overlords">AGW Overlords</div>
-                                <div class="dropdown-option" data-value="cobra">COBRA</div>
-                                <div class="dropdown-option" data-value="world-task-force">World Task Force</div>
-                                <div class="dropdown-option" data-value="gramlins">The Gramlins</div>
-                                <div class="dropdown-option" data-value="wolves">The Wolves</div>
-                                <div class="dropdown-option" data-value="united-purple-nations">United Purple Nations</div>
-                                <div class="dropdown-option" data-value="pirates-parrot-order">Pirates Of The Parrot Order</div>
-                                <div class="dropdown-option" data-value="wwf">WWF</div>
-                                <div class="dropdown-option" data-value="we-are-perth-army">We Are Perth Army</div>
-                                <div class="dropdown-option" data-value="union-communist-republics">Union Of Communist Republics</div>
-                                <div class="dropdown-option" data-value="avalanche">Avalanche</div>
-                                <div class="dropdown-option" data-value="chaos-brotherhood">The Chaos Brotherhood</div>
-                                <div class="dropdown-option" data-value="new-sith-order">New Sith Order</div>
-                                <div class="dropdown-option" data-value="phoenix-federation">The Phoenix Federation</div>
-                                <div class="dropdown-option" data-value="veneris">Veneris</div>
-                                <div class="dropdown-option" data-value="order-paradox">The Order Of The Paradox</div>
-                                <div class="dropdown-option" data-value="madlads-union">Madlads Union</div>
-                                <div class="dropdown-option" data-value="shangri-la">Shangri La</div>
-                                <div class="dropdown-option" data-value="swash-plates-tail-rotors">Swash Plates And Tail Rotors</div>
-                                <div class="dropdown-option" data-value="rnr">RnR</div>
-                                <div class="dropdown-option" data-value="mongols">MONGOLS</div>
-                                <div class="dropdown-option" data-value="catholic-reich">Catholic Reich</div>
-                                <div class="dropdown-option" data-value="siberian-tiger-alliance">Siberian Tiger Alliance</div>
-                                <div class="dropdown-option" data-value="united-equestria">United Equestria</div>
-                                <div class="dropdown-option" data-value="interkosmos">Interkosmos</div>
-                                <div class="dropdown-option" data-value="imperial-order">The Imperial Order</div>
-                                <div class="dropdown-option" data-value="mushroom-kingdom">Mushroom Kingdom</div>
-                                <div class="dropdown-option" data-value="libertarian-socialist-federation">Libertarian Socialist Federation</div>
-                                <div class="dropdown-option" data-value="loss">LoSS</div>
-                                <div class="dropdown-option" data-value="church-holy-platypus">Church of the Holy Platypus</div>
-                                <div class="dropdown-option" data-value="alpha-omega">Alpha Omega</div>
-                                <div class="dropdown-option" data-value="goldenrod-accords">Goldenrod Accords</div>
-                                <div class="dropdown-option" data-value="boards-alliance-protectorate-states">Boards Alliance Of Protectorate States</div>
-                                <div class="dropdown-option" data-value="moose">Moose</div>
-                                <div class="dropdown-option" data-value="federation-buccaneers">Federation Of Buccaneers</div>
-                                <div class="dropdown-option" data-value="north-atlantic-defense-coalition">North Atlantic Defense Coalition</div>
-                                <div class="dropdown-option" data-value="imperial-entente">The Imperial Entente</div>
-                                <div class="dropdown-option" data-value="wurst-alliance">Wurst Alliance</div>
-                                <div class="dropdown-option" data-value="kaskus">Kaskus</div>
-                                <div class="dropdown-option" data-value="alpha-wolves">Alpha Wolves</div>
-                                <div class="dropdown-option" data-value="greater-confederacy">The Greater Confederacy</div>
-                                <div class="dropdown-option" data-value="state-unified-nations">State Of Unified Nations</div>
-                                <div class="dropdown-option" data-value="deathblow">Deathblow</div>
-                                <div class="dropdown-option" data-value="mi6">MI6</div>
-                                <div class="dropdown-option" data-value="valhalla">Valhalla</div>
-                            </div>
+            <div class="navigation-section">
+                <div class="nav-buttons">
+                    <a href="treaty/index.html" class="nav-button">
+                        <div class="nav-button-content">
+                            <span class="nav-text">Treaty Generator</span>
+                            <span class="nav-description">Powered by totally advanced RNG.</span>
                         </div>
-                    </div>
+                    </a>
                     
-                    <div class="divider">
-                        <span class="divider-text">OR</span>
-                    </div>
+                    <a href="aid/index.html" class="nav-button">
+                        <div class="nav-button-content">
+                            <span class="nav-text">Aid Usage Leaderboard</span>
+                            <span class="nav-description">Gamifying aid slots.</span>
+                        </div>
+                    </a>
                     
-                    <div class="rng-section">
-                        <p class="rng-text">Don't care? RNG it.</p>
-                        <button class="rng-button">
-                            <span class="dice-icon">🎲</span>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="action-selection-phase" style="display: none;">
-                    <div class="selected-alliance-info">
-                        <span class="alliance-label">Selected Alliance:</span>
-                        <span class="selected-alliance-name"></span>
-                        <button class="change-alliance-btn">Change</button>
-                    </div>
-                    
-                    <div class="action-buttons">
-                        <button class="action-button treaty-button">
-                            <span class="action-text">Treaty</span>
-                        </button>
-                        <button class="action-button war-button">
-                            <span class="action-text">War</span>
-                        </button>
-                    </div>
-                    
-                    <div class="divider">
-                        <span class="divider-text">OR</span>
-                    </div>
-                    
-                    <div class="rng-section">
-                        <p class="rng-text">Don't care? RNG it.</p>
-                        <button class="rng-action-button">
-                            <span class="dice-icon">🎲</span>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="treaty-display-phase" style="display: none;">
-                    <div class="treaty-header">
-                        <button class="back-to-selection-btn">← Back to Selection</button>
-                        <div class="treaty-type-label"></div>
-                    </div>
-                    
-                    <div class="treaty-content">
-                        <pre class="treaty-text"></pre>
-                    </div>
-                    
-                    <div class="treaty-actions">
-                        <button class="copy-treaty-btn">Copy Treaty</button>
-                        <button class="regenerate-treaty-btn">🎲 Regenerate</button>
-                    </div>
+                    <a href="cobwebby/index.html" class="nav-button">
+                        <div class="nav-button-content">
+                            <span class="nav-text">Cobwebby Index</span>
+                            <span class="nav-description">The best metric of all.</span>
+                        </div>
+                    </a>
                 </div>
             </div>
         </main>
@@ -194,8 +53,14 @@
         <span class="footer-easter-egg">Made with <span class="heart">❤️</span> by Mochi</span>
     </div>
 
-    <script src="treaties.js"></script>
-    <script src="war.js"></script>
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const footerCredit = document.querySelector('.footer-credit');
+            
+            footerCredit.addEventListener('click', function() {
+                this.classList.toggle('tapped');
+            });
+        });
+    </script>
 </body>
 </html> 

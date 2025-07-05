@@ -259,13 +259,13 @@ function setupNavbarScrollIndicator() {
     const scrollIndicator = document.querySelector('.navbar-scroll-indicator');
     
     if (!navbar || !scrollIndicator) return;
+    const hasDiscoveredScroll = localStorage.getItem('navbar-scroll-discovered') === 'true';
     
     function updateScrollIndicator() {
         if (window.innerWidth <= 768) {
             const canScroll = navbar.scrollWidth > navbar.clientWidth;
-            const isAtEnd = navbar.scrollLeft >= (navbar.scrollWidth - navbar.clientWidth - 5);
             
-            if (canScroll && !isAtEnd) {
+            if (canScroll && !hasDiscoveredScroll) {
                 scrollIndicator.classList.add('visible');
             } else {
                 scrollIndicator.classList.remove('visible');
@@ -275,7 +275,15 @@ function setupNavbarScrollIndicator() {
         }
     }
     
-    navbar.addEventListener('scroll', updateScrollIndicator);
+    function handleNavbarScroll() {
+        if (navbar.scrollLeft > 0 && !hasDiscoveredScroll) {
+            localStorage.setItem('navbar-scroll-discovered', 'true');
+            scrollIndicator.classList.remove('visible');
+            navbar.removeEventListener('scroll', handleNavbarScroll);
+        }
+    }
+    
+    navbar.addEventListener('scroll', handleNavbarScroll);
     window.addEventListener('resize', updateScrollIndicator);
     updateScrollIndicator();
 }

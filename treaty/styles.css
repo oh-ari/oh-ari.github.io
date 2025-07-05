@@ -860,7 +860,6 @@ body {
     opacity: 0.7;
     transition: opacity 0.3s ease;
     border-top: 1px solid var(--border-muted);
-    cursor: pointer;
     position: relative;
 }
 
@@ -870,6 +869,7 @@ body {
 
 .footer-default {
     transition: opacity 0.3s ease;
+    user-select: none;
 }
 
 .footer-easter-egg {
@@ -880,6 +880,7 @@ body {
     opacity: 0;
     transition: opacity 0.3s ease;
     pointer-events: none;
+    user-select: none;
 }
 
 @media (hover: hover) {

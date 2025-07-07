@@ -161,9 +161,11 @@ class SlotLeaderboard {
         
         leaderboardData.sort((a, b) => b.percentage - a.percentage);
         
-        const maxPercentage = leaderboardData.length > 0 ? leaderboardData[0].percentage : 0;
+        const top40Data = leaderboardData.slice(0, 40);
         
-        leaderboardData.forEach((alliance, index) => {
+        const maxPercentage = top40Data.length > 0 ? top40Data[0].percentage : 0;
+        
+        top40Data.forEach((alliance, index) => {
             const row = document.createElement('tr');
             
             const relativePercentage = maxPercentage > 0 ? (alliance.percentage / maxPercentage) * 100 : 0;

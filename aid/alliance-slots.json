@@ -236,7 +236,7 @@
     },
     {
       "name": "The Wolves",
-      "maxSlots": 10,
+      "maxSlots": 87,
       "members": 15,
       "currentUsed": 65
     }

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NukeDB</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=20250107004">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a href="../index.html" class="navbar-link">Home</a>
+            <div class="navbar-divider"></div>
+            <a href="../treaty/index.html" class="navbar-link">Treaty Generator</a>
+            <div class="navbar-divider"></div>
+            <a href="../aid/index.html" class="navbar-link">Aid Usage Leaderboard</a>
+            <div class="navbar-divider"></div>
+            <a href="../cobwebby/index.html" class="navbar-link">Cobwebby Index</a>
+            <div class="navbar-divider"></div>
+            <a href="#" class="navbar-link active">NukeDB</a>
+        </div>
+        <div class="navbar-scroll-indicator"></div>
+    </nav>
+    
+    <div class="container">
+        <header class="header-top">
+            <div class="title-wrapper">
+                <h1 class="title">NukeDB</h1>
+                <p class="work-in-progress">Work in Progress</p>
+            </div>
+        </header>
+        
+        <div class="sdi-stats-container">
+            <div class="sdi-stats-box">
+                <h3 class="sdi-stats-title">Global SDI Rate</h3>
+                <div class="sdi-stats-percentage" id="sdi-percentage">--</div>
+                <div class="sdi-stats-subtitle" id="sdi-subtitle">Out of -- nukes</div>
+            </div>
+            
+            <div class="nation-sdi-box" id="nation-sdi-box" style="display: none;">
+                <h3 class="nation-sdi-title" id="nation-sdi-title">Nation SDI Rate</h3>
+                <div class="nation-sdi-percentage" id="nation-sdi-percentage">--</div>
+                <div class="nation-sdi-subtitle" id="nation-sdi-subtitle">Click for details</div>
+            </div>
+            
+            <div class="nation-sdi-box" id="defending-sdi-box" style="display: none;">
+                <h3 class="nation-sdi-title" id="defending-sdi-title">Defending SDI Rate</h3>
+                <div class="nation-sdi-percentage" id="defending-sdi-percentage">--</div>
+                <div class="nation-sdi-subtitle" id="defending-sdi-subtitle">Click for details</div>
+            </div>
+        </div>
+        
+        <main class="main-content">
+            <div class="leaderboard-section">
+                <div class="search-controls" style="display: none;">
+                    <div class="search-inputs">
+                        <div class="search-group">
+                            <label for="attacking-nation-search" class="search-label">Search Attacking Nation:</label>
+                            <input type="text" id="attacking-nation-search" class="search-input" placeholder="Type attacking nation..." autocomplete="off">
+                        </div>
+                        <div class="search-group">
+                            <label for="defending-nation-search" class="search-label">Search Defending Nation:</label>
+                            <input type="text" id="defending-nation-search" class="search-input" placeholder="Type defending nation..." autocomplete="off">
+                        </div>
+                    </div>
+                    <button id="clear-search" class="clear-search-btn">Clear Filters</button>
+                </div>
+                
+                <div class="loading-state">
+                    <p class="loading-text">Loading nuclear data...</p>
+                </div>
+                
+                <div class="leaderboard-table-container" style="display: none;">
+                    <div class="leaderboard-controls">
+                        <div class="last-updated"><span id="last-updated-time">--</span></div>
+                        <div class="pagination-info">
+                            <span id="pagination-info">--</span>
+                        </div>
+                    </div>
+                    
+                    <div class="leaderboard-table-wrapper">
+                        <table class="leaderboard-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Date</th>
+                                    <th>Attacking Nation</th>
+                                    <th>Defending Nation</th>
+                                    <th>Result</th>
+                                </tr>
+                            </thead>
+                            <tbody id="nuclear-tbody">
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="pagination-controls">
+                        <button id="prev-page" class="pagination-btn">← Previous</button>
+                        <div class="page-numbers" id="page-numbers"></div>
+                        <button id="next-page" class="pagination-btn">Next →</button>
+                    </div>
+                </div>
+                
+                <div class="error-state" style="display: none;">
+                    <p class="error-text">Error loading data for some reason.</p>
+                    <p class="error-subtitle">Please try refreshing the page? Who knows.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <div class="grid-bg"></div>
+    
+    <div class="footer-credit">
+        <span class="footer-default">Made with boredom from Mochi, for some reason</span>
+        <span class="footer-easter-egg">Made with <span class="heart">❤️</span> by Mochi</span>
+    </div>
+
+    <!-- Nation SDI Details Popup -->
+    <div class="nation-sdi-backdrop" id="nation-sdi-backdrop" style="display: none;"></div>
+    <div class="nation-sdi-details" id="nation-sdi-details" style="display: none;">
+        <div class="sdi-details-header">
+            <h3 class="sdi-details-title" id="sdi-details-title">Nation SDI Details</h3>
+        </div>
+        <div class="sdi-details-content" id="sdi-details-content"></div>
+        <button class="sdi-details-close" id="sdi-details-close">Close Details</button>
+    </div>
+
+    <script src="script.js?v=20250107004"></script>
+</body>
+</html> 

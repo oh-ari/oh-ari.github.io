@@ -435,7 +435,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (nationId) {
             return `<a href="https://www.cybernations.net/nation_drill_display.asp?Nation_ID=${nationId}" target="_blank" rel="noopener noreferrer">${nationName}</a>`;
         } else {
-            return `<a href="https://www.cybernations.net/search_nations.asp?searchterm=${encodeURIComponent(nationName)}" target="_blank" rel="noopener noreferrer">${nationName}</a>`;
+            return nationName;
         }
     }
     

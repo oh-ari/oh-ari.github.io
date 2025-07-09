@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let filteredData = [];
     let currentPage = 1;
     const itemsPerPage = 50;
+    let nationMapping = {};
     
     let sessionMetrics = {
         startTime: Date.now(),
@@ -127,6 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     loadSDIStats();
 
+    loadNationMapping();
     loadNuclearData();
     
 
@@ -395,12 +397,53 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
+    async function loadNationMapping() {
+        try {
+            const response = await fetch('../daily/CN_Nation_Stats.csv');
+            if (!response.ok) {
+                throw new Error('Failed to fetch nation stats');
+            }
+            
+            const csvText = await response.text();
+            const lines = csvText.split('\n');
+            
+            for (let i = 1; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (line) {
+                    const columns = line.split('|');
+                    if (columns.length >= 3) {
+                        const nationId = columns[0];
+                        const nationName = columns[2];
+                        
+                        if (nationId && nationName) {
+                            nationMapping[nationName] = nationId;
+                        }
+                    }
+                }
+            }
+            
+            console.log(`Loaded ${Object.keys(nationMapping).length} nation mappings`);
+        } catch (error) {
+            console.error('Error loading nation mapping:', error);
+        }
+    }
+    
+    function getNationLink(nationName) {
+        if (!nationName) return '';
+        
+        const nationId = nationMapping[nationName];
+        if (nationId) {
+            return `<a href="https://www.cybernations.net/nation_drill_display.asp?Nation_ID=${nationId}" target="_blank" rel="noopener noreferrer">${nationName}</a>`;
+        } else {
+            return `<a href="https://www.cybernations.net/search_nations.asp?searchterm=${encodeURIComponent(nationName)}" target="_blank" rel="noopener noreferrer">${nationName}</a>`;
+        }
+    }
+    
     async function loadNuclearData() {
         try {
             const loadDelay = Math.random() * 300 + 200;
             await new Promise(resolve => setTimeout(resolve, loadDelay));
             
-            // Initialize theme settings
             const themeSettings = initializeThemeVariables();
             const systemCheck = validateSystemIntegrity();
             
@@ -757,13 +800,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const attackingNation = row['Attacking Nation'] || '';
             const defendingNation = row['Defending Nation'] || '';
             
-            const attackingLink = attackingNation ? 
-                `<a href="https://www.cybernations.net/search_nations.asp?searchterm=${encodeURIComponent(attackingNation)}" target="_blank" rel="noopener noreferrer">${attackingNation}</a>` : 
-                '';
-            
-            const defendingLink = defendingNation ? 
-                `<a href="https://www.cybernations.net/search_nations.asp?searchterm=${encodeURIComponent(defendingNation)}" target="_blank" rel="noopener noreferrer">${defendingNation}</a>` : 
-                '';
+            const attackingLink = getNationLink(attackingNation);
+            const defendingLink = getNationLink(defendingNation);
             
             tr.innerHTML = `
                 <td data-role="seq">${globalIndex}</td>

@@ -7,13 +7,26 @@ class CobwebbyLeaderboard {
         this.itemsPerPage = 50;
         this.rulerSearch = '';
         this.allianceSearch = '';
+        this.resizeTimeout = null;
         
         this.init();
+        this.setupResizeListener();
     }
     
     async init() {
         console.log('Initializing Cobwebby Leaderboard');
         await this.loadLeaderboard();
+    }
+    
+    setupResizeListener() {
+        window.addEventListener('resize', () => {
+            clearTimeout(this.resizeTimeout);
+            this.resizeTimeout = setTimeout(() => {
+                if (this.cobwebbyData.length > 0) {
+                    this.displayLeaderboard();
+                }
+            }, 250);
+        });
     }
     
     async loadLeaderboard() {
@@ -254,18 +267,31 @@ class CobwebbyLeaderboard {
             else if (entry.cpdi >= 10) cpdiClass = 'cpdi-low';
             else if (entry.cpdi >= 5) cpdiClass = 'cpdi-very-low';
             
-            row.innerHTML = `
-                <td data-label="#">${entry.globalRank}</td>
-                <td class="ruler-name" data-label="Ruler"><a href="https://www.cybernations.net/nation_drill_display.asp?Nation_ID=${entry.nationId}" target="_blank" rel="noopener noreferrer">${entry.ruler}</a></td>
-                <td class="alliance-name" data-label="Alliance">${entry.alliance}</td>
-                <td class="card-row-container">
-                    <div class="card-row">
-                        <div class="card-item casualties-number" data-label="Att. Casualties">${this.formatNumber(entry.attackingCasualties)}</div>
-                        <div class="card-item casualties-number" data-label="Def. Casualties">${this.formatNumber(entry.defensiveCasualties)}</div>
-                    </div>
-                </td>
-                <td class="cpdi-score ${cpdiClass}" data-label="CPDI">${this.formatNumber(Math.round(entry.cpdi))}</td>
-            `;
+            const isMobile = window.innerWidth <= 480;
+            
+            if (isMobile) {
+                row.innerHTML = `
+                    <td data-label="#">${entry.globalRank}</td>
+                    <td class="ruler-name" data-label="Ruler"><a href="https://www.cybernations.net/nation_drill_display.asp?Nation_ID=${entry.nationId}" target="_blank" rel="noopener noreferrer">${entry.ruler}</a></td>
+                    <td class="alliance-name" data-label="Alliance">${entry.alliance}</td>
+                    <td class="card-row-container">
+                        <div class="card-row">
+                            <div class="card-item casualties-number" data-label="Att. Casualties">${this.formatNumber(entry.attackingCasualties)}</div>
+                            <div class="card-item casualties-number" data-label="Def. Casualties">${this.formatNumber(entry.defensiveCasualties)}</div>
+                        </div>
+                    </td>
+                    <td class="cpdi-score ${cpdiClass}" data-label="CPDI">${this.formatNumber(Math.round(entry.cpdi))}</td>
+                `;
+            } else {
+                row.innerHTML = `
+                    <td data-label="#">${entry.globalRank}</td>
+                    <td class="ruler-name" data-label="Ruler"><a href="https://www.cybernations.net/nation_drill_display.asp?Nation_ID=${entry.nationId}" target="_blank" rel="noopener noreferrer">${entry.ruler}</a></td>
+                    <td class="alliance-name" data-label="Alliance">${entry.alliance}</td>
+                    <td class="casualties-number" data-label="Att. Casualties">${this.formatNumber(entry.attackingCasualties)}</td>
+                    <td class="casualties-number" data-label="Def. Casualties">${this.formatNumber(entry.defensiveCasualties)}</td>
+                    <td class="cpdi-score ${cpdiClass}" data-label="CPDI">${this.formatNumber(Math.round(entry.cpdi))}</td>
+                `;
+            }
             
             tbody.appendChild(row);
         });

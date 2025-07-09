@@ -4,8 +4,10 @@ class SlotLeaderboard {
         this.slotUsageData = {};
         this.allianceIdMap = {};
         this.isLoading = false;
+        this.resizeTimeout = null;
         
         this.init();
+        this.setupResizeListener();
     }
     
     normalizeAllianceName(name) {
@@ -23,6 +25,17 @@ class SlotLeaderboard {
     
     async init() {
         await this.loadLeaderboard();
+    }
+    
+    setupResizeListener() {
+        window.addEventListener('resize', () => {
+            clearTimeout(this.resizeTimeout);
+            this.resizeTimeout = setTimeout(() => {
+                if (this.allianceConfig) {
+                    this.displayLeaderboard();
+                }
+            }, 250);
+        });
     }
     
     async loadLeaderboard() {
@@ -225,22 +238,35 @@ class SlotLeaderboard {
                 ? `<a href="https://www.cybernations.net/alliance_display.asp?ID=${allianceId}" target="_blank" rel="noopener noreferrer">${alliance.name}</a>`
                 : alliance.name;
             
-            row.innerHTML = `
-                <td data-label="#">${index + 1}</td>
-                <td class="alliance-name" data-label="Alliance">${allianceCell}</td>
-                <td class="card-row-container">
-                    <div class="card-row">
-                        <div class="card-item" data-label="Members">${alliance.members}</div>
-                        <div class="card-item usage-percentage ${usageClass}" data-label="Usage %">${alliance.percentage}%</div>
-                    </div>
-                </td>
-                <td class="card-row-container">
-                    <div class="card-row">
-                        <div class="card-item" data-label="Slots Used">${alliance.usedSlots}</div>
-                        <div class="card-item" data-label="Max Slots">${alliance.maxSlots}</div>
-                    </div>
-                </td>
-            `;
+            const isMobile = window.innerWidth <= 480;
+            
+            if (isMobile) {
+                row.innerHTML = `
+                    <td data-label="#">${index + 1}</td>
+                    <td class="alliance-name" data-label="Alliance">${allianceCell}</td>
+                    <td class="card-row-container">
+                        <div class="card-row">
+                            <div class="card-item" data-label="Members">${alliance.members}</div>
+                            <div class="card-item usage-percentage ${usageClass}" data-label="Usage %">${alliance.percentage}%</div>
+                        </div>
+                    </td>
+                    <td class="card-row-container">
+                        <div class="card-row">
+                            <div class="card-item" data-label="Slots Used">${alliance.usedSlots}</div>
+                            <div class="card-item" data-label="Max Slots">${alliance.maxSlots}</div>
+                        </div>
+                    </td>
+                `;
+            } else {
+                row.innerHTML = `
+                    <td data-label="#">${index + 1}</td>
+                    <td class="alliance-name" data-label="Alliance">${allianceCell}</td>
+                    <td data-label="Members">${alliance.members}</td>
+                    <td data-label="Slots Used">${alliance.usedSlots}</td>
+                    <td data-label="Max Slots">${alliance.maxSlots}</td>
+                    <td class="usage-percentage ${usageClass}" data-label="Usage %">${alliance.percentage}%</td>
+                `;
+            }
             
             tbody.appendChild(row);
         });

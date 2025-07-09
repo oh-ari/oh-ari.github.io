@@ -397,6 +397,18 @@ body {
     color: var(--text-primary);
 }
 
+.leaderboard-table .alliance-name a {
+    color: #c9a8ff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.leaderboard-table .alliance-name a:hover {
+    color: #d4b3ff;
+    text-decoration: underline;
+}
+
 .leaderboard-table .usage-percentage {
     font-weight: 600;
 }

@@ -2,6 +2,7 @@ class SlotLeaderboard {
     constructor() {
         this.allianceConfig = null;
         this.slotUsageData = {};
+        this.allianceIdMap = {};
         this.isLoading = false;
         
         this.init();
@@ -32,6 +33,7 @@ class SlotLeaderboard {
         
         try {
             await this.loadAllianceConfig();
+            await this.loadAllianceStats();
             await this.loadCSVData();
 
             this.displayLeaderboard();
@@ -54,6 +56,44 @@ class SlotLeaderboard {
         } catch (error) {
             console.error('Error loading alliance config:', error);
             throw error;
+        }
+    }
+
+    async loadAllianceStats() {
+        try {
+            const response = await fetch('../daily/CN_Alliance_Stats.csv');
+            if (!response.ok) throw new Error('Failed to load alliance stats');
+            
+            const csvText = await response.text();
+            this.processAllianceStats(csvText);
+        } catch (error) {
+            console.error('Error loading alliance stats:', error);
+            throw error;
+        }
+    }
+
+    processAllianceStats(csvText) {
+        const lines = csvText.split('\n');
+        const headers = lines[0].split('|');
+        
+        const allianceNameIndex = headers.indexOf('Alliance');
+        const allianceIdIndex = headers.indexOf('Alliance ID');
+        
+        this.allianceIdMap = {};
+        
+        for (let i = 1; i < lines.length; i++) {
+            const line = lines[i].trim();
+            if (!line) continue;
+            
+            const columns = line.split('|');
+            if (columns.length < headers.length) continue;
+            
+            const allianceName = columns[allianceNameIndex]?.trim();
+            const allianceId = columns[allianceIdIndex]?.trim();
+            
+            if (allianceName && allianceId) {
+                this.allianceIdMap[allianceName] = allianceId;
+            }
         }
     }
     
@@ -180,9 +220,14 @@ class SlotLeaderboard {
             else if (relativePercentage >= 30) usageClass = 'usage-low';
             else if (relativePercentage >= 20) usageClass = 'usage-very-low';
             
+            const allianceId = this.allianceIdMap[alliance.name];
+            const allianceCell = allianceId 
+                ? `<a href="https://www.cybernations.net/alliance_display.asp?ID=${allianceId}" target="_blank" rel="noopener noreferrer">${alliance.name}</a>`
+                : alliance.name;
+            
             row.innerHTML = `
                 <td>${index + 1}</td>
-                <td class="alliance-name">${alliance.name}</td>
+                <td class="alliance-name">${allianceCell}</td>
                 <td>${alliance.members}</td>
                 <td>${alliance.usedSlots}</td>
                 <td>${alliance.maxSlots}</td>
@@ -231,10 +276,18 @@ class SlotLeaderboard {
             }
         }
         
-        const hoursSinceUpdate = Math.floor((centralTime - lastUpdateTime) / (1000 * 60 * 60));
-        const hoursText = hoursSinceUpdate === 1 ? "1 hour ago" : `${hoursSinceUpdate} hours ago`;
+        const timeDiffMs = centralTime - lastUpdateTime;
+        const hoursSinceUpdate = Math.floor(timeDiffMs / (1000 * 60 * 60));
+        const minutesSinceUpdate = Math.floor(timeDiffMs / (1000 * 60));
         
-        return `Updated: ${dataFile} (${hoursText}) | ${formattedDate}`;
+        let timeText;
+        if (hoursSinceUpdate < 1) {
+            timeText = minutesSinceUpdate === 1 ? "1 minute ago" : `${minutesSinceUpdate} minutes ago`;
+        } else {
+            timeText = hoursSinceUpdate === 1 ? "1 hour ago" : `${hoursSinceUpdate} hours ago`;
+        }
+        
+        return `Updated: ${dataFile} (${timeText}) | ${formattedDate}`;
     }
     
     showLoadingState() {

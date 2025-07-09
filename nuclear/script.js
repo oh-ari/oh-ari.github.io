@@ -599,21 +599,24 @@ document.addEventListener('DOMContentLoaded', function() {
             const attackingNations = {};
             
             filteredData.forEach(row => {
+                const defender = row['Defending Nation'];
                 const result = row['Result'] || '';
                 const attacker = row['Attacking Nation'];
                 
-                totalNukes++;
-                if (result.toLowerCase() === 'thwarted') {
-                    thwartedNukes++;
-                }
-                
-                if (attacker) {
-                    if (!attackingNations[attacker]) {
-                        attackingNations[attacker] = { total: 0, thwarted: 0 };
-                    }
-                    attackingNations[attacker].total++;
+                if (defender && defender.toLowerCase().includes(nationName.toLowerCase())) {
+                    totalNukes++;
                     if (result.toLowerCase() === 'thwarted') {
-                        attackingNations[attacker].thwarted++;
+                        thwartedNukes++;
+                    }
+                    
+                    if (attacker) {
+                        if (!attackingNations[attacker]) {
+                            attackingNations[attacker] = { total: 0, thwarted: 0 };
+                        }
+                        attackingNations[attacker].total++;
+                        if (result.toLowerCase() === 'thwarted') {
+                            attackingNations[attacker].thwarted++;
+                        }
                     }
                 }
             });

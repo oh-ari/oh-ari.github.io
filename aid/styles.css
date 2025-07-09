@@ -575,20 +575,90 @@ body {
         margin-bottom: 1.5rem;
     }
 
+    .leaderboard-table th:first-child,
+    .leaderboard-table td:first-child {
+        width: 50px;
+        text-align: center;
+        font-weight: 600;
+        color: var(--accent-purple);
+    }
+
+    .leaderboard-table th:nth-child(2) { width: 25%; }
+    .leaderboard-table th:nth-child(3) { width: 15%; }
+    .leaderboard-table th:nth-child(4) { width: 20%; }
+    .leaderboard-table th:nth-child(5) { width: 20%; }
+    .leaderboard-table th:nth-child(6) { width: 15%; }
+
     .leaderboard-table th,
     .leaderboard-table td {
         padding: 0.75rem 0.5rem;
         font-size: 0.85rem;
     }
 
-    .leaderboard-table th:nth-child(3),
-    .leaderboard-table th:nth-child(4),
-    .leaderboard-table th:nth-child(5) {
-        width: 80px;
+    .leaderboard-table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: var(--border-default) transparent;
+    }
+    
+    .leaderboard-table-wrapper::-webkit-scrollbar {
+        height: 6px;
+    }
+    
+    .leaderboard-table-wrapper::-webkit-scrollbar-track {
+        background: var(--bg-tertiary);
+        border-radius: 3px;
+    }
+    
+    .leaderboard-table-wrapper::-webkit-scrollbar-thumb {
+        background: var(--border-default);
+        border-radius: 3px;
+    }
+    
+    .leaderboard-table-wrapper::-webkit-scrollbar-thumb:hover {
+        background: var(--text-muted);
     }
 
-    .leaderboard-table th:nth-child(6) {
-        width: 100px;
+    .alliance-name {
+        max-width: 120px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    
+    .alliance-name a {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding: 0.25rem 0;
+        border-radius: 4px;
+        transition: background-color 0.2s ease;
+    }
+    
+    .alliance-name a:hover,
+    .alliance-name a:focus {
+        background-color: var(--bg-tertiary);
+        outline: none;
+    }
+}
+
+@media (max-width: 600px) and (min-width: 481px) {
+    .leaderboard-table th,
+    .leaderboard-table td {
+        padding: 0.6rem 0.4rem;
+        font-size: 0.8rem;
+    }
+    
+    .leaderboard-table th:first-child,
+    .leaderboard-table td:first-child {
+        font-size: 0.9rem;
+        font-weight: 700;
+    }
+    
+    .alliance-name {
+        max-width: 100px;
     }
 }
 
@@ -617,29 +687,157 @@ body {
         font-size: 0.9rem;
     }
 
-    .leaderboard-table th,
-    .leaderboard-table td {
-        padding: 0.5rem 0.25rem;
+    .leaderboard-table-wrapper {
         font-size: 0.8rem;
     }
-
-    .leaderboard-table th:first-child,
-    .leaderboard-table td:first-child {
-        width: 40px;
+    
+    .leaderboard-table {
+        display: block;
+        width: 100%;
     }
-
-    .leaderboard-table th:nth-child(3),
-    .leaderboard-table th:nth-child(4),
-    .leaderboard-table th:nth-child(5) {
-        width: 60px;
+    
+    .leaderboard-table thead {
+        display: none;
     }
-
-    .leaderboard-table th:nth-child(6) {
-        width: 80px;
+    
+    .leaderboard-table tbody {
+        display: block;
+        width: 100%;
     }
-
-    .leaderboard-table-wrapper {
+    
+    .leaderboard-table tbody tr {
+        display: block;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-default);
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        padding: 0.6rem;
+        position: relative;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .leaderboard-table tbody tr:hover,
+    .leaderboard-table tbody tr:focus-within {
+        background: var(--bg-tertiary);
+        border-color: var(--accent-purple);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transition: all 0.2s ease;
+    }
+    
+    .leaderboard-table tbody tr:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .leaderboard-table tbody tr:last-child {
+        border-bottom: 1px solid var(--border-default);
+        margin-bottom: 0;
+    }
+    
+    .leaderboard-table td {
+        display: block;
+        padding: 0.25rem 0;
+        border: none;
+        text-align: left;
+        font-size: 0.85rem;
+        line-height: 1.3;
+    }
+    
+    .leaderboard-table td:before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--text-secondary);
         font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        display: block;
+        margin-bottom: 0.1rem;
+    }
+    
+    .card-row-container {
+        padding: 0.25rem 0;
+        border: none;
+    }
+    
+    .card-row-container:before {
+        display: none;
+    }
+    
+    .card-row {
+        display: flex;
+        gap: 1rem;
+        margin: 0;
+    }
+    
+    .card-row .card-item {
+        flex: 1;
+        display: block;
+        padding: 0;
+        border: none;
+        text-align: left;
+        font-size: 0.85rem;
+        line-height: 1.3;
+    }
+    
+    .card-row .card-item:before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--text-secondary);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        display: block;
+        margin-bottom: 0.1rem;
+    }
+    
+    .leaderboard-table td:first-child {
+        position: absolute;
+        top: 0.6rem;
+        right: 0.6rem;
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: var(--text-muted);
+        text-align: center;
+        line-height: 1;
+    }
+    
+    .leaderboard-table td:first-child:before {
+        display: none;
+    }
+    
+    .alliance-name {
+        max-width: 100%;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+    
+    .alliance-name a {
+        font-weight: 500;
+    }
+    
+    .usage-percentage {
+        display: inline-block;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+    
+    .card-row .card-item.usage-percentage {
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+    
+    .leaderboard-controls {
+        margin-bottom: 1rem;
+        text-align: center;
     }
 }
 

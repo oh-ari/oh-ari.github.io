@@ -666,6 +666,75 @@ body {
     background: rgba(201, 168, 255, 0.1);
 }
 
+.custom-select-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.custom-select {
+    width: 100%;
+    padding: 0.75rem 2.5rem 0.75rem 1rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-default);
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+}
+
+.custom-select::-ms-expand {
+    display: none;
+}
+
+.custom-select::placeholder {
+    color: var(--text-muted);
+}
+
+.custom-select:hover {
+    border-color: var(--accent-purple);
+    background: var(--bg-tertiary);
+}
+
+.custom-select:focus {
+    border-color: var(--accent-purple);
+    box-shadow: 0 0 0 2px rgba(201, 168, 255, 0.2);
+}
+
+.custom-select-arrow {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+}
+
+.custom-select:hover + .custom-select-arrow,
+.custom-select:focus + .custom-select-arrow {
+    color: var(--accent-purple);
+}
+
+.custom-select option {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    padding: 0.5rem;
+    border: none;
+}
+
+.custom-select option:hover,
+.custom-select option:focus {
+    background: var(--bg-tertiary);
+}
+
 .loading-state {
     text-align: center;
     padding: 4rem 2rem;
@@ -1044,6 +1113,7 @@ body {
     background: rgba(201, 168, 255, 0.3);
 }
 
+/* Mobile Table Improvements */
 @media (max-width: 768px) {
     .container {
         padding: 1rem;
@@ -1089,10 +1159,68 @@ body {
         text-align: center;
     }
     
+    .leaderboard-table th:first-child,
+    .leaderboard-table td:first-child {
+        display: none;
+    }
+    
+    .leaderboard-table th:nth-child(2) { width: 20%; }
+    .leaderboard-table th:nth-child(3) { width: 30%; }
+    .leaderboard-table th:nth-child(4) { width: 30%; }
+    .leaderboard-table th:nth-child(5) { width: 20%; }
+    
     .leaderboard-table th,
     .leaderboard-table td {
         padding: 0.75rem 0.5rem;
         font-size: 0.85rem;
+    }
+    
+    .leaderboard-table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: var(--border-default) transparent;
+    }
+    
+    .leaderboard-table-wrapper::-webkit-scrollbar {
+        height: 6px;
+    }
+    
+    .leaderboard-table-wrapper::-webkit-scrollbar-track {
+        background: var(--bg-tertiary);
+        border-radius: 3px;
+    }
+    
+    .leaderboard-table-wrapper::-webkit-scrollbar-thumb {
+        background: var(--border-default);
+        border-radius: 3px;
+    }
+    
+    .leaderboard-table-wrapper::-webkit-scrollbar-thumb:hover {
+        background: var(--text-muted);
+    }
+    
+    .nation-name {
+        max-width: 120px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    
+    .nation-name a {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding: 0.25rem 0;
+        border-radius: 4px;
+        transition: background-color 0.2s ease;
+    }
+    
+    .nation-name a:hover,
+    .nation-name a:focus {
+        background-color: var(--bg-tertiary);
+        outline: none;
     }
     
     .search-controls {
@@ -1116,6 +1244,15 @@ body {
     .clear-search-btn {
         padding: 0.5rem 1rem;
         font-size: 0.85rem;
+    }
+    
+    .custom-select {
+        padding: 0.7rem 2.3rem 0.7rem 0.9rem;
+        font-size: 0.85rem;
+    }
+    
+    .custom-select-arrow {
+        right: 0.8rem;
     }
     
     .pagination-controls {
@@ -1172,6 +1309,55 @@ body {
     }
 }
 
+/* Tablet-specific improvements */
+@media (max-width: 600px) and (min-width: 481px) {
+    .leaderboard-table th,
+    .leaderboard-table td {
+        padding: 0.6rem 0.4rem;
+        font-size: 0.8rem;
+    }
+    
+    .nation-name {
+        max-width: 100px;
+    }
+    
+    .search-inputs {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .search-group {
+        min-width: auto;
+    }
+    
+    .pagination-controls {
+        flex-wrap: wrap;
+        gap: 0.4rem;
+    }
+    
+    .pagination-btn {
+        min-width: 75px;
+        padding: 0.45rem 0.7rem;
+        font-size: 0.82rem;
+    }
+    
+    .page-number {
+        min-width: 32px;
+        padding: 0.45rem 0.45rem;
+        font-size: 0.82rem;
+    }
+    
+    .custom-select {
+        padding: 0.6rem 2.2rem 0.6rem 0.8rem;
+        font-size: 0.82rem;
+    }
+    
+    .custom-select-arrow {
+        right: 0.7rem;
+    }
+}
+
+/* Card-based layout for very small screens */
 @media (max-width: 480px) {
     .header-top {
         margin-bottom: 1.5rem;
@@ -1208,20 +1394,105 @@ body {
         font-size: 0.9rem;
     }
     
-    .leaderboard-table th,
-    .leaderboard-table td {
-        padding: 0.5rem 0.25rem;
-        font-size: 0.75rem;
-    }
-    
-    .leaderboard-table th:nth-child(2),
-    .leaderboard-table th:nth-child(3),
-    .leaderboard-table th:nth-child(4) {
-        width: auto;
-    }
-    
+    /* Convert table to card layout */
     .leaderboard-table-wrapper {
+        font-size: 0.8rem;
+    }
+    
+    .leaderboard-table {
+        display: block;
+        width: 100%;
+    }
+    
+    .leaderboard-table thead {
+        display: none;
+    }
+    
+    .leaderboard-table tbody {
+        display: block;
+        width: 100%;
+    }
+    
+    .leaderboard-table tbody tr {
+        display: block;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-default);
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        position: relative;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .leaderboard-table tbody tr:hover,
+    .leaderboard-table tbody tr:focus-within {
+        background: var(--bg-tertiary);
+        border-color: var(--accent-purple);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transition: all 0.2s ease;
+    }
+    
+    /* Touch-friendly active state */
+    .leaderboard-table tbody tr:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .leaderboard-table tbody tr:last-child {
+        border-bottom: 1px solid var(--border-default);
+        margin-bottom: 0;
+    }
+    
+    .leaderboard-table td {
+        display: block;
+        padding: 0.5rem 0;
+        border: none;
+        text-align: left;
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+    
+    .leaderboard-table td:before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--text-secondary);
         font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        display: block;
+        margin-bottom: 0.25rem;
+    }
+    
+    /* Hide # column completely */
+    .leaderboard-table td:first-child {
+        display: none;
+    }
+    
+    /* Style individual card elements - labels will come from data-label attributes */
+    
+    /* Nation name styling in cards */
+    .nation-name {
+        max-width: 100%;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+    
+    .nation-name a {
+        font-weight: 500;
+    }
+    
+    /* Result styling in cards */
+    .nuke-result-success,
+    .nuke-result-failure,
+    .nuke-result-partial {
+        display: inline-block;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
     }
     
     .leaderboard-controls {
@@ -1276,6 +1547,15 @@ body {
     .clear-search-btn {
         padding: 0.4rem 0.8rem;
         font-size: 0.8rem;
+    }
+    
+    .custom-select {
+        padding: 0.6rem 2rem 0.6rem 0.8rem;
+        font-size: 0.8rem;
+    }
+    
+    .custom-select-arrow {
+        right: 0.6rem;
     }
 }
 

@@ -255,12 +255,16 @@ class CobwebbyLeaderboard {
             else if (entry.cpdi >= 5) cpdiClass = 'cpdi-very-low';
             
             row.innerHTML = `
-                <td>${entry.globalRank}</td>
-                <td class="ruler-name"><a href="https://www.cybernations.net/nation_drill_display.asp?Nation_ID=${entry.nationId}" target="_blank" rel="noopener noreferrer">${entry.ruler}</a></td>
-                <td class="alliance-name">${entry.alliance}</td>
-                <td class="casualties-number">${this.formatNumber(entry.attackingCasualties)}</td>
-                <td class="casualties-number">${this.formatNumber(entry.defensiveCasualties)}</td>
-                <td class="cpdi-score ${cpdiClass}">${this.formatNumber(Math.round(entry.cpdi))}</td>
+                <td data-label="#">${entry.globalRank}</td>
+                <td class="ruler-name" data-label="Ruler"><a href="https://www.cybernations.net/nation_drill_display.asp?Nation_ID=${entry.nationId}" target="_blank" rel="noopener noreferrer">${entry.ruler}</a></td>
+                <td class="alliance-name" data-label="Alliance">${entry.alliance}</td>
+                <td class="card-row-container">
+                    <div class="card-row">
+                        <div class="card-item casualties-number" data-label="Att. Casualties">${this.formatNumber(entry.attackingCasualties)}</div>
+                        <div class="card-item casualties-number" data-label="Def. Casualties">${this.formatNumber(entry.defensiveCasualties)}</div>
+                    </div>
+                </td>
+                <td class="cpdi-score ${cpdiClass}" data-label="CPDI">${this.formatNumber(Math.round(entry.cpdi))}</td>
             `;
             
             tbody.appendChild(row);

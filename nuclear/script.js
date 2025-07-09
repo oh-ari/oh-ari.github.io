@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const attackingNationSearch = document.getElementById('attacking-nation-search');
     const defendingNationSearch = document.getElementById('defending-nation-search');
     const clearSearchBtn = document.getElementById('clear-search');
+    const rowsPerPageSelect = document.getElementById('rows-per-page');
     const prevPageBtn = document.getElementById('prev-page');
     const nextPageBtn = document.getElementById('next-page');
     const pageNumbers = document.getElementById('page-numbers');
@@ -17,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let allNuclearData = [];
     let filteredData = [];
     let currentPage = 1;
-    const itemsPerPage = 50;
+    let itemsPerPage = 50;
     let nationMapping = {};
     
     let sessionMetrics = {
@@ -135,6 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
     attackingNationSearch.addEventListener('input', filterData);
     defendingNationSearch.addEventListener('input', filterData);
     clearSearchBtn.addEventListener('click', clearSearch);
+    rowsPerPageSelect.addEventListener('change', handleRowsPerPageChange);
 
     prevPageBtn.addEventListener('click', () => changePage(currentPage - 1));
     nextPageBtn.addEventListener('click', () => changePage(currentPage + 1));
@@ -559,6 +561,13 @@ document.addEventListener('DOMContentLoaded', function() {
         setupPagination();
     }
     
+    function handleRowsPerPageChange() {
+        itemsPerPage = parseInt(rowsPerPageSelect.value);
+        currentPage = 1; // Reset to first page when changing rows per page
+        displayNuclearData();
+        setupPagination();
+    }
+    
     function updateNationSDIBox(attackingFilter, defendingFilter) {
         const nationSDIBox = document.getElementById('nation-sdi-box');
         const defendingSDIBox = document.getElementById('defending-sdi-box');
@@ -802,11 +811,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const defendingLink = getNationLink(defendingNation);
             
             tr.innerHTML = `
-                <td data-role="seq">${globalIndex}</td>
-                <td data-role="ts">${row['Date'] || ''}</td>
-                <td data-role="src" class="nation-name">${attackingLink}</td>
-                <td data-role="dst" class="nation-name">${defendingLink}</td>
-                <td data-role="res"><span class="${resultClass}">${result}</span></td>
+                <td data-role="seq" data-label="#">${globalIndex}</td>
+                <td data-role="ts" data-label="Date">${row['Date'] || ''}</td>
+                <td data-role="src" class="nation-name" data-label="Attacking Nation">${attackingLink}</td>
+                <td data-role="dst" class="nation-name" data-label="Defending Nation">${defendingLink}</td>
+                <td data-role="res" data-label="Result"><span class="${resultClass}">${result}</span></td>
             `;
             nuclearTbody.appendChild(tr);
         });

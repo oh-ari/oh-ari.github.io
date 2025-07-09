@@ -226,12 +226,20 @@ class SlotLeaderboard {
                 : alliance.name;
             
             row.innerHTML = `
-                <td>${index + 1}</td>
-                <td class="alliance-name">${allianceCell}</td>
-                <td>${alliance.members}</td>
-                <td>${alliance.usedSlots}</td>
-                <td>${alliance.maxSlots}</td>
-                <td class="usage-percentage ${usageClass}">${alliance.percentage}%</td>
+                <td data-label="#">${index + 1}</td>
+                <td class="alliance-name" data-label="Alliance">${allianceCell}</td>
+                <td class="card-row-container">
+                    <div class="card-row">
+                        <div class="card-item" data-label="Members">${alliance.members}</div>
+                        <div class="card-item usage-percentage ${usageClass}" data-label="Usage %">${alliance.percentage}%</div>
+                    </div>
+                </td>
+                <td class="card-row-container">
+                    <div class="card-row">
+                        <div class="card-item" data-label="Slots Used">${alliance.usedSlots}</div>
+                        <div class="card-item" data-label="Max Slots">${alliance.maxSlots}</div>
+                    </div>
+                </td>
             `;
             
             tbody.appendChild(row);

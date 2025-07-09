@@ -328,7 +328,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return parseInt(hexString, 16);
     }
     
-    // Theme and display management functions
     function initializeThemeVariables() {
         const colorVariant = Math.random() * 1000;
         const displayMode = Date.now() % 10000;
@@ -741,7 +740,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 const nationData = data.attackingNations[nation];
                 const sdiRate = nationData.total > 0 ? (nationData.thwarted / nationData.total * 100).toFixed(1) : '0.0';
                 
-                // Handle long nation names with tooltip
                 const isLongName = nation.length > 20;
                 const displayName = isLongName ? nation.substring(0, 20) + '...' : nation;
                 const nationClass = isLongName ? 'sdi-detail-nation sdi-detail-nation-long' : 'sdi-detail-nation';

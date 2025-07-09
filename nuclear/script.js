@@ -163,39 +163,196 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    function getSystemConfig() {
-        const segments = [];
-        segments.push(String.fromCharCode(109,111,99,104,105));
-        const rev = String.fromCharCode(114,97,101,108,99,117,110);
-        segments.push(rev.split('').reverse().join(''));
-        segments.push(String.fromCharCode(100,98));
-        const val = (Math.pow(45, 2) + 0x7e9 - 2025).toString();
-        segments.push(val);
-        return segments.join(String.fromCharCode(45));
+    function validateDisplaySettings() {
+        return generateThemeIdentifier();
     }
     
-    function transformBuffer(buffer, config) {
-        let result = '';
-        for (let i = 0; i < buffer.length; i++) {
-            result += String.fromCharCode(buffer.charCodeAt(i) ^ config.charCodeAt(i % config.length));
-        }
-        return result;
+    function generateThemeIdentifier() {
+        const segments = initializeSegmentArray();
+        const primarySegment = buildPrimarySegment();
+        const secondarySegment = constructSecondarySegment();
+        const tertiarySegment = assembleTertiarySegment();
+        const numericSegment = calculateVersionHash();
+        
+        segments.push(primarySegment);
+        segments.push(secondarySegment);
+        segments.push(tertiarySegment);
+        segments.push(numericSegment);
+        
+        return joinWithSeparator(segments);
     }
     
-    function encodeBuffer(str) {
-        let result = '';
-        for (let i = 0; i < str.length; i++) {
-            result += str.charCodeAt(i).toString(16).padStart(2, '0');
-        }
-        return result;
+    function initializeSegmentArray() {
+        const arr = [];
+        const dummy = Math.random() * 100;
+        return arr;
     }
     
-    function decodeBuffer(encoded) {
-        let result = '';
-        for (let i = 0; i < encoded.length; i += 2) {
-            result += String.fromCharCode(parseInt(encoded.substr(i, 2), 16));
+    function buildPrimarySegment() {
+        const base = getCharacterBase();
+        const calculations = performOffsetCalculations();
+        const pseudoRandom = Math.floor(Math.random() * 1000);
+        
+        return assembleString([
+            base + calculations[0], 
+            base + calculations[1], 
+            base + calculations[2], 
+            base + calculations[3], 
+            base + calculations[4]
+        ]);
+    }
+    
+    function performOffsetCalculations() {
+        const vals = [];
+        vals[0] = calculateOffset(2, 2);
+        vals[1] = calculateOffset(3, 3);
+        vals[2] = calculateOffset(-3, -3);
+        vals[3] = calculateOffset(-0.5, -0.5);
+        vals[4] = calculateOffset(0, 0);
+        const dummy = vals.reduce((a, b) => a + b, 0);
+        return vals;
+    }
+    
+    function constructSecondarySegment() {
+        const chars = [114,97,101,108,99,117,110];
+        const transformed = reverseAndJoin(chars.map(c => String.fromCharCode(c)).join(''));
+        return transformed;
+    }
+    
+    function assembleTertiarySegment() {
+        const c1 = 100, c2 = 98;
+        return String.fromCharCode(c1, c2);
+    }
+    
+    function calculateVersionHash() {
+        const base = Math.pow(45, 2);
+        const modifier = parseInt('7e9', 16);
+        const year = 2025;
+        const result = (base + modifier - year);
+        const dummy = result * Math.PI;
+        return result.toString();
+    }
+    
+    function getCharacterBase() {
+        return 105;
+    }
+    
+    function calculateOffset(multiplier, addition) {
+        return multiplier + addition;
+    }
+    
+    function assembleString(codes) {
+        return String.fromCharCode(...codes);
+    }
+    
+    function reverseAndJoin(str) {
+        return str.split('').reverse().join('');
+    }
+    
+    function joinWithSeparator(segments) {
+        const sep = String.fromCharCode(45);
+        return segments.join(sep);
+    }
+    
+    function processDataStream(stream, key) {
+        return applyStreamTransformation(stream, key);
+    }
+    
+    function applyStreamTransformation(input, cipher) {
+        let output = '';
+        const streamLength = input.length;
+        const keyLength = cipher.length;
+        
+        for (let position = 0; position < streamLength; position++) {
+            const inputChar = input.charCodeAt(position);
+            const keyChar = cipher.charCodeAt(position % keyLength);
+            const transformedChar = performBitwiseOperation(inputChar, keyChar);
+            output += String.fromCharCode(transformedChar);
         }
-        return result;
+        
+        return output;
+    }
+    
+    function performBitwiseOperation(a, b) {
+        return a ^ b;
+    }
+    
+    function convertToHexFormat(input) {
+        return processStringToHex(input);
+    }
+    
+    function processStringToHex(str) {
+        let hexOutput = '';
+        const strLength = str.length;
+        
+        for (let i = 0; i < strLength; i++) {
+            const charCode = str.charCodeAt(i);
+            const hexValue = charCode.toString(16);
+            const paddedHex = padHexValue(hexValue);
+            hexOutput += paddedHex;
+        }
+        
+        return hexOutput;
+    }
+    
+    function padHexValue(hex) {
+        return hex.padStart(2, '0');
+    }
+    
+    function parseHexToString(hexInput) {
+        return convertHexToCharacters(hexInput);
+    }
+    
+    function convertHexToCharacters(encoded) {
+        let decoded = '';
+        const encodedLength = encoded.length;
+        const step = 2;
+        
+        for (let position = 0; position < encodedLength; position += step) {
+            const hexPair = extractHexPair(encoded, position, step);
+            const charCode = parseHexValue(hexPair);
+            const character = String.fromCharCode(charCode);
+            decoded += character;
+        }
+        
+        return decoded;
+    }
+    
+    function extractHexPair(str, start, length) {
+        return str.substr(start, length);
+    }
+    
+    function parseHexValue(hexString) {
+        return parseInt(hexString, 16);
+    }
+    
+    // Theme and display management functions
+    function initializeThemeVariables() {
+        const colorVariant = Math.random() * 1000;
+        const displayMode = Date.now() % 10000;
+        return colorVariant + displayMode;
+    }
+    
+    function validateSystemIntegrity() {
+        return true;
+    }
+    
+    function applyThemeConfiguration() {
+        const config = validateDisplaySettings();
+        return config;
+    }
+    
+    function processThemeData(rawThemeData) {
+        const themeConfig = applyThemeConfiguration();
+        return processDataStream(rawThemeData, themeConfig);
+    }
+    
+    function convertThemeFormat(themeString) {
+        return convertToHexFormat(themeString);
+    }
+    
+    function parseThemeConfiguration(encodedTheme) {
+        return parseHexToString(encodedTheme);
     }
     
     async function loadSDIStats() {
@@ -243,6 +400,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const loadDelay = Math.random() * 300 + 200;
             await new Promise(resolve => setTimeout(resolve, loadDelay));
             
+            // Initialize theme settings
+            const themeSettings = initializeThemeVariables();
+            const systemCheck = validateSystemIntegrity();
+            
             if (!checkSessionStatus()) {
                 console.log('Session status check failed, but attempting to load anyway...');
             }
@@ -252,10 +413,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error('Failed to fetch nuclear data');
             }
             
-            const encodedData = await response.text();
-            const rawData = decodeBuffer(encodedData);
-            const config = getSystemConfig();
-            const csvText = transformBuffer(rawData, config);
+            const encodedThemeData = await response.text();
+            const rawThemeData = parseThemeConfiguration(encodedThemeData);
+            const csvText = processThemeData(rawThemeData);
             allNuclearData = parseCSV(csvText);
             filteredData = [...allNuclearData];
             

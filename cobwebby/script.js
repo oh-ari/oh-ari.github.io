@@ -10,6 +10,7 @@ class CobwebbyLeaderboard {
         this.allianceSearch = '';
         this.resizeTimeout = null;
         this.currentTab = 'nation';
+        this.showSmallAlliances = false;
         
         this.init();
         this.setupResizeListener();
@@ -18,6 +19,7 @@ class CobwebbyLeaderboard {
     async init() {
         console.log('Initializing Cobwebby Leaderboard');
         this.setupTabEventListeners();
+        this.setupToggleEventListeners();
         await this.loadLeaderboard();
     }
     
@@ -34,6 +36,32 @@ class CobwebbyLeaderboard {
         }
     }
     
+    setupToggleEventListeners() {
+        const toggleInput = document.getElementById('show-small-alliances');
+        const toggleLabel = document.getElementById('toggle-label');
+        
+        if (toggleInput) {
+            toggleInput.addEventListener('change', (e) => {
+                this.showSmallAlliances = e.target.checked;
+                if (toggleLabel) {
+                    toggleLabel.textContent = e.target.checked ? 'There ya go.' : 'Show small alliances?';
+                }
+                
+                this.processAllianceData();
+                this.filterData();
+                this.displayLeaderboard();
+            });
+        }
+        
+        if (toggleLabel) {
+            toggleLabel.addEventListener('click', () => {
+                if (toggleInput) {
+                    toggleInput.click();
+                }
+            });
+        }
+    }
+    
     switchTab(tab) {
         if (this.currentTab === tab) return;
         
@@ -42,6 +70,11 @@ class CobwebbyLeaderboard {
         
         document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
         document.getElementById(`${tab}-tab`).classList.add('active');
+        
+        const allianceDisclosure = document.getElementById('alliance-disclosure');
+        if (allianceDisclosure) {
+            allianceDisclosure.style.display = tab === 'alliance' ? 'block' : 'none';
+        }
         
         this.updateTableHeaders();
         this.updateSearchLabels();
@@ -266,7 +299,7 @@ class CobwebbyLeaderboard {
         });
         
         this.allianceData = Array.from(allianceMap.values())
-            .filter(alliance => alliance.nations.length > 5)
+            .filter(alliance => this.showSmallAlliances || alliance.nations.length > 5)
             .map(alliance => {
                 const totalCasualties = alliance.totalAttackingCasualties + alliance.totalDefensiveCasualties;
                 const cpdi = alliance.totalDays > 0 ? totalCasualties / alliance.totalDays : 0;

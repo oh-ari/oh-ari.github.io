@@ -274,8 +274,106 @@ body {
 }
 
 .tab-button.active:hover {
+    background: rgba(201, 168, 255, 0.2);
+}
+
+.alliance-disclosure {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-default);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    animation: slideInUp 0.3s ease-out;
+}
+
+.disclosure-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+}
+
+.disclosure-text {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin: 0;
+    font-weight: 400;
+}
+
+.toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.toggle-input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--border-default);
+    border-radius: 24px;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background: var(--text-primary);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-input:checked + .toggle-slider {
+    background: #c9a8ff;
+    box-shadow: 0 0 8px rgba(201, 168, 255, 0.3);
+}
+
+.toggle-input:checked + .toggle-slider:before {
+    transform: translateX(20px);
+}
+
+.toggle-switch:hover .toggle-slider {
+    background: var(--bg-tertiary);
+}
+
+.toggle-input:checked + .toggle-slider:hover {
     background: #b89aff;
-    border-color: #b89aff;
+}
+
+.toggle-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    user-select: none;
+    cursor: pointer;
+}
+
+.toggle-label:hover {
+    color: var(--text-primary);
 }
 
 .search-controls {
@@ -989,6 +1087,15 @@ body {
     .main-content {
         padding: 1.5rem;
         border-radius: 2px;
+    }
+
+    .alliance-disclosure {
+        margin-bottom: 1rem;
+        padding: 0.75rem;
+    }
+
+    .disclosure-content {
+        gap: 0.75rem;
     }
 
     .loading-state,

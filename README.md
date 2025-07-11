@@ -1,11 +1,11 @@
 # Mochi's Lab
-This is expanding a bit.
-
-![image](https://github.com/user-attachments/assets/4b87a6fc-d78a-493c-92fb-a4b599198522)
+<img width="2549" height="815" alt="image" src="https://github.com/user-attachments/assets/9fa7260d-a154-42df-ab27-388be0ab6c34" />
 
 ## Features
 - Treaty & War Generator.
-- Cobwebby Index
+- Cobwebby Index.
 - Aid Usage Leaderboard.
+- NukeDB.
+- Nation Lookup.
 
-Host it with GitHub or something. I'll update this based on suggestions as long as it's funny. 
+Just a fun little project I'm doing.

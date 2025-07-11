@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nation Lookup</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=20250107001">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a href="../index.html" class="navbar-link">Home</a>
+            <div class="navbar-divider"></div>
+            <a href="../treaty/index.html" class="navbar-link">Treaty Generator</a>
+            <div class="navbar-divider"></div>
+            <a href="../aid/index.html" class="navbar-link">Aid Usage Leaderboard</a>
+            <div class="navbar-divider"></div>
+            <a href="../cobwebby/index.html" class="navbar-link">Cobwebby Index</a>
+            <div class="navbar-divider"></div>
+            <a href="../nuclear/index.html" class="navbar-link">NukeDB</a>
+            <div class="navbar-divider"></div>
+            <a href="#" class="navbar-link active">Nation Lookup</a>
+        </div>
+        <div class="navbar-scroll-indicator"></div>
+    </nav>
+    
+    <div class="container">
+        <header class="header-top">
+            <div class="title-wrapper">
+                <h1 class="title">Nation Lookup</h1>
+                <div class="wip-tag">Work In Progress</div>
+            </div>
+        </header>
+        
+        <main class="main-content">
+            <div class="lookup-section">
+                <div class="search-container">
+                    <div class="search-group">
+                        <label for="nation-search" class="search-label">Search Nation or Ruler:</label>
+                        <div class="custom-dropdown">
+                            <div class="dropdown-input-wrapper">
+                                <input type="text" id="nation-search" class="search-input" placeholder="Type nation name or ruler name..." autocomplete="off">
+                                <div class="dropdown-arrow">
+                                    <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
+                                        <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="dropdown-options" id="dropdown-options">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="loading-state" style="display: none;">
+                    <p class="loading-text">Looking up nation data...</p>
+                </div>
+                
+                <div class="nation-results" id="nation-results" style="display: none;">
+                    <div class="nation-card">
+                        <div class="nation-header">
+                            <h2 class="nation-name" id="nation-name">--</h2>
+                            <div class="nation-ruler" id="nation-ruler">Ruler: --</div>
+                        </div>
+                        <div class="nation-details">
+                            <div class="detail-section">
+                                <h3 class="section-title">Nation Stats</h3>
+                                <div class="detail-row">
+                                    <span class="detail-label">NS:</span>
+                                    <span class="detail-value" id="nation-strength">--</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Infrastructure:</span>
+                                    <span class="detail-value" id="nation-infrastructure">--</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Technology:</span>
+                                    <span class="detail-value" id="nation-technology">--</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Last Active:</span>
+                                    <span class="detail-value" id="nation-last-active">--</span>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h3 class="section-title">Military</h3>
+                                <div class="detail-row">
+                                    <span class="detail-label">DEFCON:</span>
+                                    <span class="detail-value" id="nation-defcon">--</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Base Soldiers:</span>
+                                    <span class="detail-value" id="nation-soldiers">--</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Tanks:</span>
+                                    <span class="detail-value" id="nation-tanks">--</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Nukes:</span>
+                                    <span class="detail-value" id="nation-nukes">--</span>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h3 class="section-title">Casualties</h3>
+                                <div class="detail-row">
+                                    <span class="detail-label">Attacking Casualties:</span>
+                                    <span class="detail-value" id="nation-attacking-casualties">--</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Defensive Casualties:</span>
+                                    <span class="detail-value" id="nation-defensive-casualties">--</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Total Casualties:</span>
+                                    <span class="detail-value" id="nation-total-casualties">--</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">CPDI:</span>
+                                    <span class="detail-value" id="nation-cpdi">--</span>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h3 class="section-title">Foreign Aid</h3>
+                                <div id="nation-aid-deals" class="aid-deals-container">
+                                    <p class="no-deals">No active aid deals</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="error-state" id="error-state" style="display: none;">
+                    <p class="error-text">Nation not found</p>
+                    <p class="error-subtitle">Please check the spelling and try again</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <div class="grid-bg"></div>
+    
+    <div class="footer-credit">
+        <span class="footer-default">Made with boredom from Mochi, for some reason</span>
+        <span class="footer-easter-egg">Made with <span class="heart">❤️</span> by Mochi</span>
+    </div>
+
+    <script src="script.js?v=20250107001"></script>
+</body>
+</html> 

@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20250107005">
+    <link rel="stylesheet" href="styles.css?v=20250107006">
 </head>
 <body>
     <div class="container">
@@ -17,6 +17,35 @@
             </div>
             <div class="subtitle">A bunch of things I made for fun.</div>
         </header>
+        
+        <div class="discord-section">
+            <h2 class="discord-title">Discord Bots</h2>
+            <div class="discord-bots">
+                <div class="discord-bot">
+                    <div class="bot-info">
+                        <span class="bot-name">Robochi</span>
+                        <span class="bot-description">v2, better than ever.</span>
+                    </div>
+                    <button class="invite-button" onclick="showRobochiMessage(this)">
+                        <span class="invite-text">Invite</span>
+                    </button>
+                </div>
+                
+                <div class="discord-bot">
+                    <div class="bot-info">
+                        <span class="bot-name">CN CAH</span>
+                        <span class="bot-description">Cards Against CyberNations.</span>
+                    </div>
+                    <a href="https://discord.com/oauth2/authorize?client_id=1382112111970488351&permissions=8&integration_type=0&scope=bot+applications.commands" class="invite-button">
+                        <span class="invite-text">Invite</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-stuff-section">
+            <h2 class="main-stuff-title">Main Stuff</h2>
+        </div>
         
         <main class="main-content">
             <div class="navigation-section">
@@ -75,6 +104,10 @@
                 this.classList.toggle('tapped');
             });
         });
+
+        function showRobochiMessage(button) {
+            button.textContent = 'Hehe, no.';
+        }
     </script>
 </body>
 </html> 

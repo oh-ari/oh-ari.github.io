@@ -294,8 +294,7 @@ body {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.8rem;
     color: var(--text-muted);
-    opacity: 0.7;
-    transition: opacity 0.3s ease;
+    transition: color 0.3s ease;
     border-top: 1px solid var(--border-muted);
     position: fixed;
     bottom: 0;
@@ -306,7 +305,7 @@ body {
 }
 
 .footer-credit:hover {
-    opacity: 1;
+    color: var(--text-secondary);
 }
 
 .footer-default {

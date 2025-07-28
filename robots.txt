@@ -1,0 +1,54 @@
+The funny thing about having this is, it doesn't matter. Robots.txt was only ever a gentlemans handshake of the past but nothing more than that. 
+That said, long live robots.txt
+
+Fuck Google.
+
+User-agent: Googlebot
+Disallow: /
+
+User-agent: Googlebot-News
+Disallow: /
+
+User-agent: Googlebot-Image
+Disallow: /
+
+User-agent: Googlebot-Video
+Disallow: /
+
+User-agent: Google-InspectionTool
+Disallow: /
+
+User-agent: GoogleOther
+Disallow: /
+
+User-agent: AdsBot-Google
+Disallow: /
+
+User-agent: AdsBot-Google-Mobile
+Disallow: /
+
+User-agent: AdsBot-Google-Mobile-Apps
+Disallow: /
+
+User-agent: Mediapartners-Google
+Disallow: /
+
+User-agent: Google-Site-Verification
+Disallow: /
+
+Have fun, everyone else.
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: DeepSeek-Chat
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: CCBot
+Allow: /

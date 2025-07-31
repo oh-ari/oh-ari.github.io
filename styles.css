@@ -225,12 +225,6 @@ body {
     margin: 0 auto;
 }
 
-.nav-button:nth-child(5) {
-    grid-column: span 2;
-    justify-self: center;
-    max-width: 380px;
-}
-
 .nav-button {
     display: block;
     text-decoration: none;
@@ -387,18 +381,12 @@ body {
 
     .nav-buttons {
         grid-template-columns: 1fr;
-        grid-template-rows: repeat(5, 1fr);
+        grid-template-rows: repeat(6, 1fr);
         gap: 1.5rem;
     }
     
     .nav-button {
         padding: 1.5rem;
-    }
-    
-    .nav-button:nth-child(5) {
-        grid-column: span 1;
-        justify-self: stretch;
-        max-width: none;
     }
     
     .nav-text {
@@ -437,7 +425,7 @@ body {
     }
     
     .nav-buttons {
-        grid-template-rows: repeat(5, 1fr);
+        grid-template-rows: repeat(6, 1fr);
         gap: 1rem;
     }
     

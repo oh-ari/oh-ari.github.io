@@ -2,19 +2,19 @@
   "alliances": [
     {
       "name": "New Pacific Order",
-      "maxSlots": 1136,
+      "maxSlots": 1111,
       "members": 185,
       "currentUsed": 571
     },
     {
       "name": "Independent Republic Of Orange Nations",
-      "maxSlots": 593,
+      "maxSlots": 588,
       "members": 99,
       "currentUsed": 112
     },
     {
       "name": "The Legion",
-      "maxSlots": 640,
+      "maxSlots": 634,
       "members": 108,
       "currentUsed": 143
     },
@@ -26,49 +26,49 @@
     },
     {
       "name": "CLAWS",
-      "maxSlots": 414,
+      "maxSlots": 420,
       "members": 70,
       "currentUsed": 176
     },
     {
       "name": "Non Grata",
-      "maxSlots": 495,
+      "maxSlots": 502,
       "members": 84,
       "currentUsed": 428
     },
     {
       "name": "The Dark Templar",
-      "maxSlots": 306,
+      "maxSlots": 312,
       "members": 52,
       "currentUsed": 168
     },
     {
       "name": "New Polar Order",
-      "maxSlots": 465,
+      "maxSlots": 460,
       "members": 78,
       "currentUsed": 197
     },
     {
       "name": "Global Alliance And Treaty Organization",
-      "maxSlots": 496,
+      "maxSlots": 497,
       "members": 87,
       "currentUsed": 379
     },
     {
       "name": "Post Grunge Supergroup",
-      "maxSlots": 517,
+      "maxSlots": 538,
       "members": 99,
       "currentUsed": 221
     },
     {
       "name": "Freehold of The Wolves",
-      "maxSlots": 360,
+      "maxSlots": 365,
       "members": 61,
       "currentUsed": 148
     },
     {
       "name": "NATO",
-      "maxSlots": 318,
+      "maxSlots": 313,
       "members": 53,
       "currentUsed": 179
     },
@@ -80,7 +80,7 @@
     },
     {
       "name": "Argent",
-      "maxSlots": 190,
+      "maxSlots": 184,
       "members": 31,
       "currentUsed": 10
     },
@@ -92,13 +92,13 @@
     },
     {
       "name": "Doombrella",
-      "maxSlots": 230,
+      "maxSlots": 231,
       "members": 39,
       "currentUsed": 144
     },
     {
       "name": "Viridian Entente",
-      "maxSlots": 193,
+      "maxSlots": 194,
       "members": 33,
       "currentUsed": 38
     },
@@ -122,13 +122,13 @@
     },
     {
       "name": "Christian Coalition Of Countries",
-      "maxSlots": 258,
+      "maxSlots": 263,
       "members": 47,
       "currentUsed": 131
     },
     {
       "name": "Nuclear Proliferation League",
-      "maxSlots": 302,
+      "maxSlots": 298,
       "members": 49,
       "currentUsed": 173
     },
@@ -140,7 +140,7 @@
     },
     {
       "name": "Sparta",
-      "maxSlots": 171,
+      "maxSlots": 175,
       "members": 30,
       "currentUsed": 57
     },
@@ -164,7 +164,7 @@
     },
     {
       "name": "Coalition of Royal Allied Powers",
-      "maxSlots": 77,
+      "maxSlots": 83,
       "members": 14,
       "currentUsed": 23
     },
@@ -248,7 +248,7 @@
     },
     {
       "name": "United Purple Nations",
-      "maxSlots": 6,
+      "maxSlots": 41,
       "members": 7,
       "currentUsed": 4
     }

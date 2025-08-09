@@ -29,6 +29,18 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 1000);
         });
     }
+    
+    const tooltipTriggers = document.querySelectorAll('.update-info-tooltip');
+    tooltipTriggers.forEach(tooltip => {
+        tooltip.addEventListener('click', function() {
+            const tooltipContent = this.querySelector('.tooltip-content');
+            if (tooltipContent) {
+                const isExpanded = tooltipContent.style.display === 'block';
+                tooltipContent.style.display = isExpanded ? 'none' : 'block';
+                this.classList.toggle('expanded', !isExpanded);
+            }
+        });
+    });
 });
 
 function toggleUpdateLog(button) {

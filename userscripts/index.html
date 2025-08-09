@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20250107005">
+    <link rel="stylesheet" href="styles.css?v=20250107007">
 </head>
 <body>
     <nav class="navbar">
@@ -35,6 +35,7 @@
                 <h1 class="title">Userscripts</h1>
             </div>
             <div class="subtitle">A collection of script(s) made to enhance CN.</div>
+            <div class="subtitle">All script(s) are open-source.</div>
         </header>
         
         <main class="main-content">
@@ -42,7 +43,7 @@
 
                 <div class="userscript-item">
                     <div class="userscript-header">
-                        <h3 class="userscript-name">CN Collect Advisor</h3>
+                        <h3 class="userscript-name">CN Collect Advisor <span class="version">v1.1</span></h3>
                         <div class="userscript-controls">
                             <a href="https://github.com/oh-ari/cn-collect/raw/refs/heads/main/collect.user.js" class="userscript-status script-url">Script URL</a>
                             <button class="update-log-toggle" onclick="toggleUpdateLog(this)">
@@ -55,6 +56,15 @@
                     </div>
                     <div class="userscript-description">
                         <p>An easy script that makes sure you won't forget anything when collecting. Great for new players and old alike.</p>
+                        <div class="update-info-tooltip">
+                            <div class="tooltip-trigger">
+                                <span class="tooltip-icon">!!!</span>
+                                <span class="tooltip-text">This script does have an update check and download function to keep it updated as I improve it. If you do not want this, you can delete the following lines:</span>
+                            </div>
+                            <div class="tooltip-content">
+                                <img src="img/updatedown.png" alt="Update and download function code lines" class="tooltip-image">
+                            </div>
+                        </div>
                     </div>
                     <div class="update-log-dropdown">
                         <div class="update-log-content">

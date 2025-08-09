@@ -225,6 +225,16 @@ body {
     margin: 0;
 }
 
+.userscript-name .version {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-left: 0.5rem;
+    vertical-align: top;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.5px;
+}
+
 .userscript-status {
     display: inline-flex;
     align-items: center;
@@ -269,6 +279,44 @@ body {
 
 .userscript-description p {
     margin: 0;
+}
+
+.update-info-tooltip {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(139, 148, 158, 0.05);
+    border: 1px solid rgba(139, 148, 158, 0.2);
+    border-radius: 8px;
+}
+
+.tooltip-trigger {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.tooltip-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+}
+
+.tooltip-text {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.tooltip-content {
+    margin-top: 0.5rem;
+}
+
+.tooltip-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    border: 1px solid var(--border-default);
 }
 
 .update-log-toggle {

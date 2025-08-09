@@ -248,6 +248,20 @@ body {
     border: 1px solid var(--accent-green);
 }
 
+.userscript-status.script-url {
+    background: rgba(201, 168, 255, 0.1);
+    color: #c9a8ff;
+    border: 1px solid #c9a8ff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.userscript-status.script-url:hover {
+    background: rgba(201, 168, 255, 0.2);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-default);
+}
+
 .userscript-description {
     color: var(--text-secondary);
     line-height: 1.6;
@@ -261,9 +275,9 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background: rgba(201, 168, 255, 0.1);
-    border: 1px solid #c9a8ff;
-    color: #c9a8ff;
+    background: #c9a8ff;
+    border: none;
+    color: var(--bg-primary);
     padding: 0.4rem 0.8rem;
     border-radius: 6px;
     cursor: pointer;
@@ -274,8 +288,9 @@ body {
 }
 
 .update-log-toggle:hover {
-    background: rgba(201, 168, 255, 0.2);
+    background: #b894ff;
     transform: translateY(-1px);
+    box-shadow: var(--shadow-default);
 }
 
 .update-log-toggle .dropdown-arrow {

@@ -4,79 +4,79 @@
       "name": "New Pacific Order",
       "maxSlots": 1111,
       "members": 186,
-      "currentUsed": 583
+      "currentUsed": 591
     },
     {
       "name": "Independent Republic Of Orange Nations",
       "maxSlots": 588,
       "members": 99,
-      "currentUsed": 116
+      "currentUsed": 124
     },
     {
       "name": "The Legion",
       "maxSlots": 634,
       "members": 108,
-      "currentUsed": 138
+      "currentUsed": 152
     },
     {
       "name": "Knights Of The Round Table",
       "maxSlots": 484,
       "members": 84,
-      "currentUsed": 233
+      "currentUsed": 239
     },
     {
       "name": "CLAWS",
       "maxSlots": 420,
-      "members": 68,
-      "currentUsed": 171
+      "members": 67,
+      "currentUsed": 186
     },
     {
       "name": "Non Grata",
       "maxSlots": 502,
       "members": 84,
-      "currentUsed": 445
+      "currentUsed": 451
     },
     {
       "name": "The Dark Templar",
       "maxSlots": 312,
       "members": 52,
-      "currentUsed": 135
+      "currentUsed": 146
     },
     {
       "name": "New Polar Order",
       "maxSlots": 460,
       "members": 78,
-      "currentUsed": 178
+      "currentUsed": 190
     },
     {
       "name": "Global Alliance And Treaty Organization",
       "maxSlots": 497,
       "members": 89,
-      "currentUsed": 352
+      "currentUsed": 400
     },
     {
       "name": "Post Grunge Supergroup",
       "maxSlots": 538,
-      "members": 99,
-      "currentUsed": 216
+      "members": 98,
+      "currentUsed": 232
     },
     {
       "name": "Freehold of The Wolves",
       "maxSlots": 365,
       "members": 60,
-      "currentUsed": 159
+      "currentUsed": 166
     },
     {
       "name": "NATO",
       "maxSlots": 313,
       "members": 53,
-      "currentUsed": 176
+      "currentUsed": 177
     },
     {
       "name": "Orange Defense Network",
       "maxSlots": 154,
       "members": 26,
-      "currentUsed": 15
+      "currentUsed": 17
     },
     {
       "name": "Argent",
@@ -100,55 +100,55 @@
       "name": "Viridian Entente",
       "maxSlots": 194,
       "members": 33,
-      "currentUsed": 35
+      "currentUsed": 36
     },
     {
       "name": "DOOMBIRD DOOMCAVE",
       "maxSlots": 72,
       "members": 12,
-      "currentUsed": 50
+      "currentUsed": 51
     },
     {
       "name": "Doom Squad",
       "maxSlots": 233,
       "members": 39,
-      "currentUsed": 154
+      "currentUsed": 163
     },
     {
       "name": "Fark",
       "maxSlots": 250,
       "members": 36,
-      "currentUsed": 95
+      "currentUsed": 97
     },
     {
       "name": "Christian Coalition Of Countries",
       "maxSlots": 263,
       "members": 47,
-      "currentUsed": 115
+      "currentUsed": 123
     },
     {
       "name": "Nuclear Proliferation League",
       "maxSlots": 298,
       "members": 48,
-      "currentUsed": 169
+      "currentUsed": 180
     },
     {
       "name": "The Order Of The Black Rose",
       "maxSlots": 96,
       "members": 16,
-      "currentUsed": 4
+      "currentUsed": 6
     },
     {
       "name": "Sparta",
       "maxSlots": 175,
       "members": 30,
-      "currentUsed": 63
+      "currentUsed": 65
     },
     {
       "name": "The Templar Knights",
       "maxSlots": 90,
       "members": 16,
-      "currentUsed": 19
+      "currentUsed": 20
     },
     {
       "name": "The Last Remnants",
@@ -166,7 +166,7 @@
       "name": "Coalition of Royal Allied Powers",
       "maxSlots": 83,
       "members": 14,
-      "currentUsed": 24
+      "currentUsed": 25
     },
     {
       "name": "Federation Of Armed Nations",
@@ -184,19 +184,19 @@
       "name": "Mostly Harmless Alliance",
       "maxSlots": 138,
       "members": 21,
-      "currentUsed": 33
+      "currentUsed": 35
     },
     {
       "name": "The Grand Lodge Of Freemasons",
       "maxSlots": 82,
       "members": 14,
-      "currentUsed": 35
+      "currentUsed": 41
     },
     {
       "name": "Nordreich",
       "maxSlots": 120,
       "members": 20,
-      "currentUsed": 77
+      "currentUsed": 85
     },
     {
       "name": "Old Guard",
@@ -208,7 +208,7 @@
       "name": "Random Insanity Alliance",
       "maxSlots": 101,
       "members": 17,
-      "currentUsed": 34
+      "currentUsed": 38
     },
     {
       "name": "AGW Overlords",
@@ -220,7 +220,7 @@
       "name": "COBRA",
       "maxSlots": 93,
       "members": 17,
-      "currentUsed": 63
+      "currentUsed": 64
     },
     {
       "name": "World Task Force",
@@ -251,6 +251,12 @@
       "maxSlots": 41,
       "members": 7,
       "currentUsed": 5
+    },
+    {
+      "name": "The Phoenix Federation",
+      "maxSlots": 88,
+      "members": 17,
+      "currentUsed": 34
     }
   ]
 }

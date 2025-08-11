@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20250107009">
+    <link rel="stylesheet" href="styles.css?v=20250107010">
 </head>
 <body>
     <nav class="navbar">
@@ -53,6 +53,9 @@
                                 </svg>
                             </button>
                         </div>
+                    </div>
+                    <div class="userscript-preview">
+                        <img src="img/cncollect.png" alt="CN Collect Advisor Preview" class="preview-image">
                     </div>
                     <div class="userscript-description">
                         <p>An easy script that makes sure you won't forget anything when collecting. Great for new players and old alike.</p>
@@ -101,6 +104,9 @@
                             </button>
                         </div>
                     </div>
+                    <div class="userscript-preview">
+                        <img src="img/cnrulers.png" alt="CN Rulers [Alliance View] Preview" class="preview-image">
+                    </div>
                     <div class="userscript-description">
                         <p>It simply adds Ruler Names to the alliance display page.</p>
                         <div class="update-info-tooltip">
@@ -128,20 +134,36 @@
                 </div>
             </div>
             <div class="userscript-item" style="margin-top: 2rem;">
-                <div class="userscript-header">
-                    <h3 class="userscript-name">CN Modular</h3>
-                    <div class="userscript-controls">
-                        <span class="userscript-status coming-soon">Coming Soon</span>
-                        <button class="update-log-toggle" onclick="toggleUpdateLog(this)">
-                            <span class="update-log-text">Update Log</span>
-                            <svg class="dropdown-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
-                                <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </button>
-                    </div>
+                                 <div class="userscript-header">
+                     <h3 class="userscript-name">CN Modular <span class="version">v1.0 (technically beta)</span></h3>
+                     <div class="userscript-controls">
+                         <a href="https://github.com/oh-ari/CN-Modular/raw/refs/heads/main/modularCN.user.js" class="userscript-status script-url">Script URL</a>
+                         <button class="update-log-toggle" onclick="toggleUpdateLog(this)">
+                             <span class="update-log-text">Update Log</span>
+                             <svg class="dropdown-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
+                                 <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                             </svg>
+                         </button>
+                     </div>
+                 </div>
+                <div class="userscript-preview">
+                    <img src="img/cnmodular.png" alt="CN Modular Preview" class="preview-image">
                 </div>
                 <div class="userscript-description">
                     <p>Imagine being able to move the table rows around.</p>
+                    <div class="update-info-tooltip">
+                        <div class="tooltip-trigger">
+                            <span class="tooltip-text">Disclaimer</span>
+                            <svg class="disclaimer-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
+                                <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="tooltip-content" style="display: none;">
+                            <span class="tooltip-icon">!!!</span>
+                            <span class="tooltip-text">This script does have an update check and download function to keep it updated as I improve it. If you do not want this, you can delete the following lines:</span>
+                            <img src="img/updatedown.png" alt="Update and download function code lines" class="tooltip-image">
+                        </div>
+                    </div>
                 </div>
                 <div class="update-log-dropdown">
                     <div class="update-log-content">
@@ -152,6 +174,10 @@
                         <div class="update-entry">
                             <div class="update-date">August 9th, 2025</div>
                             <div class="update-message">I found it again and just need to polish it, I think.</div>
+                        </div>
+                        <div class="update-entry">
+                            <div class="update-date">August 11th, 2025</div>
+                            <div class="update-message">Released 1.0 for TamperMonkey.</div>
                         </div>
                     </div>
                 </div>

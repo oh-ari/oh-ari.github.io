@@ -277,6 +277,27 @@ body {
     line-height: 1.6;
 }
 
+.userscript-preview {
+    margin: 1.5rem 0;
+    display: flex;
+    justify-content: center;
+}
+
+.preview-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 2px solid var(--border-default);
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-default);
+}
+
+.preview-image:hover {
+    border-color: #c9a8ff;
+    transform: scale(1.02);
+    box-shadow: var(--shadow-strong);
+}
+
 .userscript-description p {
     margin: 0;
 }
@@ -575,7 +596,11 @@ body {
     }
     
     .userscript-item {
-        padding: 1.5rem;
+        padding: 1.25rem;
+    }
+    
+    .userscript-preview {
+        margin: 0.75rem 0;
     }
     
     .userscript-header {

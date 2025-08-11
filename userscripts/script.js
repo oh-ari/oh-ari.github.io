@@ -50,3 +50,21 @@ function toggleUpdateLog(button) {
     button.classList.toggle('expanded');
     dropdown.classList.toggle('expanded');
 }
+
+function toggleReadMore(button) {
+    const header = button.closest('.header');
+    const additionalSubtitles = header.querySelector('.additional-subtitles');
+    const readMoreText = button.querySelector('.read-more-text');
+    
+    const isExpanded = additionalSubtitles.style.display === 'block';
+    
+    if (isExpanded) {
+        additionalSubtitles.style.display = 'none';
+        readMoreText.textContent = 'Read More';
+        button.classList.remove('expanded');
+    } else {
+        additionalSubtitles.style.display = 'block';
+        readMoreText.textContent = 'Read Less';
+        button.classList.add('expanded');
+    }
+}

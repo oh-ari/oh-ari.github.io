@@ -41,6 +41,41 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    const showcases = document.querySelectorAll('.image-showcase');
+    showcases.forEach(showcase => {
+        const images = showcase.querySelectorAll('.preview-image');
+        const nextBtn = showcase.querySelector('.showcase-next');
+        let index = 0;
+        if (!images.length || !nextBtn) return;
+        images[0].classList.add('is-active');
+
+        function advance() {
+            images[index].classList.remove('is-active');
+            index = (index + 1) % images.length;
+            images[index].classList.add('is-active');
+        }
+
+        let autoTimer = null;
+        function stopAuto() {
+            if (autoTimer) {
+                clearInterval(autoTimer);
+                autoTimer = null;
+            }
+        }
+        function startAuto() {
+            stopAuto();
+            autoTimer = setInterval(advance, 7000);
+        }
+
+        nextBtn.addEventListener('click', () => {
+            advance();
+            startAuto();
+        });
+        showcase.addEventListener('mouseenter', stopAuto);
+        showcase.addEventListener('mouseleave', startAuto);
+        startAuto();
+    });
 });
 
 function toggleUpdateLog(button) {

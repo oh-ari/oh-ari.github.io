@@ -92,6 +92,7 @@ body {
 
 .discord-section {
     text-align: center;
+    margin-top: 3rem;
     margin-bottom: 2rem;
     animation: slideInUp 0.8s ease-out 0.1s both;
 }

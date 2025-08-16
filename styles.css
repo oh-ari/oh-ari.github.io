@@ -353,6 +353,7 @@ body {
 @media (max-width: 768px) {
     .container {
         padding: 1.5rem;
+        padding-bottom: 5rem;
     }
 
     .header {
@@ -397,6 +398,7 @@ body {
 @media (max-width: 480px) {
     .container {
         padding: 1rem;
+        padding-bottom: 5rem;
     }
 
     .header {

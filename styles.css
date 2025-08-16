@@ -90,6 +90,34 @@ body {
     margin-top: 0.5rem;
 }
 
+.discord-server-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #c9a8ff;
+    color: var(--bg-primary);
+    border: none;
+    border-radius: 6px;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1.5rem;
+    box-sizing: border-box;
+}
+
+.discord-server-button:hover {
+    background: #b894ff;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-default);
+}
+
+.discord-server-text {
+    font-family: 'Inter', sans-serif;
+}
+
 .discord-section {
     text-align: center;
     margin-top: 3rem;

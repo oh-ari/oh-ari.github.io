@@ -62,7 +62,8 @@ class SlotLeaderboard {
     
     async loadAllianceConfig() {
         try {
-            const response = await fetch('alliance-slots.json');
+            const dailyVersion = new Date().toISOString().slice(0, 10);
+            const response = await fetch(`alliance-slots.json?v=${dailyVersion}`, { cache: 'no-cache' });
             if (!response.ok) throw new Error('Failed to load alliance configuration');
             
             // Load current config from file

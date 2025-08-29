@@ -266,9 +266,9 @@
     },
     {
       "name": "WWF",
-      "maxSlots": 6,
+      "maxSlots": 36,
       "members": 7,
-      "currentUsed": 20
+      "currentUsed": 0
     }
   ]
 }

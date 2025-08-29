@@ -65,7 +65,52 @@ class SlotLeaderboard {
             const response = await fetch('alliance-slots.json');
             if (!response.ok) throw new Error('Failed to load alliance configuration');
             
-            this.allianceConfig = await response.json();
+            // Load current config from file
+            const fetchedConfig = await response.json();
+            const fetchedAlliances = Array.isArray(fetchedConfig?.alliances) ? fetchedConfig.alliances : [];
+
+            // Merge with locally cached alliances to preserve history across file updates
+            const cacheKey = 'aid-alliance-slots-cache-v1';
+            let cachedMap = {};
+            try {
+                const raw = localStorage.getItem(cacheKey);
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    if (parsed && typeof parsed === 'object') {
+                        cachedMap = parsed;
+                    }
+                }
+            } catch (e) {
+                console.warn('Failed to parse alliance slots cache, resetting.', e);
+                cachedMap = {};
+            }
+
+            // Helper to build a normalized key
+            const toKey = (name) => this.normalizeAllianceName(name || '');
+
+            // Seed cache with any existing cached entries (already in cachedMap)
+
+            // Overlay/insert all alliances from the fetched file (authoritative updates)
+            for (const alliance of fetchedAlliances) {
+                if (!alliance || !alliance.name) continue;
+                const key = toKey(alliance.name);
+                // Keep latest values for name/members/maxSlots from file
+                cachedMap[key] = {
+                    name: alliance.name,
+                    members: alliance.members ?? 0,
+                    maxSlots: alliance.maxSlots ?? 0
+                };
+            }
+
+            // Persist merged cache
+            try {
+                localStorage.setItem(cacheKey, JSON.stringify(cachedMap));
+            } catch (e) {
+                console.warn('Failed to write alliance slots cache.', e);
+            }
+
+            // Use the union of cached alliances for the leaderboard source
+            this.allianceConfig = { alliances: Object.values(cachedMap) };
         } catch (error) {
             console.error('Error loading alliance config:', error);
             throw error;

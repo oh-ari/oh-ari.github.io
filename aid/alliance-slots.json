@@ -242,7 +242,7 @@
     },
     {
       "name": "The Phoenix Federation",
-      "maxSlots": 10,
+      "maxSlots": 98,
       "members": 20,
       "currentUsed": 28
     }

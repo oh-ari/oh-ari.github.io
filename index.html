@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20250107011">
+    <link rel="stylesheet" href="styles.css?v=20250107012">
 </head>
 <body>
     <div class="container">
@@ -15,10 +15,20 @@
             <div class="title-wrapper">
                 <h1 class="title">Mochi's Lab</h1>
             </div>
-            <div class="subtitle">A bunch of things I made for fun.</div>
-            <a href="https://discord.gg/TmE8QSeM3x" class="discord-server-button">
-                <span class="discord-server-text">Join Developer Server</span>
-            </a>
+            <div class="welcome-box" id="welcomeBox">
+                <div class="welcome-header" onclick="toggleWelcomeBox()">
+                    <span class="welcome-title">Developer server info</span>
+                    <span class="welcome-arrow">▼</span>
+                </div>
+                <div class="welcome-content" id="welcomeContent">
+                    <p class="welcome-text">Welcome to Mochi's Lab. A collection of various things I've made for the game to either improve or make it easier for everyone (or because I was bored).</p>
+                    <p class="welcome-text">The main showcase is the 'Userscripts' tab where I've made a few different scripts to either make collecting something you cannot mess up, make CN table rows modular or showcase ruler names on the alliance view.</p>
+                    <p class="welcome-text">Below is a button for my dev server. It's where I post updates for everything I do as well as take bug reports, suggestions and more.</p>
+                    <a href="https://discord.gg/TmE8QSeM3x" class="discord-server-button">
+                        <span class="discord-server-text">Join Developer Server</span>
+                    </a>
+                </div>
+            </div>
         </header>
         
         <div class="main-stuff-section">
@@ -118,6 +128,38 @@
         function showRobochiMessage(button) {
             button.textContent = 'Hehe, no.';
         }
+
+        function toggleWelcomeBox() {
+            const content = document.getElementById('welcomeContent');
+            const arrow = document.querySelector('.welcome-arrow');
+            const isVisible = content.style.display !== 'none';
+            
+            if (isVisible) {
+                content.style.display = 'none';
+                arrow.textContent = '▶';
+                localStorage.setItem('welcomeBoxCollapsed', 'true');
+            } else {
+                content.style.display = 'block';
+                arrow.textContent = '▼';
+                localStorage.setItem('welcomeBoxCollapsed', 'false');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const footerCredit = document.querySelector('.footer-credit');
+            const welcomeContent = document.getElementById('welcomeContent');
+            const welcomeArrow = document.querySelector('.welcome-arrow');
+            
+            footerCredit.addEventListener('click', function() {
+                this.classList.toggle('tapped');
+            });
+
+            const isCollapsed = localStorage.getItem('welcomeBoxCollapsed') === 'true';
+            if (isCollapsed) {
+                welcomeContent.style.display = 'none';
+                welcomeArrow.textContent = '▶';
+            }
+        });
     </script>
 </body>
 </html> 

@@ -83,11 +83,69 @@ body {
     position: relative;
 }
 
-.subtitle {
-    font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+.welcome-box {
+    background: var(--bg-tertiary);
+    border: 2px solid var(--border-default);
+    border-radius: 8px;
+    margin-top: 1.5rem;
+    max-width: 800px;
+    text-align: left;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.welcome-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s ease;
+}
+
+.welcome-header:hover {
+    background: rgba(201, 168, 255, 0.1);
+}
+
+.welcome-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.welcome-arrow {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    transition: transform 0.3s ease;
+}
+
+.welcome-content {
+    padding: 1rem 1.5rem 1.5rem 1.5rem;
+    border-top: 1px solid var(--border-default);
+}
+
+.welcome-box:hover {
+    border-color: #c9a8ff;
+    background: rgba(201, 168, 255, 0.05);
+}
+
+.welcome-text {
+    font-size: 1rem;
     color: var(--text-secondary);
     font-weight: 400;
-    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.welcome-text:last-of-type {
+    margin-bottom: 1.5rem;
+}
+
+.welcome-box .discord-server-button {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .discord-server-button {
@@ -116,6 +174,9 @@ body {
 
 .discord-server-text {
     font-family: 'Inter', sans-serif;
+    text-align: center;
+    width: 100%;
+    display: block;
 }
 
 .discord-section {

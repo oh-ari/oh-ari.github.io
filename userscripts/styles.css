@@ -546,9 +546,9 @@ body {
     border-radius: 8px;
     padding: 1rem;
     max-height: 250px;
-    overflow-y: auto;
+    overflow-y: scroll;
     scrollbar-width: thin;
-    scrollbar-color: var(--border-default) transparent;
+    scrollbar-color: var(--accent-purple) var(--bg-tertiary);
 }
 
 .update-log-content::-webkit-scrollbar {
@@ -556,22 +556,13 @@ body {
 }
 
 .update-log-content::-webkit-scrollbar-track {
-    background: transparent;
+    background: var(--bg-tertiary);
     border-radius: 4px;
 }
 
 .update-log-content::-webkit-scrollbar-thumb {
-    background: var(--border-default);
-    border-radius: 4px;
-    transition: background 0.3s ease;
-}
-
-.update-log-content::-webkit-scrollbar-thumb:hover {
     background: var(--accent-purple);
-}
-
-.update-log-content::-webkit-scrollbar-corner {
-    background: transparent;
+    border-radius: 4px;
 }
 
 .update-entry {

@@ -289,7 +289,7 @@ class SlotLeaderboard {
             if (isMobile) {
                 row.innerHTML = `
                     <td data-label="#">${index + 1}</td>
-                    <td class="alliance-name" data-label="Alliance">${allianceCell}</td>
+                    <td class="alliance-name">${allianceCell}</td>
                     <td class="card-row-container">
                         <div class="card-row">
                             <div class="card-item" data-label="Members">${alliance.members}</div>

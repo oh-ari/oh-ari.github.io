@@ -679,7 +679,7 @@ body {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        padding: 0.25rem 0;
+        padding: 0;
         border-radius: 4px;
         transition: background-color 0.2s ease;
     }

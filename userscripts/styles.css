@@ -246,6 +246,97 @@ body {
     animation: slideInUp 0.8s ease-out 0.2s both;
 }
 
+.update-notice {
+    background: var(--bg-tertiary);
+    border: 2px solid #c9a8ff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+    background: linear-gradient(135deg, rgba(201, 168, 255, 0.05), rgba(201, 168, 255, 0.02));
+    box-shadow: var(--shadow-default);
+}
+
+.notice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.notice-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #c9a8ff;
+    margin: 0;
+}
+
+.notice-toggle {
+    background: none;
+    border: none;
+    color: #c9a8ff;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notice-toggle:hover {
+    background: rgba(201, 168, 255, 0.1);
+}
+
+.notice-arrow {
+    transition: transform 0.3s ease;
+    stroke: currentColor;
+}
+
+.notice-toggle.collapsed .notice-arrow {
+    transform: rotate(-90deg);
+}
+
+.notice-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: all 0.3s ease;
+}
+
+.notice-content.hidden {
+    display: none;
+}
+
+.notice-text {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.notice-text p {
+    margin: 0;
+}
+
+.notice-preview {
+    display: flex;
+    justify-content: center;
+}
+
+.notice-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 2px solid var(--border-default);
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-default);
+}
+
+.notice-image:hover {
+    border-color: #c9a8ff;
+    transform: scale(1.02);
+    box-shadow: var(--shadow-strong);
+}
+
 .userscripts-section {
     display: flex;
     flex-direction: column;

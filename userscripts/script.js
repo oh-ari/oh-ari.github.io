@@ -103,3 +103,18 @@ function toggleReadMore(button) {
         button.classList.add('expanded');
     }
 }
+
+function toggleNotice(button) {
+    const notice = button.closest('.update-notice');
+    const content = notice.querySelector('.notice-content');
+    
+    const isCollapsed = button.classList.contains('collapsed');
+    
+    if (isCollapsed) {
+        content.classList.remove('hidden');
+        button.classList.remove('collapsed');
+    } else {
+        content.classList.add('hidden');
+        button.classList.add('collapsed');
+    }
+}

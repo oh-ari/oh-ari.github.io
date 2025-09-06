@@ -8,6 +8,7 @@ class SlotLeaderboard {
         
         this.init();
         this.setupResizeListener();
+        this.setupExportButton();
     }
     
     normalizeAllianceName(name) {
@@ -35,6 +36,264 @@ class SlotLeaderboard {
                     this.displayLeaderboard();
                 }
             }, 250);
+        });
+    }
+    
+    setupExportButton() {
+        const exportButton = document.getElementById('export-button');
+        const exportOptions = document.querySelectorAll('.export-option');
+        
+        if (exportButton) {
+            exportButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const dropdown = exportButton.parentElement;
+                dropdown.classList.toggle('active');
+            });
+        }
+        
+        exportOptions.forEach(option => {
+            option.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const format = option.dataset.format;
+                this.exportToForum(format);
+                document.querySelector('.export-dropdown').classList.remove('active');
+            });
+        });
+        
+        document.addEventListener('click', () => {
+            document.querySelector('.export-dropdown').classList.remove('active');
+        });
+    }
+    
+    exportToForum(format = 'rich') {
+        if (!this.allianceConfig) return;
+        
+        const leaderboardData = this.allianceConfig.alliances.map((alliance, index) => {
+            const normalizedName = this.normalizeAllianceName(alliance.name);
+            const usedSlots = this.slotUsageData[normalizedName] || 0;
+            const maxSlots = alliance.maxSlots;
+            const percentage = maxSlots > 0 ? ((usedSlots / maxSlots) * 100).toFixed(2) : 0;
+            
+            return {
+                rank: index + 1,
+                name: alliance.name,
+                members: alliance.members,
+                usedSlots: usedSlots,
+                maxSlots: maxSlots,
+                percentage: parseFloat(percentage)
+            };
+        });
+        
+        leaderboardData.sort((a, b) => b.percentage - a.percentage);
+        const top40Data = leaderboardData.slice(0, 40);
+        
+        const table = document.createElement('table');
+        table.className = 'leaderboard-table';
+        
+        const thead = document.createElement('thead');
+        thead.innerHTML = `
+            <tr>
+                <th>#</th>
+                <th>Alliance</th>
+                <th>Members</th>
+                <th>Slots Used</th>
+                <th>Max Slots</th>
+                <th>Usage %</th>
+            </tr>
+        `;
+        table.appendChild(thead);
+        
+        const tbody = document.createElement('tbody');
+        top40Data.forEach((alliance, index) => {
+            const row = document.createElement('tr');
+            
+            const allianceId = this.allianceIdMap[alliance.name];
+            const allianceCell = allianceId 
+                ? `<a href="https://www.cybernations.net/alliance_display.asp?ID=${allianceId}" target="_blank" rel="noopener noreferrer">${alliance.name}</a>`
+                : alliance.name;
+            
+            row.innerHTML = `
+                <td>${index + 1}</td>
+                <td class="alliance-name">${allianceCell}</td>
+                <td>${alliance.members}</td>
+                <td>${alliance.usedSlots}</td>
+                <td>${alliance.maxSlots}</td>
+                <td class="usage-percentage">${alliance.percentage}%</td>
+            `;
+            tbody.appendChild(row);
+        });
+        table.appendChild(tbody);
+        
+        this.addInlineStyles(table);
+        
+        const tableHTML = table.outerHTML;
+        const tableText = table.innerText;
+        
+        if (format === 'plain') {
+            const tabSeparatedText = this.convertToTabSeparated(table);
+            navigator.clipboard.writeText(tabSeparatedText).then(() => {
+                this.showCopySuccess();
+            }).catch(() => {
+                this.fallbackCopy(tabSeparatedText);
+            });
+        } else {
+            const clipboardItem = new ClipboardItem({
+                'text/html': new Blob([tableHTML], { type: 'text/html' }),
+                'text/plain': new Blob([tableText], { type: 'text/plain' })
+            });
+            
+            navigator.clipboard.write([clipboardItem]).then(() => {
+                this.showCopySuccess();
+            }).catch(() => {
+                this.fallbackCopy(tableText);
+            });
+        }
+    }
+    
+    showCopySuccess() {
+        const button = document.getElementById('export-button');
+        const originalText = button.textContent;
+        button.textContent = 'Copied!';
+        button.style.background = 'var(--accent-green)';
+        button.style.borderColor = 'var(--accent-green)';
+        
+        setTimeout(() => {
+            button.textContent = originalText;
+            button.style.background = '';
+            button.style.borderColor = '';
+        }, 2000);
+    }
+    
+    fallbackCopy(text) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        this.showCopySuccess();
+    }
+    
+    convertToTabSeparated(table) {
+        const rows = table.querySelectorAll('tr');
+        const result = [];
+        
+        rows.forEach(row => {
+            const cells = row.querySelectorAll('th, td');
+            const rowData = [];
+            
+            cells.forEach(cell => {
+                const text = cell.textContent.trim();
+                rowData.push(text);
+            });
+            
+            result.push(rowData.join('\t'));
+        });
+        
+        return result.join('\n');
+    }
+    
+    addInlineStyles(table) {
+        const computedStyle = getComputedStyle(table);
+        
+        table.style.borderCollapse = 'collapse';
+        table.style.width = '100%';
+        table.style.backgroundColor = '#21262d';
+        table.style.fontFamily = 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+        table.style.border = '1px solid #30363d';
+        
+        const thead = table.querySelector('thead');
+        if (thead) {
+            thead.style.backgroundColor = '#161b22';
+            thead.style.borderBottom = '2px solid #30363d';
+        }
+        
+        const thElements = table.querySelectorAll('th');
+        thElements.forEach(th => {
+            th.style.padding = '1rem';
+            th.style.textAlign = 'left';
+            th.style.fontWeight = '600';
+            th.style.color = '#f0f6fc';
+            th.style.fontSize = '0.9rem';
+            th.style.borderRight = '1px solid #30363d';
+        });
+        
+        const tbody = table.querySelector('tbody');
+        if (tbody) {
+            tbody.style.backgroundColor = '#21262d';
+        }
+        
+        const trElements = table.querySelectorAll('tbody tr');
+        trElements.forEach((tr, index) => {
+            tr.style.borderBottom = '1px solid rgba(48, 54, 61, 0.6)';
+            if (index % 2 === 1) {
+                tr.style.backgroundColor = 'rgba(33, 38, 45, 0.3)';
+            }
+        });
+        
+        const tdElements = table.querySelectorAll('td');
+        tdElements.forEach(td => {
+            td.style.padding = '1rem';
+            td.style.color = '#f0f6fc';
+            td.style.fontSize = '0.9rem';
+            td.style.borderRight = '1px solid #21262d';
+        });
+        
+        const firstTdElements = table.querySelectorAll('td:first-child');
+        firstTdElements.forEach(td => {
+            td.style.textAlign = 'center';
+            td.style.fontWeight = '600';
+            td.style.color = '#8b949e';
+        });
+        
+        const numericTdElements = table.querySelectorAll('td:nth-child(3), td:nth-child(4), td:nth-child(5)');
+        numericTdElements.forEach(td => {
+            td.style.textAlign = 'center';
+            td.style.fontFamily = 'JetBrains Mono, monospace';
+        });
+        
+        const percentageTdElements = table.querySelectorAll('td:nth-child(6)');
+        percentageTdElements.forEach(td => {
+            td.style.textAlign = 'center';
+            td.style.fontFamily = 'JetBrains Mono, monospace';
+            td.style.fontWeight = '600';
+        });
+        
+        const allianceNameElements = table.querySelectorAll('.alliance-name');
+        allianceNameElements.forEach(td => {
+            td.style.fontWeight = '500';
+            td.style.color = '#f0f6fc';
+        });
+        
+        const allianceLinks = table.querySelectorAll('.alliance-name a');
+        allianceLinks.forEach(link => {
+            link.style.color = '#c9a8ff';
+            link.style.textDecoration = 'none';
+            link.style.fontWeight = '500';
+        });
+        
+        const usagePercentageElements = table.querySelectorAll('.usage-percentage');
+        usagePercentageElements.forEach(td => {
+            const percentage = parseFloat(td.textContent);
+            if (percentage >= 60) {
+                td.style.color = '#3fb950';
+                td.style.fontWeight = '700';
+            } else if (percentage >= 50) {
+                td.style.color = '#7c9c3f';
+            } else if (percentage >= 40) {
+                td.style.color = '#a5a532';
+            } else if (percentage >= 30) {
+                td.style.color = '#c9a832';
+            } else if (percentage >= 20) {
+                td.style.color = '#d29922';
+            } else if (percentage >= 10) {
+                td.style.color = '#db8b1a';
+            } else if (percentage >= 5) {
+                td.style.color = '#e67e22';
+            } else {
+                td.style.color = '#f85149';
+                td.style.fontWeight = '700';
+            }
         });
     }
     

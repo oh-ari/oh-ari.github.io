@@ -1,6 +1,7 @@
 class SlotLeaderboard {
     constructor() {
         this.allianceConfig = null;
+        this.previousAllianceConfig = null;
         this.slotUsageData = {};
         this.allianceIdMap = {};
         this.isLoading = false;
@@ -22,6 +23,16 @@ class SlotLeaderboard {
             .replace(/\bin\b/g, 'in')
             .replace(/\bto\b/g, 'to')
             .replace(/[.,;:!?]/g, '');
+    }
+
+    getMobileAllianceName(name) {
+        if (name === 'Global Alliance And Treaty Organization') {
+            return 'GATO';
+        }
+        if (name === 'Independent Republic Of Orange Nations') {
+            return 'IRON';
+        }
+        return name;
     }
     
     async init() {
@@ -86,6 +97,7 @@ class SlotLeaderboard {
         
         leaderboardData.sort((a, b) => b.percentage - a.percentage);
         const top40Data = leaderboardData.slice(0, 40);
+        const positionChanges = this.calculatePositionChanges(top40Data, this.previousAllianceConfig);
         
         const table = document.createElement('table');
         table.className = 'leaderboard-table';
@@ -111,9 +123,23 @@ class SlotLeaderboard {
             const allianceCell = allianceId 
                 ? `<a href="https://www.cybernations.net/alliance_display.asp?ID=${allianceId}" target="_blank" rel="noopener noreferrer">${alliance.name}</a>`
                 : alliance.name;
+
+            const normalizedName = this.normalizeAllianceName(alliance.name);
+            const positionChange = positionChanges[normalizedName];
+            let positionChangeText = '';
+            
+            if (positionChange !== undefined) {
+                if (positionChange > 0) {
+                    positionChangeText = ` ↗${positionChange}`;
+                } else if (positionChange < 0) {
+                    positionChangeText = ` ↘${Math.abs(positionChange)}`;
+                } else {
+                    positionChangeText = ` —`;
+                }
+            }
             
             row.innerHTML = `
-                <td>${index + 1}</td>
+                <td>${index + 1}${positionChangeText}</td>
                 <td class="alliance-name">${allianceCell}</td>
                 <td>${alliance.members}</td>
                 <td>${alliance.usedSlots}</td>
@@ -305,6 +331,7 @@ class SlotLeaderboard {
         
         try {
             await this.loadAllianceConfig();
+            await this.loadPreviousAllianceConfig();
             await this.loadAllianceStats();
             await this.loadCSVData();
 
@@ -374,6 +401,24 @@ class SlotLeaderboard {
         } catch (error) {
             console.error('Error loading alliance config:', error);
             throw error;
+        }
+    }
+
+    async loadPreviousAllianceConfig() {
+        try {
+            const dailyVersion = new Date().toISOString().slice(0, 10);
+            const response = await fetch(`alliance-slots.json.bak?v=${dailyVersion}`, { cache: 'no-cache' });
+            if (!response.ok) {
+                console.warn('Previous alliance data not available');
+                return;
+            }
+            
+            const fetchedConfig = await response.json();
+            const fetchedAlliances = Array.isArray(fetchedConfig?.alliances) ? fetchedConfig.alliances : [];
+            this.previousAllianceConfig = { alliances: fetchedAlliances };
+            console.log(`Loaded ${fetchedAlliances.length} alliances from .bak file`);
+        } catch (error) {
+            console.warn('Error loading previous alliance config:', error);
         }
     }
 
@@ -494,6 +539,50 @@ class SlotLeaderboard {
             }
         }
     }
+
+    calculatePositionChanges(currentData, previousData) {
+        if (!previousData || !previousData.alliances) {
+            console.warn('No previous data available for position changes');
+            return {};
+        }
+        console.log(`Calculating position changes with ${previousData.alliances.length} previous alliances`);
+
+        const previousMap = {};
+        previousData.alliances.forEach((alliance, index) => {
+            const normalizedName = this.normalizeAllianceName(alliance.name);
+            const usedSlots = alliance.currentUsed || 0;
+            const maxSlots = alliance.maxSlots;
+            const percentage = maxSlots > 0 ? ((usedSlots / maxSlots) * 100) : 0;
+            
+            previousMap[normalizedName] = {
+                percentage: percentage,
+                position: index + 1
+            };
+        });
+
+        const previousSorted = Object.entries(previousMap)
+            .sort(([,a], [,b]) => b.percentage - a.percentage)
+            .map(([name], index) => ({ name, position: index + 1 }));
+
+        const previousPositionMap = {};
+        previousSorted.forEach(({ name, position }) => {
+            previousPositionMap[name] = position;
+        });
+
+        const positionChanges = {};
+        currentData.forEach((alliance, currentIndex) => {
+            const normalizedName = this.normalizeAllianceName(alliance.name);
+            const currentPosition = currentIndex + 1;
+            const previousPosition = previousPositionMap[normalizedName];
+            
+            if (previousPosition !== undefined) {
+                const change = previousPosition - currentPosition;
+                positionChanges[normalizedName] = change;
+            }
+        });
+
+        return positionChanges;
+    }
     
     displayLeaderboard() {
         const tbody = document.getElementById('leaderboard-tbody');
@@ -520,6 +609,7 @@ class SlotLeaderboard {
         leaderboardData.sort((a, b) => b.percentage - a.percentage);
         
         const top40Data = leaderboardData.slice(0, 40);
+        const positionChanges = this.calculatePositionChanges(top40Data, this.previousAllianceConfig);
         
         const maxPercentage = top40Data.length > 0 ? top40Data[0].percentage : 0;
         
@@ -538,16 +628,31 @@ class SlotLeaderboard {
             else if (relativePercentage >= 30) usageClass = 'usage-low';
             else if (relativePercentage >= 20) usageClass = 'usage-very-low';
             
+            const isMobile = window.innerWidth <= 480;
+            const displayName = isMobile ? this.getMobileAllianceName(alliance.name) : alliance.name;
+            
             const allianceId = this.allianceIdMap[alliance.name];
             const allianceCell = allianceId 
-                ? `<a href="https://www.cybernations.net/alliance_display.asp?ID=${allianceId}" target="_blank" rel="noopener noreferrer">${alliance.name}</a>`
-                : alliance.name;
+                ? `<a href="https://www.cybernations.net/alliance_display.asp?ID=${allianceId}" target="_blank" rel="noopener noreferrer" title="${alliance.name}">${displayName}</a>`
+                : `<span title="${alliance.name}">${displayName}</span>`;
+
+            const normalizedName = this.normalizeAllianceName(alliance.name);
+            const positionChange = positionChanges[normalizedName];
+            let positionChangeIndicator = '';
             
-            const isMobile = window.innerWidth <= 480;
+            if (positionChange !== undefined) {
+                if (positionChange > 0) {
+                    positionChangeIndicator = `<span class="position-change up" title="Up ${positionChange} position${positionChange > 1 ? 's' : ''}">↗${positionChange}</span>`;
+                } else if (positionChange < 0) {
+                    positionChangeIndicator = `<span class="position-change down" title="Down ${Math.abs(positionChange)} position${Math.abs(positionChange) > 1 ? 's' : ''}">↘${Math.abs(positionChange)}</span>`;
+                } else {
+                    positionChangeIndicator = `<span class="position-change same" title="No change">—</span>`;
+                }
+            }
             
             if (isMobile) {
                 row.innerHTML = `
-                    <td data-label="#">${index + 1}</td>
+                    <td data-label="#" class="rank-cell">${index + 1}${positionChangeIndicator}</td>
                     <td class="alliance-name">${allianceCell}</td>
                     <td class="card-row-container">
                         <div class="card-row">
@@ -564,7 +669,7 @@ class SlotLeaderboard {
                 `;
             } else {
                 row.innerHTML = `
-                    <td data-label="#">${index + 1}</td>
+                    <td data-label="#" class="rank-cell">${index + 1}${positionChangeIndicator}</td>
                     <td class="alliance-name" data-label="Alliance">${allianceCell}</td>
                     <td data-label="Members">${alliance.members}</td>
                     <td data-label="Slots Used">${alliance.usedSlots}</td>

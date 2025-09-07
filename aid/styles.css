@@ -464,7 +464,7 @@ body {
 
 .leaderboard-table th:first-child {
     text-align: center;
-    width: 60px;
+    width: 80px;
 }
 
 .leaderboard-table th:nth-child(3),
@@ -587,6 +587,40 @@ body {
 .leaderboard-table .usage-poor {
     color: #f85149;
     font-weight: 700;
+}
+
+.position-change {
+    display: inline-block;
+    font-size: 0.7rem;
+    margin-left: 0.3rem;
+    font-weight: 600;
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.position-change.up {
+    color: #3fb950;
+}
+
+.position-change.down {
+    color: #f85149;
+}
+
+.position-change.same {
+    color: var(--text-muted);
+    opacity: 0.6;
+}
+
+.rank-cell {
+    position: relative;
+    white-space: nowrap;
+    min-width: 80px;
+}
+
+.rank-cell:hover .position-change {
+    opacity: 1;
 }
 
 @keyframes slideInUp {
@@ -723,7 +757,7 @@ body {
 
     .leaderboard-table th:first-child,
     .leaderboard-table td:first-child {
-        width: 50px;
+        width: 70px;
         text-align: center;
         font-weight: 600;
         color: var(--accent-purple);
@@ -946,6 +980,15 @@ body {
         color: var(--text-muted);
         text-align: center;
         line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.2rem;
+    }
+
+    .leaderboard-table td:first-child .position-change {
+        font-size: 0.8rem;
+        margin-left: 0.1rem;
     }
     
     .leaderboard-table td:first-child:before {

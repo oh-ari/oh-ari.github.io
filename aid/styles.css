@@ -281,10 +281,101 @@ body {
 
 .leaderboard-controls {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
     padding: 0 0.5rem;
+}
+
+.export-btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-default);
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.export-btn:hover {
+    background: #c9a8ff;
+    border-color: #c9a8ff;
+    color: var(--bg-primary);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-default);
+}
+
+.export-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-arrow {
+    font-size: 0.7rem;
+    margin-left: 0.5rem;
+    transition: transform 0.2s ease;
+}
+
+.export-dropdown.active .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.export-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.export-options {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-default);
+    border-radius: 4px;
+    box-shadow: var(--shadow-default);
+    z-index: 1000;
+    min-width: 120px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s ease;
+}
+
+.export-dropdown.active .export-options {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.export-option {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.export-option:hover {
+    background: var(--bg-secondary);
+}
+
+.export-option:first-child {
+    border-radius: 4px 4px 0 0;
+}
+
+.export-option:last-child {
+    border-radius: 0 0 4px 4px;
 }
 
 .update-notice {
@@ -373,7 +464,7 @@ body {
 
 .leaderboard-table th:first-child {
     text-align: center;
-    width: 60px;
+    width: 80px;
 }
 
 .leaderboard-table th:nth-child(3),
@@ -498,6 +589,40 @@ body {
     font-weight: 700;
 }
 
+.position-change {
+    display: inline-block;
+    font-size: 0.7rem;
+    margin-left: 0.3rem;
+    font-weight: 600;
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.position-change.up {
+    color: #3fb950;
+}
+
+.position-change.down {
+    color: #f85149;
+}
+
+.position-change.same {
+    color: var(--text-muted);
+    opacity: 0.6;
+}
+
+.rank-cell {
+    position: relative;
+    white-space: nowrap;
+    min-width: 80px;
+}
+
+.rank-cell:hover .position-change {
+    opacity: 1;
+}
+
 @keyframes slideInUp {
     from {
         opacity: 0;
@@ -620,11 +745,19 @@ body {
 
     .leaderboard-controls {
         margin-bottom: 1.5rem;
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    .export-btn {
+        font-size: 0.85rem;
+        padding: 0.6rem 1.2rem;
     }
 
     .leaderboard-table th:first-child,
     .leaderboard-table td:first-child {
-        width: 50px;
+        width: 70px;
         text-align: center;
         font-weight: 600;
         color: var(--accent-purple);
@@ -847,6 +980,15 @@ body {
         color: var(--text-muted);
         text-align: center;
         line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.2rem;
+    }
+
+    .leaderboard-table td:first-child .position-change {
+        font-size: 0.8rem;
+        margin-left: 0.1rem;
     }
     
     .leaderboard-table td:first-child:before {

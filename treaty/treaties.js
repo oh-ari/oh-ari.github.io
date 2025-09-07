@@ -151,7 +151,8 @@ const TREATY_TEMPLATES = {
                     "{ALLIANCE1} and {ALLIANCE2} agree to cease all hostile activities, including but not limited to military action, covert operations, and espionage against each other.",
                     "Both signatories pledge to end the cold war between them, prohibiting military force, subversion, and intelligence operations against one another.",
                     "{ALLIANCE1} and {ALLIANCE2} acknowledge a shared respect for the pursuit of knowledge, self-improvement, and the betterment of society. Lines of communication shall be established and maintained for the fostering of mutual understanding and cooperation. Members of each party shall be encouraged to engage in respectful dialogue and collaboration on matters of common interest.",
-                    "Both {ALLIANCE1} and {ALLIANCE2} agree that all of this, 100% of it, is Velocity's fault."
+                    "Both {ALLIANCE1} and {ALLIANCE2} agree that all of this, 100% of it, is Velocity's fault.",
+                    "The Parties will not engage in hostile acts against each other. No backstabbing, no false flags, no Project Mayhem ops against fellow fighters. No backroom betrayals. Violations will be met with revenge and ten year grudges."
                 ]
             },
             {
@@ -160,7 +161,8 @@ const TREATY_TEMPLATES = {
                     "{ALLIANCE1} and {ALLIANCE2} pledge to show only respect and good will towards each other. While this will prohibit outright verbal hostility in all its forms, it will not restrict healthy debate or productive disagreement.",
                     "Both parties commit to maintaining respectful relations, avoiding verbal hostility while preserving the right to engage in constructive debate and diplomatic disagreement.",
                     "{ALLIANCE1} and {ALLIANCE2} agree to treat each other with respect and goodwill, prohibiting hostile rhetoric while allowing for healthy diplomatic discourse.",
-                    "Both {ALLIANCE1} and {ALLIANCE2} agree that it is better to be homies and not rivals. As such, they agree to remain peaceful and share their alcohol with each other, and also their peyote."
+                    "Both {ALLIANCE1} and {ALLIANCE2} agree that it is better to be homies and not rivals. As such, they agree to remain peaceful and share their alcohol with each other, and also their peyote.",
+                    "Neither Party will claim dominion, influence, or psychological projection over the other. Each Party is its own Tyler Durden. Respect for internal decisions, identities, and mayhem quotas is absolute."
                 ]
             },
             {
@@ -170,7 +172,8 @@ const TREATY_TEMPLATES = {
                     "In the event of unprovoked attack against either party, the threatened alliance may request mandatory military assistance from their treaty partner.",
                     "Both {ALLIANCE1} and {ALLIANCE2} are obligated to provide military defense when requested by the other in cases of external aggression.",
                     "In the event of an unprovoked attack upon the legitimate interests or sovereignty of either {ALLIANCE1} or {ALLIANCE2}, the other party shall offer its full diplomatic support and condemnation of the aggressor. Should diplomatic efforts fail, and either party suffers a direct assault, the other party agrees to provide material aid and assistance, including direct military intervention, at its own discretion. The nature and extent of such assistance will be determined through mutual consultation between the leadership of {ALLIANCE1} and {ALLIANCE2}.",
-                    "Both {ALLIANCE1} and {ALLIANCE2} agree that if you attack their homies, they are coming for you. Unless specifically told otherwise, both parties agree that they will come to their homies aid within 72 hours. A violation of this Article makes this treaty null and void."
+                    "Both {ALLIANCE1} and {ALLIANCE2} agree that if you attack their homies, they are coming for you. Unless specifically told otherwise, both parties agree that they will come to their homies aid within 72 hours. A violation of this Article makes this treaty null and void.",
+                    "If either Party is attacked, the other will ask if defense is wanted. If yes, military aid, economic support, and 3 a.m. motivational intel calls are all required. Once committed, a Party must not pull its punches."
                 ]
             },
             {
@@ -180,7 +183,8 @@ const TREATY_TEMPLATES = {
                     "When either party initiates offensive military action, they may seek voluntary military assistance from their treaty partner, though such support is not mandatory.",
                     "In cases of aggressive action by either {ALLIANCE1} or {ALLIANCE2}, military aid may be requested but is not required from the other party.",
                     "In the event of a clear and present danger posed by a third party that threatens the fundamental principles enshrined in the constitutions of both {ALLIANCE1} and {ALLIANCE2}, this pact allows for a joint response aimed at neutralizing said threat.",
-                    "Both {ALLIANCE1} and {ALLIANCE2} agree that if their homies go to war, they are more than happy to share in killing all humans with each other, but this is not required. If their homies end up at war with the homies of their homies, then they do not have to get involved."
+                    "Both {ALLIANCE1} and {ALLIANCE2} agree that if their homies go to war, they are more than happy to share in killing all humans with each other, but this is not required. If their homies end up at war with the homies of their homies, then they do not have to get involved.",
+                    "If either Party initiates an offensive war, the other may choose to join in the chaos. Coordination, intel, and emotional support are encouraged, but not required. The Parties agree to consult each other before major strikes, if circumstances allow. This isn't about winning. This is about making a statement."
                 ]
             },
             {
@@ -198,17 +202,25 @@ const TREATY_TEMPLATES = {
                     "Both {ALLIANCE1} and {ALLIANCE2} are obligated to share critical political and military intelligence that may affect their mutual interests.",
                     "Any vital political or military information discovered by either party must be shared with their treaty partner.",
                     "Regular communication channels shall be established between {ALLIANCE1} and {ALLIANCE2} to ensure transparency and timely exchange of information. Any disagreements arising from the interpretation or implementation of this pact shall be resolved through good faith negotiations and mediation efforts.",
-                    "Both {ALLIANCE1} and {ALLIANCE2} agree that they will share all intelligence regarding the other with each other. A violation of this Article makes this treaty null and void."
+                    "Both {ALLIANCE1} and {ALLIANCE2} agree that they will share all intelligence regarding the other with each other. A violation of this Article makes this treaty null and void.",
+                    "The first rule of Fight Club: You do not talk about Fight Club…but we do talk to each other."
                 ]
             },
             {
                 title: "Article VII: Cancellation",
                 variations: [
-                    "It is the hope of both {ALLIANCE1} and {ALLIANCE2} that this pact may last forever, or until the bond it represents grows to the point where an upgrade is merited. Given the uncertainties of the future, however, it is recognized that should any of the above Articles be violated, or should some major irreparable disagreement arise, that this pact may be canceled after 72 hours notice.",
+                    "It is the hope of both {ALLIANCE1} and {ALLIANCE2} that this pact may last forever, or until the bond it represents grows to the point where an upgrade is merited. Given the uncertainties of the future, however, it is recognized that should any of the above Articles be violated, or should some major irreconcilable disagreement arise, that this pact may be canceled after 72 hours notice.",
                     "This treaty shall remain in effect indefinitely, with hopes for future strengthening of relations, but may be terminated by either party with 72 hours notice in cases of violation or irreconcilable differences.",
                     "Both parties hope this agreement will endure and potentially evolve into stronger ties, while acknowledging that it may be cancelled with 72 hours notice if articles are violated or major disputes arise.",
                     "This pact shall come into effect upon the signing by the duly authorized representatives of {ALLIANCE1} and {ALLIANCE2}. This pact may be terminated by either party upon two (2) weeks written notice to the other party.",
-                    "Both {ALLIANCE1} and {ALLIANCE2} agree that if either homie wants to cancel this treaty, then a 72 hour notice is required."
+                    "Both {ALLIANCE1} and {ALLIANCE2} agree that if either homie wants to cancel this treaty, then a 72 hour notice is required.",
+                    "Mutual respect should guide any separation. If you walk out of Fight Club, walk out like a fighter. This pact remains in force until one of the Parties delivers written notice of termination, with a 72-hour cool-down period following such notice before terms are considered null."
+                ]
+            },
+            {
+                title: "Article VII: REDACTED",
+                variations: [
+                    "Article VII: REDACTED"
                 ]
             }
         ]

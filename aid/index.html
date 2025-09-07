@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20250107013">
+    <link rel="stylesheet" href="styles.css?v=20250107015">
 </head>
 <body>
     <nav class="navbar">
@@ -48,12 +48,19 @@
                             <span id="last-updated-time">--</span><br>
                             Max Slots updated: <span>Aug 29th, 2025</span>
                         </div>
+                        <div class="export-dropdown">
+                            <button id="export-button" class="export-btn">Magic Export <span class="dropdown-arrow">∨</span></button>
+                            <div class="export-options">
+                                <button class="export-option" data-format="rich">Rich Text (forums)</button>
+                                <button class="export-option" data-format="plain">Plain Text (spreadsheets)</button>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="update-notice" role="status" aria-live="polite">
                         <span class="update-badge">UPDATE</span>
-                        <span class="update-date">(09/04/2025)</span>
-                        <span class="update-text">Leaderboard was outdated as I forgot to reauth GitHub, sorry about that.</span>
+                        <span class="update-date">(09/07/2025)</span>
+                        <span class="update-text">Added position changes to the leaderboard & export options.</span>
                     </div>
                     
                     <div class="leaderboard-table-wrapper">
@@ -89,6 +96,6 @@
         <span class="footer-easter-egg">Made with <span class="heart">❤️</span> by Mochi</span>
     </div>
 
-    <script src="script.js?v=20250107008"></script>
+    <script src="script.js?v=20250107009"></script>
 </body>
 </html> 

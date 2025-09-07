@@ -7,13 +7,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20250107012">
+    <link rel="stylesheet" href="styles.css?v=20250107028">
 </head>
 <body>
     <div class="container">
         <header class="header">
             <div class="title-wrapper">
                 <h1 class="title">Mochi's Lab</h1>
+                <button class="theme-toggle" title="Toggle Theme">
+                    <span class="theme-text">2006 Theme Beta</span>
+                </button>
             </div>
             <div class="welcome-box" id="welcomeBox">
                 <div class="welcome-header" onclick="toggleWelcomeBox()">
@@ -66,13 +69,6 @@
                         </div>
                     </a>
                     
-                    <a href="nations/index.html" class="nav-button">
-                        <div class="nav-button-content">
-                            <span class="nav-text">Nation Lookup</span>
-                            <span class="nav-description">Search for nation details.</span>
-                        </div>
-                    </a>
-                    
                     <a href="userscripts/index.html" class="nav-button">
                         <div class="nav-button-content">
                             <span class="nav-text">Userscripts</span>
@@ -82,31 +78,6 @@
                 </div>
             </div>
         </main>
-        
-        <div class="discord-section">
-            <h2 class="discord-title">Discord Bots</h2>
-            <div class="discord-bots">
-                <div class="discord-bot">
-                    <div class="bot-info">
-                        <span class="bot-name">Robochi</span>
-                        <span class="bot-description">v2, better than ever.</span>
-                    </div>
-                    <button class="invite-button" onclick="showRobochiMessage(this)">
-                        <span class="invite-text">Invite</span>
-                    </button>
-                </div>
-                
-                <div class="discord-bot">
-                    <div class="bot-info">
-                        <span class="bot-name">CN CAH</span>
-                        <span class="bot-description">Cards Against CyberNations.</span>
-                    </div>
-                    <a href="https://discord.com/oauth2/authorize?client_id=1382112111970488351&permissions=8&integration_type=0&scope=bot+applications.commands" class="invite-button">
-                        <span class="invite-text">Invite</span>
-                    </a>
-                </div>
-            </div>
-        </div>
     </div>
     
     <div class="grid-bg"></div>
@@ -129,6 +100,44 @@
             button.textContent = 'Hehe, no.';
         }
 
+        let currentTheme = 'mochi';
+
+        function initializeTheme() {
+            const savedTheme = localStorage.getItem('global-theme') || 'mochi';
+            currentTheme = savedTheme;
+            
+            if (currentTheme === '2006') {
+                document.body.classList.add('theme-2006');
+                document.querySelector('.theme-toggle').classList.add('active');
+            }
+            updateThemeButtonText();
+        }
+
+        function updateThemeButtonText() {
+            const themeText = document.querySelector('.theme-text');
+            if (themeText) {
+                themeText.textContent = currentTheme === '2006' ? "Mochi's Theme" : '2006 Theme Beta';
+            }
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.querySelector('.theme-toggle');
+            
+            if (currentTheme === 'mochi') {
+                currentTheme = '2006';
+                body.classList.add('theme-2006');
+                themeToggle.classList.add('active');
+                localStorage.setItem('global-theme', '2006');
+            } else {
+                currentTheme = 'mochi';
+                body.classList.remove('theme-2006');
+                themeToggle.classList.remove('active');
+                localStorage.setItem('global-theme', 'mochi');
+            }
+            updateThemeButtonText();
+        }
+
         function toggleWelcomeBox() {
             const content = document.getElementById('welcomeContent');
             const arrow = document.querySelector('.welcome-arrow');
@@ -146,13 +155,20 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
+            initializeTheme();
+            
             const footerCredit = document.querySelector('.footer-credit');
             const welcomeContent = document.getElementById('welcomeContent');
             const welcomeArrow = document.querySelector('.welcome-arrow');
+            const themeToggle = document.querySelector('.theme-toggle');
             
             footerCredit.addEventListener('click', function() {
                 this.classList.toggle('tapped');
             });
+
+            if (themeToggle) {
+                themeToggle.addEventListener('click', toggleTheme);
+            }
 
             const isCollapsed = localStorage.getItem('welcomeBoxCollapsed') === 'true';
             if (isCollapsed) {

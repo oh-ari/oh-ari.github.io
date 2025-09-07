@@ -1,4 +1,49 @@
+let currentTheme = 'mochi';
+
+function initializeTheme() {
+    const savedTheme = localStorage.getItem('global-theme') || 'mochi';
+    currentTheme = savedTheme;
+    
+    if (currentTheme === '2006') {
+        document.body.classList.add('theme-2006');
+        document.querySelector('.theme-toggle').classList.add('active');
+    }
+    updateThemeButtonText();
+}
+
+function updateThemeButtonText() {
+    const themeText = document.querySelector('.theme-text');
+    if (themeText) {
+        themeText.textContent = currentTheme === '2006' ? "Mochi's Theme" : '2006 Theme Beta';
+    }
+}
+
+function toggleTheme() {
+    const body = document.body;
+    const themeToggle = document.querySelector('.theme-toggle');
+    
+    if (currentTheme === 'mochi') {
+        currentTheme = '2006';
+        body.classList.add('theme-2006');
+        themeToggle.classList.add('active');
+        localStorage.setItem('global-theme', '2006');
+    } else {
+        currentTheme = 'mochi';
+        body.classList.remove('theme-2006');
+        themeToggle.classList.remove('active');
+        localStorage.setItem('global-theme', 'mochi');
+    }
+    updateThemeButtonText();
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+    initializeTheme();
+    
+    const themeToggle = document.querySelector('.theme-toggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', toggleTheme);
+    }
+    
     const footerCredit = document.querySelector('.footer-credit');
     
     if (footerCredit) {

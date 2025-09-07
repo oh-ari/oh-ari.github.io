@@ -1,109 +1,13 @@
-class SlotLeaderboard {
-    constructor() {
-        this.allianceConfig = null;
-        this.previousAllianceConfig = null;
-        this.slotUsageData = {};
-        this.allianceIdMap = {};
-        this.isLoading = false;
-        this.resizeTimeout = null;
-        
-        this.init();
-        this.setupResizeListener();
-        this.setupExportButton();
-    }
-    
-    normalizeAllianceName(name) {
-        if (!name) return '';
-        return name.toLowerCase()
-            .replace(/\s+/g, ' ')
-            .trim()
-            .replace(/\bof\b/g, 'of')
-            .replace(/\band\b/g, 'and') 
-            .replace(/\bthe\b/g, 'the')
-            .replace(/\bin\b/g, 'in')
-            .replace(/\bto\b/g, 'to')
-            .replace(/[.,;:!?]/g, '');
-    }
-
-    getMobileAllianceName(name) {
-        if (name === 'Global Alliance And Treaty Organization') {
-            return 'GATO';
-        }
-        if (name === 'Independent Republic Of Orange Nations') {
-            return 'IRON';
-        }
-        return name;
-    }
-    
-    async init() {
-        await this.loadLeaderboard();
-    }
-    
-    setupResizeListener() {
-        window.addEventListener('resize', () => {
-            clearTimeout(this.resizeTimeout);
-            this.resizeTimeout = setTimeout(() => {
-                if (this.allianceConfig) {
-                    this.displayLeaderboard();
-                }
-            }, 250);
-        });
-    }
-    
-    setupExportButton() {
-        const exportButton = document.getElementById('export-button');
-        const exportOptions = document.querySelectorAll('.export-option');
-        
-        if (exportButton) {
-            exportButton.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const dropdown = exportButton.parentElement;
-                dropdown.classList.toggle('active');
-            });
-        }
-        
-        exportOptions.forEach(option => {
-            option.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const format = option.dataset.format;
-                this.exportToForum(format);
-                document.querySelector('.export-dropdown').classList.remove('active');
-            });
-        });
-        
-        document.addEventListener('click', () => {
-            document.querySelector('.export-dropdown').classList.remove('active');
-        });
-    }
-    
-    exportToForum(format = 'rich') {
-        if (!this.allianceConfig) return;
-        
-        const leaderboardData = this.allianceConfig.alliances.map((alliance, index) => {
-            const normalizedName = this.normalizeAllianceName(alliance.name);
-            const usedSlots = this.slotUsageData[normalizedName] || 0;
-            const maxSlots = alliance.maxSlots;
-            const percentage = maxSlots > 0 ? ((usedSlots / maxSlots) * 100).toFixed(2) : 0;
-            
-            return {
-                rank: index + 1,
-                name: alliance.name,
-                members: alliance.members,
-                usedSlots: usedSlots,
-                maxSlots: maxSlots,
-                percentage: parseFloat(percentage)
-            };
-        });
-        
-        leaderboardData.sort((a, b) => b.percentage - a.percentage);
-        const top40Data = leaderboardData.slice(0, 40);
-        const positionChanges = this.calculatePositionChanges(top40Data, this.previousAllianceConfig);
-        
-        const table = document.createElement('table');
-        table.className = 'leaderboard-table';
-        
-        const thead = document.createElement('thead');
-        thead.innerHTML = `
+class SlotLeaderboard{constructor(){this.allianceConfig=null;this.previousAllianceConfig=null;this.slotUsageData={};this.allianceIdMap={};this.isLoading=!1;this.resizeTimeout=null;this.currentTheme='mochi';this.init();this.setupResizeListener();this.setupExportButton();this.initializeTheme();this.setupThemeToggle()}
+normalizeAllianceName(name){if(!name)return'';return name.toLowerCase().replace(/\s+/g,' ').trim().replace(/\bof\b/g,'of').replace(/\band\b/g,'and').replace(/\bthe\b/g,'the').replace(/\bin\b/g,'in').replace(/\bto\b/g,'to').replace(/[.,;:!?]/g,'')}
+getMobileAllianceName(name){if(name==='Global Alliance And Treaty Organization'){return'GATO'}
+if(name==='Independent Republic Of Orange Nations'){return'IRON'}
+return name}
+async init(){await this.loadLeaderboard()}
+setupResizeListener(){window.addEventListener('resize',()=>{clearTimeout(this.resizeTimeout);this.resizeTimeout=setTimeout(()=>{if(this.allianceConfig){this.displayLeaderboard()}},250)})}
+setupExportButton(){const exportButton=document.getElementById('export-button');const exportOptions=document.querySelectorAll('.export-option');if(exportButton){exportButton.addEventListener('click',(e)=>{e.stopPropagation();const dropdown=exportButton.parentElement;dropdown.classList.toggle('active')})}
+exportOptions.forEach(option=>{option.addEventListener('click',(e)=>{e.stopPropagation();const format=option.dataset.format;this.exportToForum(format);document.querySelector('.export-dropdown').classList.remove('active')})});document.addEventListener('click',()=>{document.querySelector('.export-dropdown').classList.remove('active')})}
+exportToForum(format='rich'){if(!this.allianceConfig)return;const leaderboardData=this.allianceConfig.alliances.map((alliance,index)=>{const normalizedName=this.normalizeAllianceName(alliance.name);const usedSlots=this.slotUsageData[normalizedName]||0;const maxSlots=alliance.maxSlots;const percentage=maxSlots>0?((usedSlots/maxSlots)*100).toFixed(2):0;return{rank:index+1,name:alliance.name,members:alliance.members,usedSlots:usedSlots,maxSlots:maxSlots,percentage:parseFloat(percentage)}});leaderboardData.sort((a,b)=>b.percentage-a.percentage);const top40Data=leaderboardData.slice(0,40);const positionChanges=this.calculatePositionChanges(top40Data,this.previousAllianceConfig);const table=document.createElement('table');table.className='leaderboard-table';const thead=document.createElement('thead');thead.innerHTML=`
             <tr>
                 <th>#</th>
                 <th>Alliance</th>
@@ -112,546 +16,39 @@ class SlotLeaderboard {
                 <th>Max Slots</th>
                 <th>Usage %</th>
             </tr>
-        `;
-        table.appendChild(thead);
-        
-        const tbody = document.createElement('tbody');
-        top40Data.forEach((alliance, index) => {
-            const row = document.createElement('tr');
-            
-            const allianceId = this.allianceIdMap[alliance.name];
-            const allianceCell = allianceId 
-                ? `<a href="https://www.cybernations.net/alliance_display.asp?ID=${allianceId}" target="_blank" rel="noopener noreferrer">${alliance.name}</a>`
-                : alliance.name;
-
-            const normalizedName = this.normalizeAllianceName(alliance.name);
-            const positionChange = positionChanges[normalizedName];
-            let positionChangeText = '';
-            
-            if (positionChange !== undefined) {
-                if (positionChange > 0) {
-                    positionChangeText = ` ↗${positionChange}`;
-                } else if (positionChange < 0) {
-                    positionChangeText = ` ↘${Math.abs(positionChange)}`;
-                } else {
-                    positionChangeText = ` —`;
-                }
-            }
-            
-            row.innerHTML = `
+        `;table.appendChild(thead);const tbody=document.createElement('tbody');top40Data.forEach((alliance,index)=>{const row=document.createElement('tr');const allianceId=this.allianceIdMap[alliance.name];const allianceCell=allianceId?`<a href="https://www.cybernations.net/alliance_display.asp?ID=${allianceId}" target="_blank" rel="noopener noreferrer">${alliance.name}</a>`:alliance.name;const normalizedName=this.normalizeAllianceName(alliance.name);const positionChange=positionChanges[normalizedName];let positionChangeText='';if(positionChange!==undefined){if(positionChange>0){positionChangeText=` ↗${positionChange}`}else if(positionChange<0){positionChangeText=` ↘${Math.abs(positionChange)}`}else{positionChangeText=` —`}}
+row.innerHTML=`
                 <td>${index + 1}${positionChangeText}</td>
                 <td class="alliance-name">${allianceCell}</td>
                 <td>${alliance.members}</td>
                 <td>${alliance.usedSlots}</td>
                 <td>${alliance.maxSlots}</td>
                 <td class="usage-percentage">${alliance.percentage}%</td>
-            `;
-            tbody.appendChild(row);
-        });
-        table.appendChild(tbody);
-        
-        this.addInlineStyles(table);
-        
-        const tableHTML = table.outerHTML;
-        const tableText = table.innerText;
-        
-        if (format === 'plain') {
-            const tabSeparatedText = this.convertToTabSeparated(table);
-            navigator.clipboard.writeText(tabSeparatedText).then(() => {
-                this.showCopySuccess();
-            }).catch(() => {
-                this.fallbackCopy(tabSeparatedText);
-            });
-        } else {
-            const clipboardItem = new ClipboardItem({
-                'text/html': new Blob([tableHTML], { type: 'text/html' }),
-                'text/plain': new Blob([tableText], { type: 'text/plain' })
-            });
-            
-            navigator.clipboard.write([clipboardItem]).then(() => {
-                this.showCopySuccess();
-            }).catch(() => {
-                this.fallbackCopy(tableText);
-            });
-        }
-    }
-    
-    showCopySuccess() {
-        const button = document.getElementById('export-button');
-        const originalText = button.textContent;
-        button.textContent = 'Copied!';
-        button.style.background = 'var(--accent-green)';
-        button.style.borderColor = 'var(--accent-green)';
-        
-        setTimeout(() => {
-            button.textContent = originalText;
-            button.style.background = '';
-            button.style.borderColor = '';
-        }, 2000);
-    }
-    
-    fallbackCopy(text) {
-        const textArea = document.createElement('textarea');
-        textArea.value = text;
-        document.body.appendChild(textArea);
-        textArea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textArea);
-        this.showCopySuccess();
-    }
-    
-    convertToTabSeparated(table) {
-        const rows = table.querySelectorAll('tr');
-        const result = [];
-        
-        rows.forEach(row => {
-            const cells = row.querySelectorAll('th, td');
-            const rowData = [];
-            
-            cells.forEach(cell => {
-                const text = cell.textContent.trim();
-                rowData.push(text);
-            });
-            
-            result.push(rowData.join('\t'));
-        });
-        
-        return result.join('\n');
-    }
-    
-    addInlineStyles(table) {
-        const computedStyle = getComputedStyle(table);
-        
-        table.style.borderCollapse = 'collapse';
-        table.style.width = '100%';
-        table.style.backgroundColor = '#21262d';
-        table.style.fontFamily = 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-        table.style.border = '1px solid #30363d';
-        
-        const thead = table.querySelector('thead');
-        if (thead) {
-            thead.style.backgroundColor = '#161b22';
-            thead.style.borderBottom = '2px solid #30363d';
-        }
-        
-        const thElements = table.querySelectorAll('th');
-        thElements.forEach(th => {
-            th.style.padding = '1rem';
-            th.style.textAlign = 'left';
-            th.style.fontWeight = '600';
-            th.style.color = '#f0f6fc';
-            th.style.fontSize = '0.9rem';
-            th.style.borderRight = '1px solid #30363d';
-        });
-        
-        const tbody = table.querySelector('tbody');
-        if (tbody) {
-            tbody.style.backgroundColor = '#21262d';
-        }
-        
-        const trElements = table.querySelectorAll('tbody tr');
-        trElements.forEach((tr, index) => {
-            tr.style.borderBottom = '1px solid rgba(48, 54, 61, 0.6)';
-            if (index % 2 === 1) {
-                tr.style.backgroundColor = 'rgba(33, 38, 45, 0.3)';
-            }
-        });
-        
-        const tdElements = table.querySelectorAll('td');
-        tdElements.forEach(td => {
-            td.style.padding = '1rem';
-            td.style.color = '#f0f6fc';
-            td.style.fontSize = '0.9rem';
-            td.style.borderRight = '1px solid #21262d';
-        });
-        
-        const firstTdElements = table.querySelectorAll('td:first-child');
-        firstTdElements.forEach(td => {
-            td.style.textAlign = 'center';
-            td.style.fontWeight = '600';
-            td.style.color = '#8b949e';
-        });
-        
-        const numericTdElements = table.querySelectorAll('td:nth-child(3), td:nth-child(4), td:nth-child(5)');
-        numericTdElements.forEach(td => {
-            td.style.textAlign = 'center';
-            td.style.fontFamily = 'JetBrains Mono, monospace';
-        });
-        
-        const percentageTdElements = table.querySelectorAll('td:nth-child(6)');
-        percentageTdElements.forEach(td => {
-            td.style.textAlign = 'center';
-            td.style.fontFamily = 'JetBrains Mono, monospace';
-            td.style.fontWeight = '600';
-        });
-        
-        const allianceNameElements = table.querySelectorAll('.alliance-name');
-        allianceNameElements.forEach(td => {
-            td.style.fontWeight = '500';
-            td.style.color = '#f0f6fc';
-        });
-        
-        const allianceLinks = table.querySelectorAll('.alliance-name a');
-        allianceLinks.forEach(link => {
-            link.style.color = '#c9a8ff';
-            link.style.textDecoration = 'none';
-            link.style.fontWeight = '500';
-        });
-        
-        const usagePercentageElements = table.querySelectorAll('.usage-percentage');
-        usagePercentageElements.forEach(td => {
-            const percentage = parseFloat(td.textContent);
-            if (percentage >= 60) {
-                td.style.color = '#3fb950';
-                td.style.fontWeight = '700';
-            } else if (percentage >= 50) {
-                td.style.color = '#7c9c3f';
-            } else if (percentage >= 40) {
-                td.style.color = '#a5a532';
-            } else if (percentage >= 30) {
-                td.style.color = '#c9a832';
-            } else if (percentage >= 20) {
-                td.style.color = '#d29922';
-            } else if (percentage >= 10) {
-                td.style.color = '#db8b1a';
-            } else if (percentage >= 5) {
-                td.style.color = '#e67e22';
-            } else {
-                td.style.color = '#f85149';
-                td.style.fontWeight = '700';
-            }
-        });
-    }
-    
-    async loadLeaderboard() {
-        if (this.isLoading) return;
-        
-        this.isLoading = true;
-        this.showLoadingState();
-        
-        try {
-            await this.loadAllianceConfig();
-            await this.loadPreviousAllianceConfig();
-            await this.loadAllianceStats();
-            await this.loadCSVData();
-
-            this.displayLeaderboard();
-            this.showLeaderboardState();
-            
-        } catch (error) {
-            console.error('Error loading leaderboard:', error);
-            this.showErrorState();
-        } finally {
-            this.isLoading = false;
-        }
-    }
-    
-    async loadAllianceConfig() {
-        try {
-            const dailyVersion = new Date().toISOString().slice(0, 10);
-            const response = await fetch(`alliance-slots.json?v=${dailyVersion}`, { cache: 'no-cache' });
-            if (!response.ok) throw new Error('Failed to load alliance configuration');
-            
-            // Load current config from file
-            const fetchedConfig = await response.json();
-            const fetchedAlliances = Array.isArray(fetchedConfig?.alliances) ? fetchedConfig.alliances : [];
-
-            // Merge with locally cached alliances to preserve history across file updates
-            const cacheKey = 'aid-alliance-slots-cache-v1';
-            let cachedMap = {};
-            try {
-                const raw = localStorage.getItem(cacheKey);
-                if (raw) {
-                    const parsed = JSON.parse(raw);
-                    if (parsed && typeof parsed === 'object') {
-                        cachedMap = parsed;
-                    }
-                }
-            } catch (e) {
-                console.warn('Failed to parse alliance slots cache, resetting.', e);
-                cachedMap = {};
-            }
-
-            // Helper to build a normalized key
-            const toKey = (name) => this.normalizeAllianceName(name || '');
-
-            // Seed cache with any existing cached entries (already in cachedMap)
-
-            // Overlay/insert all alliances from the fetched file (authoritative updates)
-            for (const alliance of fetchedAlliances) {
-                if (!alliance || !alliance.name) continue;
-                const key = toKey(alliance.name);
-                // Keep latest values for name/members/maxSlots from file
-                cachedMap[key] = {
-                    name: alliance.name,
-                    members: alliance.members ?? 0,
-                    maxSlots: alliance.maxSlots ?? 0
-                };
-            }
-
-            // Persist merged cache
-            try {
-                localStorage.setItem(cacheKey, JSON.stringify(cachedMap));
-            } catch (e) {
-                console.warn('Failed to write alliance slots cache.', e);
-            }
-
-            // Use the union of cached alliances for the leaderboard source
-            this.allianceConfig = { alliances: Object.values(cachedMap) };
-        } catch (error) {
-            console.error('Error loading alliance config:', error);
-            throw error;
-        }
-    }
-
-    async loadPreviousAllianceConfig() {
-        try {
-            const dailyVersion = new Date().toISOString().slice(0, 10);
-            const response = await fetch(`alliance-slots.json.bak?v=${dailyVersion}`, { cache: 'no-cache' });
-            if (!response.ok) {
-                console.warn('Previous alliance data not available');
-                return;
-            }
-            
-            const fetchedConfig = await response.json();
-            const fetchedAlliances = Array.isArray(fetchedConfig?.alliances) ? fetchedConfig.alliances : [];
-            this.previousAllianceConfig = { alliances: fetchedAlliances };
-            console.log(`Loaded ${fetchedAlliances.length} alliances from .bak file`);
-        } catch (error) {
-            console.warn('Error loading previous alliance config:', error);
-        }
-    }
-
-    async loadAllianceStats() {
-        try {
-            const response = await fetch('../daily/CN_Alliance_Stats.csv');
-            if (!response.ok) throw new Error('Failed to load alliance stats');
-            
-            const csvText = await response.text();
-            this.processAllianceStats(csvText);
-        } catch (error) {
-            console.error('Error loading alliance stats:', error);
-            throw error;
-        }
-    }
-
-    processAllianceStats(csvText) {
-        const lines = csvText.split('\n');
-        const headers = lines[0].split('|');
-        
-        const allianceNameIndex = headers.indexOf('Alliance');
-        const allianceIdIndex = headers.indexOf('Alliance ID');
-        
-        this.allianceIdMap = {};
-        
-        for (let i = 1; i < lines.length; i++) {
-            const line = lines[i].trim();
-            if (!line) continue;
-            
-            const columns = line.split('|');
-            if (columns.length < headers.length) continue;
-            
-            const allianceName = columns[allianceNameIndex]?.trim();
-            const allianceId = columns[allianceIdIndex]?.trim();
-            
-            if (allianceName && allianceId) {
-                this.allianceIdMap[allianceName] = allianceId;
-            }
-        }
-    }
-    
-    async loadCSVData() {
-        try {
-            const aidResponse = await fetch('../daily/CN_Foreign_Aid.csv');
-            if (!aidResponse.ok) throw new Error('Failed to load foreign aid data');
-            
-            const aidText = await aidResponse.text();
-            this.processForeignAidData(aidText);
-            
-        } catch (error) {
-            console.error('Error loading CSV data:', error);
-            throw error;
-        }
-    }
-    
-    processForeignAidData(csvText) {
-        const lines = csvText.split('\n');
-        const headers = lines[0].split('|');
-        
-        const declaringAllianceIndex = headers.indexOf('Declaring Alliance');
-        const receivingAllianceIndex = headers.indexOf('Receiving Alliance');
-        const statusIndex = headers.indexOf('Status');
-        const dateIndex = headers.indexOf('Date');
-        
-        this.slotUsageData = {};
-        this.normalizedToDisplayName = {};
-        if (this.allianceConfig && this.allianceConfig.alliances) {
-            this.allianceConfig.alliances.forEach(alliance => {
-                const normalizedName = this.normalizeAllianceName(alliance.name);
-                this.normalizedToDisplayName[normalizedName] = alliance.name;
-            });
-        }
-        
-        const now = new Date();
-        const centralTime = new Date(now.toLocaleString("en-US", {timeZone: "America/Chicago"}));
-        
-        for (let i = 1; i < lines.length; i++) {
-            const line = lines[i].trim();
-            if (!line) continue;
-            
-            const columns = line.split('|');
-            if (columns.length < headers.length) continue;
-            
-            const declaringAlliance = columns[declaringAllianceIndex]?.trim();
-            const receivingAlliance = columns[receivingAllianceIndex]?.trim();
-            const status = columns[statusIndex]?.trim();
-            const dateString = columns[dateIndex]?.trim();
-            
-            if (status !== 'Pending' && status !== 'Approved') continue;
-            
-            if (dateString) {
-                try {
-                    const datePart = dateString.split(' ')[0];
-                    const slotDate = new Date(datePart);
-                    
-                    const timeDiff = centralTime.getTime() - slotDate.getTime();
-                    const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
-                    
-                    if (daysDiff > 10) {
-                        continue;
-                    }
-                } catch (error) {
-                    console.warn('Error parsing date:', dateString, error);
-                    continue;
-                }
-            } else {
-                continue;
-            }
-            
-            if (declaringAlliance) {
-                const normalizedName = this.normalizeAllianceName(declaringAlliance);
-                this.slotUsageData[normalizedName] = (this.slotUsageData[normalizedName] || 0) + 1;
-            }
-            
-            if (receivingAlliance) {
-                const normalizedName = this.normalizeAllianceName(receivingAlliance);
-                this.slotUsageData[normalizedName] = (this.slotUsageData[normalizedName] || 0) + 1;
-            }
-        }
-    }
-
-    calculatePositionChanges(currentData, previousData) {
-        if (!previousData || !previousData.alliances) {
-            console.warn('No previous data available for position changes');
-            return {};
-        }
-        console.log(`Calculating position changes with ${previousData.alliances.length} previous alliances`);
-
-        const previousMap = {};
-        previousData.alliances.forEach((alliance, index) => {
-            const normalizedName = this.normalizeAllianceName(alliance.name);
-            const usedSlots = alliance.currentUsed || 0;
-            const maxSlots = alliance.maxSlots;
-            const percentage = maxSlots > 0 ? ((usedSlots / maxSlots) * 100) : 0;
-            
-            previousMap[normalizedName] = {
-                percentage: percentage,
-                position: index + 1
-            };
-        });
-
-        const previousSorted = Object.entries(previousMap)
-            .sort(([,a], [,b]) => b.percentage - a.percentage)
-            .map(([name], index) => ({ name, position: index + 1 }));
-
-        const previousPositionMap = {};
-        previousSorted.forEach(({ name, position }) => {
-            previousPositionMap[name] = position;
-        });
-
-        const positionChanges = {};
-        currentData.forEach((alliance, currentIndex) => {
-            const normalizedName = this.normalizeAllianceName(alliance.name);
-            const currentPosition = currentIndex + 1;
-            const previousPosition = previousPositionMap[normalizedName];
-            
-            if (previousPosition !== undefined) {
-                const change = previousPosition - currentPosition;
-                positionChanges[normalizedName] = change;
-            }
-        });
-
-        return positionChanges;
-    }
-    
-    displayLeaderboard() {
-        const tbody = document.getElementById('leaderboard-tbody');
-        if (!tbody) return;
-        
-        tbody.innerHTML = '';
-        
-        const leaderboardData = this.allianceConfig.alliances.map((alliance, index) => {
-            const normalizedName = this.normalizeAllianceName(alliance.name);
-            const usedSlots = this.slotUsageData[normalizedName] || 0;
-            const maxSlots = alliance.maxSlots;
-            const percentage = maxSlots > 0 ? ((usedSlots / maxSlots) * 100).toFixed(2) : 0;
-            
-            return {
-                rank: index + 1,
-                name: alliance.name,
-                members: alliance.members,
-                usedSlots: usedSlots,
-                maxSlots: maxSlots,
-                percentage: parseFloat(percentage)
-            };
-        });
-        
-        leaderboardData.sort((a, b) => b.percentage - a.percentage);
-        
-        const top40Data = leaderboardData.slice(0, 40);
-        const positionChanges = this.calculatePositionChanges(top40Data, this.previousAllianceConfig);
-        
-        const maxPercentage = top40Data.length > 0 ? top40Data[0].percentage : 0;
-        
-        top40Data.forEach((alliance, index) => {
-            const row = document.createElement('tr');
-            
-            const relativePercentage = maxPercentage > 0 ? (alliance.percentage / maxPercentage) * 100 : 0;
-            
-            let usageClass = 'usage-poor';
-            if (relativePercentage >= 90) usageClass = 'usage-excellent';
-            else if (relativePercentage >= 80) usageClass = 'usage-very-high';
-            else if (relativePercentage >= 70) usageClass = 'usage-high';
-            else if (relativePercentage >= 60) usageClass = 'usage-medium-high';
-            else if (relativePercentage >= 50) usageClass = 'usage-medium';
-            else if (relativePercentage >= 40) usageClass = 'usage-medium-low';
-            else if (relativePercentage >= 30) usageClass = 'usage-low';
-            else if (relativePercentage >= 20) usageClass = 'usage-very-low';
-            
-            const isMobile = window.innerWidth <= 480;
-            const displayName = isMobile ? this.getMobileAllianceName(alliance.name) : alliance.name;
-            
-            const allianceId = this.allianceIdMap[alliance.name];
-            const allianceCell = allianceId 
-                ? `<a href="https://www.cybernations.net/alliance_display.asp?ID=${allianceId}" target="_blank" rel="noopener noreferrer" title="${alliance.name}">${displayName}</a>`
-                : `<span title="${alliance.name}">${displayName}</span>`;
-
-            const normalizedName = this.normalizeAllianceName(alliance.name);
-            const positionChange = positionChanges[normalizedName];
-            let positionChangeIndicator = '';
-            
-            if (positionChange !== undefined) {
-                if (positionChange > 0) {
-                    positionChangeIndicator = `<span class="position-change up" title="Up ${positionChange} position${positionChange > 1 ? 's' : ''}">↗${positionChange}</span>`;
-                } else if (positionChange < 0) {
-                    positionChangeIndicator = `<span class="position-change down" title="Down ${Math.abs(positionChange)} position${Math.abs(positionChange) > 1 ? 's' : ''}">↘${Math.abs(positionChange)}</span>`;
-                } else {
-                    positionChangeIndicator = `<span class="position-change same" title="No change">—</span>`;
-                }
-            }
-            
-            if (isMobile) {
-                row.innerHTML = `
+            `;tbody.appendChild(row)});table.appendChild(tbody);this.addInlineStyles(table);const tableHTML=table.outerHTML;const tableText=table.innerText;if(format==='plain'){const tabSeparatedText=this.convertToTabSeparated(table);navigator.clipboard.writeText(tabSeparatedText).then(()=>{this.showCopySuccess()}).catch(()=>{this.fallbackCopy(tabSeparatedText)})}else{const clipboardItem=new ClipboardItem({'text/html':new Blob([tableHTML],{type:'text/html'}),'text/plain':new Blob([tableText],{type:'text/plain'})});navigator.clipboard.write([clipboardItem]).then(()=>{this.showCopySuccess()}).catch(()=>{this.fallbackCopy(tableText)})}}
+showCopySuccess(){const button=document.getElementById('export-button');const originalText=button.textContent;button.textContent='Copied!';button.style.background='var(--accent-green)';button.style.borderColor='var(--accent-green)';setTimeout(()=>{button.textContent=originalText;button.style.background='';button.style.borderColor=''},2000)}
+fallbackCopy(text){const textArea=document.createElement('textarea');textArea.value=text;document.body.appendChild(textArea);textArea.select();document.execCommand('copy');document.body.removeChild(textArea);this.showCopySuccess()}
+convertToTabSeparated(table){const rows=table.querySelectorAll('tr');const result=[];rows.forEach(row=>{const cells=row.querySelectorAll('th, td');const rowData=[];cells.forEach(cell=>{const text=cell.textContent.trim();rowData.push(text)});result.push(rowData.join('\t'))});return result.join('\n')}
+addInlineStyles(table){const computedStyle=getComputedStyle(table);table.style.borderCollapse='collapse';table.style.width='100%';table.style.backgroundColor='#21262d';table.style.fontFamily='Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';table.style.border='1px solid #30363d';const thead=table.querySelector('thead');if(thead){thead.style.backgroundColor='#161b22';thead.style.borderBottom='2px solid #30363d'}
+const thElements=table.querySelectorAll('th');thElements.forEach(th=>{th.style.padding='1rem';th.style.textAlign='left';th.style.fontWeight='600';th.style.color='#f0f6fc';th.style.fontSize='0.9rem';th.style.borderRight='1px solid #30363d'});const tbody=table.querySelector('tbody');if(tbody){tbody.style.backgroundColor='#21262d'}
+const trElements=table.querySelectorAll('tbody tr');trElements.forEach((tr,index)=>{tr.style.borderBottom='1px solid rgba(48, 54, 61, 0.6)';if(index%2===1){tr.style.backgroundColor='rgba(33, 38, 45, 0.3)'}});const tdElements=table.querySelectorAll('td');tdElements.forEach(td=>{td.style.padding='1rem';td.style.color='#f0f6fc';td.style.fontSize='0.9rem';td.style.borderRight='1px solid #21262d'});const firstTdElements=table.querySelectorAll('td:first-child');firstTdElements.forEach(td=>{td.style.textAlign='center';td.style.fontWeight='600';td.style.color='#8b949e'});const numericTdElements=table.querySelectorAll('td:nth-child(3), td:nth-child(4), td:nth-child(5)');numericTdElements.forEach(td=>{td.style.textAlign='center';td.style.fontFamily='JetBrains Mono, monospace'});const percentageTdElements=table.querySelectorAll('td:nth-child(6)');percentageTdElements.forEach(td=>{td.style.textAlign='center';td.style.fontFamily='JetBrains Mono, monospace';td.style.fontWeight='600'});const allianceNameElements=table.querySelectorAll('.alliance-name');allianceNameElements.forEach(td=>{td.style.fontWeight='500';td.style.color='#f0f6fc'});const allianceLinks=table.querySelectorAll('.alliance-name a');allianceLinks.forEach(link=>{link.style.color='#c9a8ff';link.style.textDecoration='none';link.style.fontWeight='500'});const usagePercentageElements=table.querySelectorAll('.usage-percentage');usagePercentageElements.forEach(td=>{const percentage=parseFloat(td.textContent);if(percentage>=60){td.style.color='#3fb950';td.style.fontWeight='700'}else if(percentage>=50){td.style.color='#7c9c3f'}else if(percentage>=40){td.style.color='#a5a532'}else if(percentage>=30){td.style.color='#c9a832'}else if(percentage>=20){td.style.color='#d29922'}else if(percentage>=10){td.style.color='#db8b1a'}else if(percentage>=5){td.style.color='#e67e22'}else{td.style.color='#f85149';td.style.fontWeight='700'}})}
+async loadLeaderboard(){if(this.isLoading)return;this.isLoading=!0;this.showLoadingState();try{await this.loadAllianceConfig();await this.loadPreviousAllianceConfig();await this.loadAllianceStats();await this.loadCSVData();this.displayLeaderboard();this.showLeaderboardState()}catch(error){console.error('Error loading leaderboard:',error);this.showErrorState()}finally{this.isLoading=!1}}
+async loadAllianceConfig(){try{const dailyVersion=new Date().toISOString().slice(0,10);const response=await fetch(`alliance-slots.json?v=${dailyVersion}`,{cache:'no-cache'});if(!response.ok)throw new Error('Failed to load alliance configuration');const fetchedConfig=await response.json();const fetchedAlliances=Array.isArray(fetchedConfig?.alliances)?fetchedConfig.alliances:[];const cacheKey='aid-alliance-slots-cache-v1';let cachedMap={};try{const raw=localStorage.getItem(cacheKey);if(raw){const parsed=JSON.parse(raw);if(parsed&&typeof parsed==='object'){cachedMap=parsed}}}catch(e){console.warn('Failed to parse alliance slots cache, resetting.',e);cachedMap={}}
+const toKey=(name)=>this.normalizeAllianceName(name||'');for(const alliance of fetchedAlliances){if(!alliance||!alliance.name)continue;const key=toKey(alliance.name);cachedMap[key]={name:alliance.name,members:alliance.members??0,maxSlots:alliance.maxSlots??0}}
+try{localStorage.setItem(cacheKey,JSON.stringify(cachedMap))}catch(e){console.warn('Failed to write alliance slots cache.',e)}
+this.allianceConfig={alliances:Object.values(cachedMap)}}catch(error){console.error('Error loading alliance config:',error);throw error}}
+async loadPreviousAllianceConfig(){try{const dailyVersion=new Date().toISOString().slice(0,10);const response=await fetch(`alliance-slots.json.bak?v=${dailyVersion}`,{cache:'no-cache'});if(!response.ok){console.warn('Previous alliance data not available');return}
+const fetchedConfig=await response.json();const fetchedAlliances=Array.isArray(fetchedConfig?.alliances)?fetchedConfig.alliances:[];this.previousAllianceConfig={alliances:fetchedAlliances};console.log(`Loaded ${fetchedAlliances.length} alliances from .bak file`)}catch(error){console.warn('Error loading previous alliance config:',error)}}
+async loadAllianceStats(){try{const response=await fetch('../daily/CN_Alliance_Stats.csv');if(!response.ok)throw new Error('Failed to load alliance stats');const csvText=await response.text();this.processAllianceStats(csvText)}catch(error){console.error('Error loading alliance stats:',error);throw error}}
+processAllianceStats(csvText){const lines=csvText.split('\n');const headers=lines[0].split('|');const allianceNameIndex=headers.indexOf('Alliance');const allianceIdIndex=headers.indexOf('Alliance ID');this.allianceIdMap={};for(let i=1;i<lines.length;i++){const line=lines[i].trim();if(!line)continue;const columns=line.split('|');if(columns.length<headers.length)continue;const allianceName=columns[allianceNameIndex]?.trim();const allianceId=columns[allianceIdIndex]?.trim();if(allianceName&&allianceId){this.allianceIdMap[allianceName]=allianceId}}}
+async loadCSVData(){try{const aidResponse=await fetch('../daily/CN_Foreign_Aid.csv');if(!aidResponse.ok)throw new Error('Failed to load foreign aid data');const aidText=await aidResponse.text();this.processForeignAidData(aidText)}catch(error){console.error('Error loading CSV data:',error);throw error}}
+processForeignAidData(csvText){const lines=csvText.split('\n');const headers=lines[0].split('|');const declaringAllianceIndex=headers.indexOf('Declaring Alliance');const receivingAllianceIndex=headers.indexOf('Receiving Alliance');const statusIndex=headers.indexOf('Status');const dateIndex=headers.indexOf('Date');this.slotUsageData={};this.normalizedToDisplayName={};if(this.allianceConfig&&this.allianceConfig.alliances){this.allianceConfig.alliances.forEach(alliance=>{const normalizedName=this.normalizeAllianceName(alliance.name);this.normalizedToDisplayName[normalizedName]=alliance.name})}
+const now=new Date();const centralTime=new Date(now.toLocaleString("en-US",{timeZone:"America/Chicago"}));for(let i=1;i<lines.length;i++){const line=lines[i].trim();if(!line)continue;const columns=line.split('|');if(columns.length<headers.length)continue;const declaringAlliance=columns[declaringAllianceIndex]?.trim();const receivingAlliance=columns[receivingAllianceIndex]?.trim();const status=columns[statusIndex]?.trim();const dateString=columns[dateIndex]?.trim();if(status!=='Pending'&&status!=='Approved')continue;if(dateString){try{const datePart=dateString.split(' ')[0];const slotDate=new Date(datePart);const timeDiff=centralTime.getTime()-slotDate.getTime();const daysDiff=Math.floor(timeDiff/(1000*3600*24));if(daysDiff>10){continue}}catch(error){console.warn('Error parsing date:',dateString,error);continue}}else{continue}
+if(declaringAlliance){const normalizedName=this.normalizeAllianceName(declaringAlliance);this.slotUsageData[normalizedName]=(this.slotUsageData[normalizedName]||0)+1}
+if(receivingAlliance){const normalizedName=this.normalizeAllianceName(receivingAlliance);this.slotUsageData[normalizedName]=(this.slotUsageData[normalizedName]||0)+1}}}
+calculatePositionChanges(currentData,previousData){if(!previousData||!previousData.alliances){console.warn('No previous data available for position changes');return{}}
+console.log(`Calculating position changes with ${previousData.alliances.length} previous alliances`);const previousMap={};previousData.alliances.forEach((alliance,index)=>{const normalizedName=this.normalizeAllianceName(alliance.name);const usedSlots=alliance.currentUsed||0;const maxSlots=alliance.maxSlots;const percentage=maxSlots>0?((usedSlots/maxSlots)*100):0;previousMap[normalizedName]={percentage:percentage,position:index+1}});const previousSorted=Object.entries(previousMap).sort(([,a],[,b])=>b.percentage-a.percentage).map(([name],index)=>({name,position:index+1}));const previousPositionMap={};previousSorted.forEach(({name,position})=>{previousPositionMap[name]=position});const positionChanges={};currentData.forEach((alliance,currentIndex)=>{const normalizedName=this.normalizeAllianceName(alliance.name);const currentPosition=currentIndex+1;const previousPosition=previousPositionMap[normalizedName];if(previousPosition!==undefined){const change=previousPosition-currentPosition;positionChanges[normalizedName]=change}});return positionChanges}
+displayLeaderboard(){const tbody=document.getElementById('leaderboard-tbody');if(!tbody)return;tbody.innerHTML='';const leaderboardData=this.allianceConfig.alliances.map((alliance,index)=>{const normalizedName=this.normalizeAllianceName(alliance.name);const usedSlots=this.slotUsageData[normalizedName]||0;const maxSlots=alliance.maxSlots;const percentage=maxSlots>0?((usedSlots/maxSlots)*100).toFixed(2):0;return{rank:index+1,name:alliance.name,members:alliance.members,usedSlots:usedSlots,maxSlots:maxSlots,percentage:parseFloat(percentage)}});leaderboardData.sort((a,b)=>b.percentage-a.percentage);const top40Data=leaderboardData.slice(0,40);const positionChanges=this.calculatePositionChanges(top40Data,this.previousAllianceConfig);const maxPercentage=top40Data.length>0?top40Data[0].percentage:0;top40Data.forEach((alliance,index)=>{const row=document.createElement('tr');const relativePercentage=maxPercentage>0?(alliance.percentage/maxPercentage)*100:0;let usageClass='usage-poor';if(relativePercentage>=90)usageClass='usage-excellent';else if(relativePercentage>=80)usageClass='usage-very-high';else if(relativePercentage>=70)usageClass='usage-high';else if(relativePercentage>=60)usageClass='usage-medium-high';else if(relativePercentage>=50)usageClass='usage-medium';else if(relativePercentage>=40)usageClass='usage-medium-low';else if(relativePercentage>=30)usageClass='usage-low';else if(relativePercentage>=20)usageClass='usage-very-low';const isMobile=window.innerWidth<=480;const displayName=isMobile?this.getMobileAllianceName(alliance.name):alliance.name;const allianceId=this.allianceIdMap[alliance.name];const allianceCell=allianceId?`<a href="https://www.cybernations.net/alliance_display.asp?ID=${allianceId}" target="_blank" rel="noopener noreferrer" title="${alliance.name}">${displayName}</a>`:`<span title="${alliance.name}">${displayName}</span>`;const normalizedName=this.normalizeAllianceName(alliance.name);const positionChange=positionChanges[normalizedName];let positionChangeIndicator='';if(positionChange!==undefined){if(positionChange>0){positionChangeIndicator=`<span class="position-change up" title="Up ${positionChange} position${positionChange > 1 ? 's' : ''}">↗${positionChange}</span>`}else if(positionChange<0){positionChangeIndicator=`<span class="position-change down" title="Down ${Math.abs(positionChange)} position${Math.abs(positionChange) > 1 ? 's' : ''}">↘${Math.abs(positionChange)}</span>`}else{positionChangeIndicator=`<span class="position-change same" title="No change">—</span>`}}
+if(isMobile){row.innerHTML=`
                     <td data-label="#" class="rank-cell">${index + 1}${positionChangeIndicator}</td>
                     <td class="alliance-name">${allianceCell}</td>
                     <td class="card-row-container">
@@ -666,141 +63,31 @@ class SlotLeaderboard {
                             <div class="card-item" data-label="Max Slots">${alliance.maxSlots}</div>
                         </div>
                     </td>
-                `;
-            } else {
-                row.innerHTML = `
+                `}else{row.innerHTML=`
                     <td data-label="#" class="rank-cell">${index + 1}${positionChangeIndicator}</td>
                     <td class="alliance-name" data-label="Alliance">${allianceCell}</td>
                     <td data-label="Members">${alliance.members}</td>
                     <td data-label="Slots Used">${alliance.usedSlots}</td>
                     <td data-label="Max Slots">${alliance.maxSlots}</td>
                     <td class="usage-percentage ${usageClass}" data-label="Usage %">${alliance.percentage}%</td>
-                `;
-            }
-            
-            tbody.appendChild(row);
-        });
-        
-        const lastUpdatedElement = document.getElementById('last-updated-time');
-        if (lastUpdatedElement) {
-            lastUpdatedElement.textContent = this.formatDataFileInfo();
-        }
-        
-        console.log("What'cha doing looking here?");
-    }
-    
-    formatDataFileInfo() {
-        const now = new Date();
-        
-        const centralTime = new Date(now.toLocaleString("en-US", {timeZone: "America/Chicago"}));
-        
-        const dateOptions = {
-            timeZone: "America/Chicago",
-            month: '2-digit',
-            day: '2-digit',
-            year: 'numeric'
-        };
-        const formattedDate = centralTime.toLocaleDateString('en-US', dateOptions);
-        
-        const hour = centralTime.getHours();
-        let dataFile;
-        let lastUpdateTime;
-        
-        if (hour >= 6 && hour < 18) {
-            dataFile = "6AM";
-            lastUpdateTime = new Date(centralTime);
-            lastUpdateTime.setHours(6, 0, 0, 0);
-        } else {
-            dataFile = "6PM";
-            lastUpdateTime = new Date(centralTime);
-            lastUpdateTime.setHours(18, 0, 0, 0);
-            
-            if (hour < 6) {
-                lastUpdateTime.setDate(lastUpdateTime.getDate() - 1);
-            }
-        }
-        
-        const timeDiffMs = centralTime - lastUpdateTime;
-        const hoursSinceUpdate = Math.floor(timeDiffMs / (1000 * 60 * 60));
-        const minutesSinceUpdate = Math.floor(timeDiffMs / (1000 * 60));
-        
-        let timeText;
-        if (hoursSinceUpdate < 1) {
-            timeText = minutesSinceUpdate === 1 ? "1 minute ago" : `${minutesSinceUpdate} minutes ago`;
-        } else {
-            timeText = hoursSinceUpdate === 1 ? "1 hour ago" : `${hoursSinceUpdate} hours ago`;
-        }
-        
-        return `Updated: ${dataFile} (${timeText}) | ${formattedDate}`;
-    }
-    
-    showLoadingState() {
-        document.querySelector('.loading-state').style.display = 'block';
-        document.querySelector('.leaderboard-table-container').style.display = 'none';
-        document.querySelector('.error-state').style.display = 'none';
-    }
-    
-    showLeaderboardState() {
-        document.querySelector('.loading-state').style.display = 'none';
-        document.querySelector('.leaderboard-table-container').style.display = 'block';
-        document.querySelector('.error-state').style.display = 'none';
-    }
-    
-    showErrorState() {
-        document.querySelector('.loading-state').style.display = 'none';
-        document.querySelector('.leaderboard-table-container').style.display = 'none';
-        document.querySelector('.error-state').style.display = 'block';
-    }
-}
-
-function setupNavbarScrollIndicator() {
-    const navbar = document.querySelector('.navbar');
-    const scrollIndicator = document.querySelector('.navbar-scroll-indicator');
-    
-    if (!navbar || !scrollIndicator) return;
-    const hasDiscoveredScroll = localStorage.getItem('navbar-scroll-discovered') === 'true';
-    
-    function updateScrollIndicator() {
-        if (window.innerWidth <= 768) {
-            const canScroll = navbar.scrollWidth > navbar.clientWidth;
-            
-            if (canScroll && !hasDiscoveredScroll) {
-                scrollIndicator.classList.add('visible');
-            } else {
-                scrollIndicator.classList.remove('visible');
-            }
-        } else {
-            scrollIndicator.classList.remove('visible');
-        }
-    }
-    
-    function handleNavbarScroll() {
-        if (navbar.scrollLeft > 0 && !hasDiscoveredScroll) {
-            localStorage.setItem('navbar-scroll-discovered', 'true');
-            scrollIndicator.classList.remove('visible');
-            navbar.removeEventListener('scroll', handleNavbarScroll);
-        }
-    }
-    
-    navbar.addEventListener('scroll', handleNavbarScroll);
-    window.addEventListener('resize', updateScrollIndicator);
-    updateScrollIndicator();
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    setupNavbarScrollIndicator();
-    new SlotLeaderboard();
-    
-    const footerCredit = document.querySelector('.footer-credit');
-    if (footerCredit) {
-        footerCredit.addEventListener('click', function() {
-            if (window.matchMedia('(hover: none)').matches) {
-                this.classList.toggle('tapped');
-                
-                setTimeout(() => {
-                    this.classList.remove('tapped');
-                }, 3000);
-            }
-        });
-    }
-}); 
+                `}
+tbody.appendChild(row)});const lastUpdatedElement=document.getElementById('last-updated-time');if(lastUpdatedElement){lastUpdatedElement.textContent=this.formatDataFileInfo()}
+console.log("What'cha doing looking here?")}
+formatDataFileInfo(){const now=new Date();const centralTime=new Date(now.toLocaleString("en-US",{timeZone:"America/Chicago"}));const dateOptions={timeZone:"America/Chicago",month:'2-digit',day:'2-digit',year:'numeric'};const formattedDate=centralTime.toLocaleDateString('en-US',dateOptions);const hour=centralTime.getHours();let dataFile;let lastUpdateTime;if(hour>=6&&hour<18){dataFile="6AM";lastUpdateTime=new Date(centralTime);lastUpdateTime.setHours(6,0,0,0)}else{dataFile="6PM";lastUpdateTime=new Date(centralTime);lastUpdateTime.setHours(18,0,0,0);if(hour<6){lastUpdateTime.setDate(lastUpdateTime.getDate()-1)}}
+const timeDiffMs=centralTime-lastUpdateTime;const hoursSinceUpdate=Math.floor(timeDiffMs/(1000*60*60));const minutesSinceUpdate=Math.floor(timeDiffMs/(1000*60));let timeText;if(hoursSinceUpdate<1){timeText=minutesSinceUpdate===1?"1 minute ago":`${minutesSinceUpdate} minutes ago`}else{timeText=hoursSinceUpdate===1?"1 hour ago":`${hoursSinceUpdate} hours ago`}
+return `Updated: ${dataFile} (${timeText}) | ${formattedDate}`}
+showLoadingState(){document.querySelector('.loading-state').style.display='block';document.querySelector('.leaderboard-table-container').style.display='none';document.querySelector('.error-state').style.display='none'}
+showLeaderboardState(){document.querySelector('.loading-state').style.display='none';document.querySelector('.leaderboard-table-container').style.display='block';document.querySelector('.error-state').style.display='none'}
+showErrorState(){document.querySelector('.loading-state').style.display='none';document.querySelector('.leaderboard-table-container').style.display='none';document.querySelector('.error-state').style.display='block'}
+initializeTheme(){const savedTheme=localStorage.getItem('global-theme')||'mochi';this.currentTheme=savedTheme;if(this.currentTheme==='2006'){document.body.classList.add('theme-2006');const themeToggle=document.querySelector('.theme-toggle');if(themeToggle){themeToggle.classList.add('active')}}
+this.updateThemeButtonText()}
+updateThemeButtonText(){const themeText=document.querySelector('.theme-text');if(themeText){themeText.textContent=this.currentTheme==='2006'?"Mochi's Theme":'2006 Theme Beta'}}
+toggleTheme(){const body=document.body;const themeToggle=document.querySelector('.theme-toggle');if(this.currentTheme==='mochi'){this.currentTheme='2006';body.classList.add('theme-2006');if(themeToggle){themeToggle.classList.add('active')}
+localStorage.setItem('global-theme','2006')}else{this.currentTheme='mochi';body.classList.remove('theme-2006');if(themeToggle){themeToggle.classList.remove('active')}
+localStorage.setItem('global-theme','mochi')}
+this.updateThemeButtonText()}
+setupThemeToggle(){const themeToggle=document.querySelector('.theme-toggle');if(themeToggle){themeToggle.addEventListener('click',()=>this.toggleTheme())}}}
+function setupNavbarScrollIndicator(){const navbar=document.querySelector('.navbar');const scrollIndicator=document.querySelector('.navbar-scroll-indicator');if(!navbar||!scrollIndicator)return;const hasDiscoveredScroll=localStorage.getItem('navbar-scroll-discovered')==='true';function updateScrollIndicator(){if(window.innerWidth<=768){const canScroll=navbar.scrollWidth>navbar.clientWidth;if(canScroll&&!hasDiscoveredScroll){scrollIndicator.classList.add('visible')}else{scrollIndicator.classList.remove('visible')}}else{scrollIndicator.classList.remove('visible')}}
+function handleNavbarScroll(){if(navbar.scrollLeft>0&&!hasDiscoveredScroll){localStorage.setItem('navbar-scroll-discovered','true');scrollIndicator.classList.remove('visible');navbar.removeEventListener('scroll',handleNavbarScroll)}}
+navbar.addEventListener('scroll',handleNavbarScroll);window.addEventListener('resize',updateScrollIndicator);updateScrollIndicator()}
+document.addEventListener('DOMContentLoaded',function(){setupNavbarScrollIndicator();new SlotLeaderboard();const footerCredit=document.querySelector('.footer-credit');if(footerCredit){footerCredit.addEventListener('click',function(){if(window.matchMedia('(hover: none)').matches){this.classList.toggle('tapped');setTimeout(()=>{this.classList.remove('tapped')},3000)}})}})

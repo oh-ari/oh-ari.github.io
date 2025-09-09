@@ -263,7 +263,7 @@ body.theme-2006 .sdi-stats-box,body.theme-2006 .nation-sdi-box{background:var(--
 body.theme-2006 .sdi-stats-title,body.theme-2006 .nation-sdi-title{color:var(--accent-purple);font-family:'Verdana',Arial,sans-serif;font-weight:700}
 body.theme-2006 .leaderboard-table{background:var(--bg-secondary);border:2px solid var(--border-default);border-radius:0}
 body.theme-2006 .leaderboard-table th,body.theme-2006 .leaderboard-table td{border:1px solid var(--border-default);font-family:'Verdana',Arial,sans-serif}
-body.theme-2006 .leaderboard-table th{background:var(--bg-tertiary);color:var(--accent-purple);font-weight:700}
+body.theme-2006 .leaderboard-table th{background:var(--accent-purple);color:#fff;font-weight:700}
 body.theme-2006 .nation-name a,body.theme-2006 .nation-name{color:var(--accent-purple)!important;text-decoration:underline}
 body.theme-2006 .nation-name a:hover{color:var(--accent-purple)!important;text-decoration:underline}
 body.theme-2006 .sdi-stats-percentage,body.theme-2006 .nation-sdi-percentage{color:var(--accent-purple)}

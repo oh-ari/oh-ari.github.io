@@ -45,7 +45,6 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 .main-content{width:100%;max-width:1000px;display:flex;flex-direction:column;align-items:center;animation:slideInUp .8s ease-out .2s both}
 .navigation-section{width:100%}
 .nav-buttons{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;justify-content:center;max-width:800px;width:100%;margin:0 auto}
-.nav-buttons .nav-button:nth-child(5){grid-column:1 / -1;width:calc((100% - 2rem) / 2);margin:0 auto}
 .nav-button{display:block;text-decoration:none;background:var(--bg-tertiary);border:2px solid var(--border-default);border-radius:8px;padding:2rem;transition:all .3s ease}
 .nav-button-content{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.8rem}
 .nav-text{font-size:1.3rem;font-weight:600;color:var(--text-primary);margin:0}
@@ -82,8 +81,7 @@ to{opacity:1;transform:translateY(0)}
 .discord-bots{max-width:100%}
 .discord-bot{flex-direction:column;align-items:flex-start;gap:1rem;padding:1.25rem}
 .invite-button{align-self:stretch;min-width:auto}
-.nav-buttons{grid-template-columns:1fr;grid-template-rows:repeat(6,1fr);gap:1.5rem}
-.nav-buttons .nav-button:nth-child(5){grid-column:auto;width:100%;margin:0}
+.nav-buttons{grid-template-columns:1fr;gap:1.5rem}
 .nav-button{padding:1.5rem}
 .nav-text{font-size:1.2rem}
 }
@@ -95,8 +93,7 @@ to{opacity:1;transform:translateY(0)}
 .bot-name{font-size:1rem}
 .bot-description{font-size:.85rem}
 .invite-button{padding:.5rem 1rem;font-size:.85rem}
-.nav-buttons{grid-template-rows:repeat(6,1fr);gap:1rem}
-.nav-buttons .nav-button:nth-child(5){grid-column:auto;width:100%;margin:0}
+.nav-buttons{gap:1rem}
 .nav-button{padding:1.25rem}
 .nav-text{font-size:1.1rem}
 .nav-description{font-size:.9rem}

@@ -266,7 +266,7 @@
     },
     {
       "name": "Veneris",
-      "maxSlots": 10,
+      "maxSlots": 90,
       "members": 17,
       "currentUsed": 56
     }

@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mochi's Lab</title>
+    <title>Mochi's Lab - Site Moved</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="styles.css?v=20250107029">
+    <meta http-equiv="refresh" content="5;url=https://robochi.dev/">
 </head>
 <body>
     <div class="container">
@@ -19,69 +20,16 @@
                     <span class="theme-text">2006 Theme Beta</span>
                 </button>
             </div>
-            <div class="welcome-box" id="welcomeBox">
-                <div class="welcome-header" onclick="toggleWelcomeBox()">
-                    <span class="welcome-title">Developer server info</span>
-                    <span class="welcome-arrow">▼</span>
-                </div>
-                <div class="welcome-content" id="welcomeContent">
-                    <p class="welcome-text">Welcome to Mochi's Lab. A collection of various things I've made for the game to either improve or make it easier for everyone (or because I was bored).</p>
-                    <p class="welcome-text">The main showcase is the 'Userscripts' tab where I've made a few different scripts to either make collecting something you cannot mess up, make CN table rows modular or showcase ruler names on the alliance view.</p>
-                    <p class="welcome-text">Below is a button for my dev server. It's where I post updates for everything I do as well as take bug reports, suggestions and more.</p>
-                    <a href="https://discord.gg/TmE8QSeM3x" class="discord-server-button">
-                        <span class="discord-server-text">Join Developer Server</span>
-                    </a>
-                </div>
-            </div>
         </header>
         
-        <div class="main-stuff-section">
-            <h2 class="main-stuff-title">Main Stuff</h2>
-        </div>
-        
         <main class="main-content">
-            <div class="navigation-section">
-                <div class="nav-buttons">
-                    <a href="treaty/index.html" class="nav-button">
-                        <div class="nav-button-content">
-                            <span class="nav-text">Treaty Generator</span>
-                            <span class="nav-description">Powered by totally advanced RNG.</span>
-                        </div>
-                    </a>
-                    
-                    <a href="aid/index.html" class="nav-button">
-                        <div class="nav-button-content">
-                            <span class="nav-text">Aid Usage Leaderboard</span>
-                            <span class="nav-description">Gamifying aid slots.</span>
-                        </div>
-                    </a>
-                    
-                    <a href="cobwebby/index.html" class="nav-button">
-                        <div class="nav-button-content">
-                            <span class="nav-text">Cobwebby Index</span>
-                            <span class="nav-description">The best metric of all.</span>
-                        </div>
-                    </a>
-                    
-                    <a href="nuclear/index.html" class="nav-button">
-                        <div class="nav-button-content">
-                            <span class="nav-text">NukeDB</span>
-                            <span class="nav-description">Nukes and SDI rates.</span>
-                        </div>
-                    </a>
-                    
-                    <a href="calculators/index.html" class="nav-button">
-                        <div class="nav-button-content">
-                            <span class="nav-text">Calculators</span>
-                            <span class="nav-description">Infrastructure & GA calculator (more to come).</span>
-                        </div>
-                    </a>
-                    
-                    <a href="userscripts/index.html" class="nav-button">
-                        <div class="nav-button-content">
-                            <span class="nav-text">Userscripts</span>
-                            <span class="nav-description">Browser scripts for CN.</span>
-                        </div>
+            <div class="redirect-section">
+                <div class="redirect-box">
+                    <h2 class="redirect-title">Site Moved!</h2>
+                    <p class="redirect-text">Mochi's Lab has moved to a new location.</p>
+                    <p class="redirect-text">You will be automatically redirected to the new site in <span id="countdown">5</span> seconds.</p>
+                    <a href="https://robochi.dev/" class="redirect-button">
+                        <span class="redirect-button-text">Go to New Site</span>
                     </a>
                 </div>
             </div>
@@ -103,10 +51,6 @@
                 this.classList.toggle('tapped');
             });
         });
-
-        function showRobochiMessage(button) {
-            button.textContent = 'Hehe, no.';
-        }
 
         let currentTheme = 'mochi';
 
@@ -146,28 +90,24 @@
             updateThemeButtonText();
         }
 
-        function toggleWelcomeBox() {
-            const content = document.getElementById('welcomeContent');
-            const arrow = document.querySelector('.welcome-arrow');
-            const isVisible = content.style.display !== 'none';
+        // Countdown timer
+        let countdown = 5;
+        const countdownElement = document.getElementById('countdown');
+        
+        const timer = setInterval(() => {
+            countdown--;
+            countdownElement.textContent = countdown;
             
-            if (isVisible) {
-                content.style.display = 'none';
-                arrow.textContent = '▶';
-                localStorage.setItem('welcomeBoxCollapsed', 'true');
-            } else {
-                content.style.display = 'block';
-                arrow.textContent = '▼';
-                localStorage.setItem('welcomeBoxCollapsed', 'false');
+            if (countdown <= 0) {
+                clearInterval(timer);
+                window.location.href = 'https://robochi.dev/';
             }
-        }
+        }, 1000);
 
         document.addEventListener('DOMContentLoaded', function() {
             initializeTheme();
             
             const footerCredit = document.querySelector('.footer-credit');
-            const welcomeContent = document.getElementById('welcomeContent');
-            const welcomeArrow = document.querySelector('.welcome-arrow');
             const themeToggle = document.querySelector('.theme-toggle');
             
             footerCredit.addEventListener('click', function() {
@@ -177,13 +117,121 @@
             if (themeToggle) {
                 themeToggle.addEventListener('click', toggleTheme);
             }
-
-            const isCollapsed = localStorage.getItem('welcomeBoxCollapsed') === 'true';
-            if (isCollapsed) {
-                welcomeContent.style.display = 'none';
-                welcomeArrow.textContent = '▶';
-            }
         });
     </script>
+
+    <style>
+        .redirect-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 60vh;
+            animation: slideInUp .8s ease-out;
+        }
+
+        .redirect-box {
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-default);
+            border-radius: 8px;
+            padding: 3rem;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            transition: all .3s ease;
+        }
+
+        .redirect-box:hover {
+            border-color: #c9a8ff;
+            background: #c9a8ff1a;
+        }
+
+        .redirect-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #c9a8ff;
+            margin-bottom: 1.5rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .redirect-text {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .redirect-text:last-of-type {
+            margin-bottom: 2rem;
+        }
+
+        .redirect-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #c9a8ff;
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 6px;
+            padding: .75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all .3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .redirect-button:hover {
+            background: #b894ff;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-default);
+        }
+
+        .redirect-button-text {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* 2006 Theme Styles */
+        body.theme-2006 .redirect-box {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-default);
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        body.theme-2006 .redirect-title {
+            color: var(--accent-purple);
+            font-family: 'Verdana', Arial, sans-serif;
+            font-weight: 700;
+        }
+
+        body.theme-2006 .redirect-button {
+            background: var(--accent-purple);
+            border: 1px solid var(--border-default);
+            border-radius: 0;
+            font-family: 'Verdana', Arial, sans-serif;
+            color: #fff;
+        }
+
+        body.theme-2006 .redirect-button:hover {
+            background: #000060;
+            border-color: #000060;
+        }
+
+        @media (max-width: 768px) {
+            .redirect-box {
+                padding: 2rem;
+                margin: 1rem;
+            }
+            
+            .redirect-title {
+                font-size: 1.5rem;
+            }
+            
+            .redirect-text {
+                font-size: 1rem;
+            }
+        }
+    </style>
 </body>
 </html> 

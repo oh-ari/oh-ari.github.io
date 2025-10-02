@@ -3,513 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculators</title>
+    <title>Mochi's Lab - Site Moved</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="../favicon.png">
-    <link rel="stylesheet" href="styles.css?v=20250107001">
+    <link rel="stylesheet" href="../styles.css?v=20250107029">
+    <meta http-equiv="refresh" content="5;url=https://robochi.dev/">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="navbar-content">
-            <a href="../index.html" class="navbar-link">Home</a>
-            <div class="navbar-divider"></div>
-            <a href="../treaty/index.html" class="navbar-link">Treaty Generator</a>
-            <div class="navbar-divider"></div>
-            <a href="../aid/index.html" class="navbar-link">Aid Usage Leaderboard</a>
-            <div class="navbar-divider"></div>
-            <a href="../cobwebby/index.html" class="navbar-link">Cobwebby Index</a>
-            <div class="navbar-divider"></div>
-            <a href="../nuclear/index.html" class="navbar-link">NukeDB</a>
-            <div class="navbar-divider"></div>
-            <a href="#" class="navbar-link active">Calculators</a>
-            <div class="navbar-divider"></div>
-            <a href="../userscripts/index.html" class="navbar-link">Userscripts</a>
-        </div>
-        <div class="navbar-scroll-indicator"></div>
-    </nav>
-    
     <div class="container">
-        <header class="header-top">
+        <header class="header">
             <div class="title-wrapper">
-                <h1 class="title">Calculators</h1>
-            </div>
-            <div class="header-controls">
-                <button class="theme-toggle" title="Toggle 2006 Theme">
+                <h1 class="title">Mochi's Lab</h1>
+                <button class="theme-toggle" title="Toggle Theme">
                     <span class="theme-text">2006 Theme Beta</span>
                 </button>
-            </div>
-            <div class="calc-controls">
-                <button class="calc-tab-button" id="infraTab" onclick="switchCalculator('infra')">Infrastructure</button>
-                <button class="calc-tab-button" id="gaTab" onclick="switchCalculator('ga')">GA Odds</button>
             </div>
         </header>
         
         <main class="main-content">
-            <div class="calculators-section">
-                <div class="search-container" id="infraSearchContainer">
-                    <div class="search-box">
-                        <input type="text" id="nationSearch" placeholder="Search by Nation ID, Ruler Name, or Nation Name" oninput="searchAsYouType()" onkeydown="handleKeyNavigation(event)" autocomplete="off">
-                        <button onclick="resetCalculators()" class="reset-button" title="Reset all fields">Reset</button>
-                        <div id="searchDropdown" class="search-dropdown" style="display: none;"></div>
-                    </div>
-                </div>
-                
-                
-                <div id="infraCalculator" class="calculator-container">
-                    <div class="calculator-grid">
-                        <div class="calc-panel">
-                            <h2 class="calc-title">Infrastructure Calculator</h2>
-                            <div class="calc-form">
-                                <div class="input-group">
-                                    <label for="infraLevel">Infrastructure Level</label>
-                                    <input type="text" id="infraLevel" placeholder="Enter current level" oninput="autoCalculateInfra()">
-                                </div>
-                                
-                                <div class="input-group">
-                                    <label for="infraLevelsToBuy">Levels to Buy</label>
-                                    <input type="text" id="infraLevelsToBuy" placeholder="Enter number of levels" value="1" oninput="autoCalculateInfra()">
-                                </div>
-                                
-                                <div class="resources-section">
-                                    <h3>Resources</h3>
-                                    <div class="checkbox-grid">
-                                        <label><input type="checkbox" id="lumber" onchange="autoCalculateInfra()">Lumber<span class="tooltip">Decreases Infra Cost by -6%</span></label>
-                                        <label><input type="checkbox" id="iron" onchange="autoCalculateInfra()">Iron<span class="tooltip">Decreases Infra Cost by -5%</span></label>
-                                        <label><input type="checkbox" id="aluminum" onchange="autoCalculateInfra()">Aluminum<span class="tooltip">Decreases Infra Cost by -7%</span></label>
-                                        <label><input type="checkbox" id="marble" onchange="autoCalculateInfra()">Marble<span class="tooltip">Decreases Infra Cost by -10%</span></label>
-                                        <label><input type="checkbox" id="coal" onchange="autoCalculateInfra()">Coal<span class="tooltip">Decreases Infra Cost by -4%</span></label>
-                                        <label><input type="checkbox" id="steel" onchange="autoCalculateInfra()">Steel<span class="tooltip">Decreases Infra Cost by -2% (requires Coal + Iron)</span></label>
-                                        <label class="disabled"><input type="checkbox" id="rubber" disabled><span>Rubber</span><span class="tooltip">Disabled - Rubber doesn't work for infra costs</span></label>
-                                        <label><input type="checkbox" id="construction" onchange="autoCalculateInfra()">Construction<span class="tooltip">Decreases Infra Cost by -5% (requires Iron + Marble + Aluminum + Tech > 5)</span></label>
-                                        <label><input type="checkbox" id="basalt" onchange="autoCalculateInfra()">Basalt<span class="tooltip">Requires Mars Base + Construction</span></label>
-                                    </div>
-                                </div>
-                                
-                                <div class="section-divider"></div>
-                                
-                                <div class="improvements-section">
-                                    <h3>Improvements</h3>
-                                    <div class="select-group">
-                                        <label for="factories">Factories</label>
-                                        <select id="factories" onchange="autoCalculateInfra()">
-                                            <option value="0">0</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                
-                                <div class="section-divider"></div>
-                                
-                                <div class="wonders-section">
-                                    <h3>National Wonders</h3>
-                                    <div class="checkbox-grid">
-                                        <label><input type="checkbox" id="interstate" onchange="syncInterstate()">Interstate System<span class="tooltip">Decreases Infra Cost by -8%</span></label>
-                                        <label><input type="checkbox" id="scientific" onchange="autoCalculateInfra()">SDC<span class="tooltip">Increases factories from 8% to 10% infra cost reduction</span></label>
-                                        <label><input type="checkbox" id="marsBase" onchange="autoCalculateInfra()">Mars Base<span class="tooltip">Decreases Infra Cost by -3%</span></label>
-                                        <label><input type="checkbox" id="moonBase" onchange="autoCalculateInfra()">Moon Base<span class="tooltip">Decreases Infra Cost by -4%</span></label>
-                                    </div>
-                                </div>
-                                
-                                <div class="section-divider"></div>
-                                
-                                <div class="government-section">
-                                    <h3>Gov Type</h3>
-                                    <div class="checkbox-grid">
-                                        <label><input type="checkbox" id="government" onchange="autoCalculateInfra()">Monarchy, Capitalist, Dictatorship, Totalitarian State, Federal Government, Republic, Revolutionary Government</label>
-                                    </div>
-                                </div>
-                                
-                                <div id="costResult" class="result-panel">
-                                    <div class="result-value" id="costOutput">Enter values to calculate cost</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="calc-panel">
-                            <h2 class="calc-title">Upkeep Calculator</h2>
-                            <div class="calc-form">
-                                <div class="input-group">
-                                    <label for="upkeepInfra">Infrastructure Level</label>
-                                    <input type="text" id="upkeepInfra" oninput="autoCalculateUpkeep()">
-                                </div>
-                                
-                                <div class="input-group">
-                                    <label for="techLevel">Technology Level</label>
-                                    <input type="text" id="techLevel" oninput="autoCalculateUpkeep()">
-                                </div>
-                                
-                                <div class="input-group">
-                                    <label for="nsLevel">NS</label>
-                                    <input type="text" id="nsLevel" oninput="autoCalculateUpkeep()">
-                                </div>
-                                
-                                <div class="section-divider"></div>
-                                
-                                <div class="resources-section">
-                                    <h3>Resources</h3>
-                                    <div class="checkbox-grid">
-                                        <label><input type="checkbox" id="upkeepLumber" onchange="autoCalculateUpkeep()">Lumber<span class="tooltip">Lowers Infra Upkeep by -8%</span></label>
-                                        <label><input type="checkbox" id="upkeepIron" onchange="autoCalculateUpkeep()">Iron<span class="tooltip">Lowers Infra Upkeep by -10%</span></label>
-                                        <label><input type="checkbox" id="uranium" onchange="autoCalculateUpkeep()">Uranium<span class="tooltip">Lowers Infra Upkeep by -3%</span></label>
-                                        <label><input type="checkbox" id="asphalt" onchange="autoCalculateUpkeep()">Asphalt<span class="tooltip">Lowers Infra Upkeep by -5%</span></label>
-                                    </div>
-                                </div>
-                                
-                                <div class="section-divider"></div>
-                                
-                                <div class="improvements-section">
-                                    <h3>Improvements</h3>
-                                    <div class="select-group">
-                                        <label for="laborCamps">Labor Camps</label>
-                                        <select id="laborCamps" onchange="autoCalculateUpkeep()">
-                                            <option value="0">0</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                
-                                <div class="section-divider"></div>
-                                
-                                <div class="wonders-section">
-                                    <h3>National Wonders</h3>
-                                    <div class="checkbox-grid">
-                                        <label><input type="checkbox" id="upkeepInterstate" onchange="syncInterstate()">Interstate System<span class="tooltip">Lowers Infra Upkeep by -8%</span></label>
-                                        <label><input type="checkbox" id="nuclear" onchange="autoCalculateUpkeep()">Nuclear Power Plant<span class="tooltip">Lowers Infra Upkeep by -5%</span></label>
-                                        <label><input type="checkbox" id="environmental" onchange="autoCalculateUpkeep()">NEO<span class="tooltip">Lowers Infra Upkeep by -3%</span></label>
-                                    </div>
-                                </div>
-                                
-                                <div id="upkeepResult" class="result-panel">
-                                    <div class="result-value" id="upkeepOutput">Enter values to calculate upkeep</div>
-                                    <div class="result-value" id="totalUpkeepOutput"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div id="gaCalculator" class="calculator-container" style="display: none;">
-                    <div class="ga-calculator">
-                        <div class="beta-notice">
-                            <span class="beta-badge">BETA</span>
-                            <span class="beta-text">GA Calculator is currently in testing!</span>
-                        </div>
-                        <div class="toggle-container">
-                            <div class="daynight-toggle">
-                                <label>Is it daytime in CN?
-                                    <label class="toggle-switch">
-                                        <input type="checkbox" id="isDaytime">
-                                        <span class="toggle-slider"></span>
-                                    </label>
-                                    <span class="tooltip">Daytime: +1% soldier efficiency. Nighttime: +5% tech bonus.</span>
-                                </label>
-                            </div>
-                            <div class="competence-toggle">
-                                <label>Competence Check
-                                    <label class="toggle-switch">
-                                        <input type="checkbox" id="isCompetent">
-                                        <span class="toggle-slider"></span>
-                                    </label>
-                                    <span class="tooltip">Automatically sets Barracks and Guerrilla Camps to 5.</span>
-                                </label>
-                            </div>
-                        </div>
-                        
-                        <div class="nations-grid">
-                            <div class="nation-column">
-                                <h3>Attacking Nation Details</h3>
-                                <div class="search-container">
-                                    <div class="search-box">
-                                        <input type="text" id="attackingNationSearch" placeholder="Search attacking nation..." oninput="searchAttackingNation()" onkeydown="handleAttackingKeyNavigation(event)" autocomplete="off">
-                                        <div id="attackingSearchDropdown" class="search-dropdown" style="display: none;"></div>
-                                    </div>
-                                </div>
-                                <div class="input-group">
-                                    <label>Government</label>
-                                    <select id="attacking-government">
-                                        <option>Anarchy</option>
-                                        <option>Capitalism</option>
-                                        <option>Communist</option>
-                                        <option>Democracy</option>
-                                        <option>Dictatorship</option>
-                                        <option>Federal</option>
-                                        <option>Monarchy</option>
-                                        <option>Republic</option>
-                                        <option>Revolutionary</option>
-                                        <option>Transitional</option>
-                                    </select>
-                                </div>
-                                <div class="input-group">
-                                    <label>Technology</label>
-                                    <input type="number" id="attacking-tech" min="0" step="any">
-                                </div>
-                                <div class="input-group">
-                                    <label>Infrastructure</label>
-                                    <input type="number" id="attacking-infra" min="0" step="any">
-                                </div>
-                                <div class="input-group">
-                                    <label>Land</label>
-                                    <input type="number" id="attacking-land" min="0" step="any">
-                                    <div class="input-note" id="attacking-land-note" style="display: none;">Double check land as the statistics only count purchased land and not modifiers or growth.</div>
-                                </div>
-                                <div class="input-group">
-                                    <label>DEFCON Level</label>
-                                    <select id="attacking-defcon">
-                                        <option>DEFCON 1</option>
-                                        <option>DEFCON 2</option>
-                                        <option>DEFCON 3</option>
-                                        <option>DEFCON 4</option>
-                                        <option>DEFCON 5</option>
-                                    </select>
-                                </div>
-                                <div class="input-group">
-                                    <label>Soldiers</label>
-                                    <input type="number" id="attacking-soldiers" min="0">
-                                </div>
-                                <div class="input-group">
-                                    <label>Tanks</label>
-                                    <input type="number" id="attacking-tanks" min="0">
-                                </div>
-                                <div class="input-group">
-                                    <label>Army General</label>
-                                    <select id="attacking-general">
-                                        <option>+0%</option>
-                                        <option>+1%</option>
-                                        <option>+2%</option>
-                                        <option>+3%</option>
-                                        <option>+4%</option>
-                                        <option>+5%</option>
-                                        <option>+6%</option>
-                                        <option>+7%</option>
-                                        <option>+8%</option>
-                                        <option>+9%</option>
-                                        <option>+10%</option>
-                                        <option>+11%</option>
-                                        <option>+12%</option>
-                                        <option>+13%</option>
-                                        <option>+14%</option>
-                                        <option>+15%</option>
-                                    </select>
-                                </div>
-                                <div class="input-group">
-                                    <label>Barracks</label>
-                                    <select id="attacking-barracks">
-                                        <option>0 Barracks</option>
-                                        <option>1 Barracks</option>
-                                        <option>2 Barracks</option>
-                                        <option>3 Barracks</option>
-                                        <option>4 Barracks</option>
-                                        <option>5 Barracks</option>
-                                    </select>
-                                </div>
-                                <div class="input-group">
-                                    <label>Guerrilla Camps</label>
-                                    <select id="attacking-guerrilla">
-                                        <option>0 Guerrilla Camps</option>
-                                        <option>1 Guerrilla Camp</option>
-                                        <option>2 Guerrilla Camps</option>
-                                        <option>3 Guerrilla Camps</option>
-                                        <option>4 Guerrilla Camps</option>
-                                        <option>5 Guerrilla Camps</option>
-                                    </select>
-                                </div>
-                                <div class="input-group">
-                                    <label>Border Fortifications</label>
-                                    <div class="input-note">No effect.</div>
-                                </div>
-                                <div class="input-group">
-                                    <label>Forward Operating Bases</label>
-                                    <div class="input-note">No effect.</div>
-                                </div>
-                                <div class="input-group">
-                                    <label>Offices of Propaganda</label>
-                                    <select id="attacking-propaganda">
-                                        <option>0 Offices of Propaganda</option>
-                                        <option>1 Office of Propaganda</option>
-                                        <option>2 Offices of Propaganda</option>
-                                    </select>
-                                </div>
-                                <div class="checkbox-grid">
-                                    <label><input type="checkbox" id="attacking-pentagon">Pentagon</label>
-                                    <label><input type="checkbox" id="attacking-logistics">Superior Logistical Support</label>
-                                    <label><input type="checkbox" id="attacking-aluminum">Aluminum</label>
-                                    <label><input type="checkbox" id="attacking-coal">Coal</label>
-                                    <label><input type="checkbox" id="attacking-oil">Oil</label>
-                                    <label><input type="checkbox" id="attacking-pigs">Pigs</label>
-                                </div>
-                            </div>
-                            
-                            <div class="nation-column">
-                                <h3>Defending Nation Details</h3>
-                                <div class="search-container">
-                                    <div class="search-box">
-                                        <input type="text" id="defendingNationSearch" placeholder="Search defending nation..." oninput="searchDefendingNation()" onkeydown="handleDefendingKeyNavigation(event)" autocomplete="off">
-                                        <div id="defendingSearchDropdown" class="search-dropdown" style="display: none;"></div>
-                                    </div>
-                                </div>
-                                <div class="input-group">
-                                    <label>Government</label>
-                                    <select id="defending-government">
-                                        <option>Anarchy</option>
-                                        <option>Capitalism</option>
-                                        <option>Communist</option>
-                                        <option>Democracy</option>
-                                        <option>Dictatorship</option>
-                                        <option>Federal</option>
-                                        <option>Monarchy</option>
-                                        <option>Republic</option>
-                                        <option>Revolutionary</option>
-                                        <option>Transitional</option>
-                                    </select>
-                                </div>
-                                <div class="input-group">
-                                    <label>Technology</label>
-                                    <input type="number" id="defending-tech" min="0" step="any">
-                                </div>
-                                <div class="input-group">
-                                    <label>Infrastructure</label>
-                                    <input type="number" id="defending-infra" min="0" step="any">
-                                </div>
-                                <div class="input-group">
-                                    <label>Land</label>
-                                    <input type="number" id="defending-land" min="0" step="any">
-                                    <div class="input-note" id="defending-land-note" style="display: none;">Double check land as the statistics only count purchased land and not modifiers or growth.</div>
-                                </div>
-                                <div class="input-group">
-                                    <label>DEFCON Level</label>
-                                    <select id="defending-defcon">
-                                        <option>DEFCON 1</option>
-                                        <option>DEFCON 2</option>
-                                        <option>DEFCON 3</option>
-                                        <option>DEFCON 4</option>
-                                        <option>DEFCON 5</option>
-                                    </select>
-                                </div>
-                                <div class="input-group">
-                                    <label>Soldiers</label>
-                                    <input type="number" id="defending-soldiers" min="0">
-                                </div>
-                                <div class="input-group">
-                                    <label>Tanks</label>
-                                    <input type="number" id="defending-tanks" min="0">
-                                </div>
-                                <div class="input-group">
-                                    <label>Army General</label>
-                                    <select id="defending-general">
-                                        <option>+0%</option>
-                                        <option>+1%</option>
-                                        <option>+2%</option>
-                                        <option>+3%</option>
-                                        <option>+4%</option>
-                                        <option>+5%</option>
-                                        <option>+6%</option>
-                                        <option>+7%</option>
-                                        <option>+8%</option>
-                                        <option>+9%</option>
-                                        <option>+10%</option>
-                                        <option>+11%</option>
-                                        <option>+12%</option>
-                                        <option>+13%</option>
-                                        <option>+14%</option>
-                                        <option>+15%</option>
-                                    </select>
-                                </div>
-                                <div class="input-group">
-                                    <label>Barracks</label>
-                                    <select id="defending-barracks">
-                                        <option>0 Barracks</option>
-                                        <option>1 Barracks</option>
-                                        <option>2 Barracks</option>
-                                        <option>3 Barracks</option>
-                                        <option>4 Barracks</option>
-                                        <option>5 Barracks</option>
-                                    </select>
-                                </div>
-                                <div class="input-group">
-                                    <label>Guerrilla Camps</label>
-                                    <select id="defending-guerrilla">
-                                        <option>0 Guerrilla Camps</option>
-                                        <option>1 Guerrilla Camp</option>
-                                        <option>2 Guerrilla Camps</option>
-                                        <option>3 Guerrilla Camps</option>
-                                        <option>4 Guerrilla Camps</option>
-                                        <option>5 Guerrilla Camps</option>
-                                    </select>
-                                </div>
-                                <div class="input-group">
-                                    <label>Border Fortifications</label>
-                                    <select id="defending-border">
-                                        <option>0 Border Fortifications</option>
-                                        <option>1 Border Fortification</option>
-                                        <option>2 Border Fortifications</option>
-                                        <option>3 Border Fortifications</option>
-                                    </select>
-                                </div>
-                                <div class="input-group">
-                                    <label>Forward Operating Bases</label>
-                                    <select id="defending-forward">
-                                        <option>0 Forward Operating Bases</option>
-                                        <option>1 Forward Operating Base</option>
-                                        <option>2 Forward Operating Bases</option>
-                                    </select>
-                                </div>
-                                <div class="input-group">
-                                    <label>Offices of Propaganda</label>
-                                    <div class="input-note">No effect.</div>
-                                </div>
-                                <div class="checkbox-grid">
-                                    <label><input type="checkbox" id="defending-pentagon">Pentagon</label>
-                                    <label><input type="checkbox" id="defending-logistics">Superior Logistical Support</label>
-                                    <label><input type="checkbox" id="defending-aluminum">Aluminum</label>
-                                    <label><input type="checkbox" id="defending-coal">Coal</label>
-                                    <label><input type="checkbox" id="defending-oil">Oil</label>
-                                    <label><input type="checkbox" id="defending-pigs">Pigs</label>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="results-container" id="gaResults" style="display: none;">
-                            <div class="results-header">Battle Calculations</div>
-                            <div class="results-content">
-                                <div class="result-bar-container">
-                                    <div class="result-bar attacker-bar"></div>
-                                    <div class="result-bar defender-bar"></div>
-                                </div>
-                                <div class="results-numbers">
-                                    <div class="attacker-odds">
-                                        <span class="label">Attacker Odds</span>
-                                        <span class="value">0%</span>
-                                        <div class="strength-indicator">
-                                            <span class="strength-value">0</span>
-                                        </div>
-                                    </div>
-                                    <div class="battle-divider">VS</div>
-                                    <div class="defender-odds">
-                                        <span class="label">Defender Odds</span>
-                                        <span class="value">0%</span>
-                                        <div class="strength-indicator">
-                                            <span class="strength-value">0</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="button-container">
-                            <button class="calc-button" onclick="calculateGAOdds()">Calculate Odds</button>
-                            <button class="calc-button" onclick="resetGACalculator()">Reset</button>
-                        </div>
-                    </div>
+            <div class="redirect-section">
+                <div class="redirect-box">
+                    <h2 class="redirect-title">Site Moved!</h2>
+                    <p class="redirect-text">Mochi's Lab has moved to a new location.</p>
+                    <p class="redirect-text">You will be automatically redirected to the new site in <span id="countdown">5</span> seconds.</p>
+                    <a href="https://robochi.dev/" class="redirect-button">
+                        <span class="redirect-button-text">Go to New Site</span>
+                    </a>
                 </div>
             </div>
         </main>
@@ -522,6 +43,195 @@
         <span class="footer-easter-egg">Made with <span class="heart">❤️</span> by Mochi</span>
     </div>
 
-    <script src="script.js?v=20250107001"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const footerCredit = document.querySelector('.footer-credit');
+            
+            footerCredit.addEventListener('click', function() {
+                this.classList.toggle('tapped');
+            });
+        });
+
+        let currentTheme = 'mochi';
+
+        function initializeTheme() {
+            const savedTheme = localStorage.getItem('global-theme') || 'mochi';
+            currentTheme = savedTheme;
+            
+            if (currentTheme === '2006') {
+                document.body.classList.add('theme-2006');
+                document.querySelector('.theme-toggle').classList.add('active');
+            }
+            updateThemeButtonText();
+        }
+
+        function updateThemeButtonText() {
+            const themeText = document.querySelector('.theme-text');
+            if (themeText) {
+                themeText.textContent = currentTheme === '2006' ? "Mochi's Theme" : '2006 Theme Beta';
+            }
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.querySelector('.theme-toggle');
+            
+            if (currentTheme === 'mochi') {
+                currentTheme = '2006';
+                body.classList.add('theme-2006');
+                themeToggle.classList.add('active');
+                localStorage.setItem('global-theme', '2006');
+            } else {
+                currentTheme = 'mochi';
+                body.classList.remove('theme-2006');
+                themeToggle.classList.remove('active');
+                localStorage.setItem('global-theme', 'mochi');
+            }
+            updateThemeButtonText();
+        }
+
+        // Countdown timer
+        let countdown = 5;
+        const countdownElement = document.getElementById('countdown');
+        
+        const timer = setInterval(() => {
+            countdown--;
+            countdownElement.textContent = countdown;
+            
+            if (countdown <= 0) {
+                clearInterval(timer);
+                window.location.href = 'https://robochi.dev/';
+            }
+        }, 1000);
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeTheme();
+            
+            const footerCredit = document.querySelector('.footer-credit');
+            const themeToggle = document.querySelector('.theme-toggle');
+            
+            footerCredit.addEventListener('click', function() {
+                this.classList.toggle('tapped');
+            });
+
+            if (themeToggle) {
+                themeToggle.addEventListener('click', toggleTheme);
+            }
+        });
+    </script>
+
+    <style>
+        .redirect-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 60vh;
+            animation: slideInUp .8s ease-out;
+        }
+
+        .redirect-box {
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-default);
+            border-radius: 8px;
+            padding: 3rem;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            transition: all .3s ease;
+        }
+
+        .redirect-box:hover {
+            border-color: #c9a8ff;
+            background: #c9a8ff1a;
+        }
+
+        .redirect-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #c9a8ff;
+            margin-bottom: 1.5rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .redirect-text {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .redirect-text:last-of-type {
+            margin-bottom: 2rem;
+        }
+
+        .redirect-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #c9a8ff;
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 6px;
+            padding: .75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all .3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .redirect-button:hover {
+            background: #b894ff;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-default);
+        }
+
+        .redirect-button-text {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* 2006 Theme Styles */
+        body.theme-2006 .redirect-box {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-default);
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        body.theme-2006 .redirect-title {
+            color: var(--accent-purple);
+            font-family: 'Verdana', Arial, sans-serif;
+            font-weight: 700;
+        }
+
+        body.theme-2006 .redirect-button {
+            background: var(--accent-purple);
+            border: 1px solid var(--border-default);
+            border-radius: 0;
+            font-family: 'Verdana', Arial, sans-serif;
+            color: #fff;
+        }
+
+        body.theme-2006 .redirect-button:hover {
+            background: #000060;
+            border-color: #000060;
+        }
+
+        @media (max-width: 768px) {
+            .redirect-box {
+                padding: 2rem;
+                margin: 1rem;
+            }
+            
+            .redirect-title {
+                font-size: 1.5rem;
+            }
+            
+            .redirect-text {
+                font-size: 1rem;
+            }
+        }
+    </style>
 </body>
 </html>

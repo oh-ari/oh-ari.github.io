@@ -3,306 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Userscripts</title>
+    <title>Mochi's Lab - Site Moved</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="../favicon.png">
-    <link rel="stylesheet" href="styles.css?v=20250107030">
+    <link rel="stylesheet" href="../styles.css?v=20250107029">
+    <meta http-equiv="refresh" content="5;url=https://robochi.dev/">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="navbar-content">
-            <a href="../index.html" class="navbar-link">Home</a>
-            <div class="navbar-divider"></div>
-            <a href="../treaty/index.html" class="navbar-link">Treaty Generator</a>
-            <div class="navbar-divider"></div>
-            <a href="../aid/index.html" class="navbar-link">Aid Usage Leaderboard</a>
-            <div class="navbar-divider"></div>
-            <a href="../cobwebby/index.html" class="navbar-link">Cobwebby Index</a>
-            <div class="navbar-divider"></div>
-            <a href="../nuclear/index.html" class="navbar-link">NukeDB</a>
-            <div class="navbar-divider"></div>
-            <a href="../calculators/index.html" class="navbar-link">Calculators</a>
-            <div class="navbar-divider"></div>
-            <a href="#" class="navbar-link active">Userscripts</a>
-        </div>
-        <div class="navbar-scroll-indicator"></div>
-    </nav>
-    
     <div class="container">
         <header class="header">
             <div class="title-wrapper">
-                <h1 class="title">Userscripts</h1>
-                <button class="theme-toggle" title="Toggle 2006 Theme">
+                <h1 class="title">Mochi's Lab</h1>
+                <button class="theme-toggle" title="Toggle Theme">
                     <span class="theme-text">2006 Theme Beta</span>
                 </button>
-            </div>
-            <div class="main-subtitle">
-                <span>A collection of script(s) made to enhance CN.</span>
-                <button class="read-more-toggle" onclick="toggleReadMore(this)">
-                    <span class="read-more-text">Read More</span>
-                    <svg class="read-more-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
-                        <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
-            </div>
-            <div class="additional-subtitles" style="display: none;">
-                <div class="subtitle">Hi there! This is more or less a public repo for some scripts I made for the community. All of them are open-source and open to suggestions, if you have ideas for scripts, I'll be happy to hear them.</div>
-                <div class="subtitle">All scripts follow the rules set by the Admin and make no additional server requests or automate anything. If by chance Admin deems one of these scripts or all of them not okay, I'll remove them.</div>
-                <div class="subtitle">Thanks, and enjoy. - Mochi</div>
             </div>
         </header>
         
         <main class="main-content">
-            <div class="update-notice">
-                <div class="notice-header">
-                    <h3 class="notice-title">Chrome Extension under review!</h3>
-                    <button class="notice-toggle" onclick="toggleNotice(this)">
-                        <svg class="notice-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
-                            <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </button>
-                </div>
-                <div class="notice-content">
-                    <div class="notice-text">
-                        <p>A new update! The Chrome Extension has been submitted and is under review. I'll update when I have additional information but the plan is for private testing first to iron out any bugs and then open it up for everyone! I hope you are having a fantastic day.</p>
-                    </div>
-                    <div class="notice-preview">
-                        <img src="img/cntools.png" alt="CN Tools Chrome Extension Preview" class="notice-image">
-                    </div>
-                </div>
-            </div>
-            
-            <div class="userscripts-section">
-
-                <div class="userscript-item">
-                    <div class="userscript-header">
-                        <h3 class="userscript-name">CN Advisor <span class="version">v1.5b</span></h3>
-                        <div class="userscript-controls">
-                            <a href="https://github.com/oh-ari/cn-collect/raw/refs/heads/main/collect.user.js" class="userscript-status script-url">Script URL</a>
-                            <button class="update-log-toggle" onclick="toggleUpdateLog(this)">
-                                <span class="update-log-text">Update Log</span>
-                                <svg class="dropdown-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
-                                    <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="userscript-preview">
-                        <div class="image-showcase">
-                            <img src="img/cncollect.png" alt="CN Advisor Preview" class="preview-image is-active">
-                            <img src="img/cncollectinf.png" alt="CN Advisor Infrastructure Preview" class="preview-image">
-                            <button class="showcase-next" aria-label="Next image">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="userscript-description">
-                        <p>An easy script that makes sure you won't forget anything when collecting as well as ensure you have factories and paid your bills when buying infra.</p>
-                        <div class="update-info-tooltip">
-                            <div class="tooltip-trigger">
-                                <span class="tooltip-text">Disclaimer</span>
-                                <svg class="disclaimer-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
-                                    <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </div>
-                            <div class="tooltip-content" style="display: none;">
-                                <span class="tooltip-icon">!!!</span>
-                                <span class="tooltip-text">This script does have an update check and download function to keep it updated as I improve it. If you do not want this, you can delete the following lines:</span>
-                                <img src="img/updatedown.png" alt="Update and download function code lines" class="tooltip-image">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="update-log-dropdown">
-                        <div class="update-log-content">
-                            <div class="update-entry">
-                                <div class="update-date">August 29th, 2025</div>
-                                <div class="update-message">1.5 adds the following:<br>
-• Resource Calculator is added for you to test and try different trades. [beta]<br>
-• Some compatibility fixes with my other scripts.<br>
-• Buying and selling improvements are now remembered and stored locally.<br>
-• Reviewed by BacTalan.<br>
-                            </div>
-                            <div class="update-entry">
-                                <div class="update-date">August 12th, 2025</div>
-                                <div class="update-message">1.4 adds the following:<br>
-• Infrastructure Advisor is added.<br>
-• Fixed LC/GC rebuy message not appearing.<br>
-• Added additional confirmation if you can improve a collection.</div>
-                            </div>
-                            <div class="update-entry">
-                                <div class="update-date">August 11th, 2025</div>
-                                <div class="update-message">1.3 adds the following:<br>
-• If below 110 tech, tells you to buy up for bonuses.<br>
-• Added Government & Religion checks.<br>
-• Now tells you which Government & Religion your nation wants for you. [Testing]<br>
-• If 0 GCs/LCs, a reminder is there so you don't forget to rebuy afterwards.</div>
-                            </div>
-                            <div class="update-entry">
-                                <div class="update-date">August 9th, 2025</div>
-                                <div class="update-message">1.1 added Crime Index and Trade Circle checks.</div>
-                            </div>
-                            <div class="update-entry">
-                                <div class="update-date">August 9th, 2025</div>
-                                <div class="update-message">Released 1.0 for TamperMonkey.</div>
-                            </div>
-                            <div class="update-entry">
-                                <div class="update-date">August 5th, 2025</div>
-                                <div class="update-message">Began work on this.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="userscript-item">
-                    <div class="userscript-header">
-                        <h3 class="userscript-name">CN Rulers [Alliance View] <span class="version">v1.2</span></h3>
-                        <div class="userscript-controls">
-                            <a href="https://github.com/oh-ari/cn-rulers/raw/refs/heads/main/cnRulers.user.js" class="userscript-status script-url">Script URL</a>
-                            <button class="update-log-toggle" onclick="toggleUpdateLog(this)">
-                                <span class="update-log-text">Update Log</span>
-                                <svg class="dropdown-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
-                                    <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="userscript-preview">
-                        <img src="img/cnrulers.png" alt="CN Rulers [Alliance View] Preview" class="preview-image">
-                    </div>
-                    <div class="userscript-description">
-                        <p>It simply adds Ruler Names to the alliance display page.</p>
-                        <div class="update-info-tooltip">
-                            <div class="tooltip-trigger">
-                                <span class="tooltip-text">Disclaimer</span>
-                                <svg class="disclaimer-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
-                                    <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </div>
-                            <div class="tooltip-content" style="display: none;">
-                                <span class="tooltip-icon">!!!</span>
-                                <span class="tooltip-text">This script does have an update check and download function to keep it updated as I improve it. If you do not want this, you can delete the following lines:</span>
-                                <img src="img/updatedown.png" alt="Update and download function code lines" class="tooltip-image">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="update-log-dropdown">
-                        <div class="update-log-content">
-                            <div class="update-entry">
-                                <div class="update-date">August 11th, 2025</div>
-                                <div class="update-message">v1.2 adds the following:<br>
-• Moved icons to the left side of ruler names.<br>
-• Fixed icons/rulername being cutoff by expanding width of "Ruler Names" div.</div>
-                            </div>
-                            <div class="update-entry">
-                                <div class="update-date">August 9th, 2025</div>
-                                <div class="update-message">v1.0 released. It's honestly not that complex.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="userscript-item" style="margin-top: 2rem;">
-                                 <div class="userscript-header">
-                     <h3 class="userscript-name">CN Modular <span class="version">v1.4</span></h3>
-                     <div class="userscript-controls">
-                         <a href="https://github.com/oh-ari/CN-Modular/raw/refs/heads/main/modularCN.user.js" class="userscript-status script-url">Script URL</a>
-                         <button class="update-log-toggle" onclick="toggleUpdateLog(this)">
-                             <span class="update-log-text">Update Log</span>
-                             <svg class="dropdown-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
-                                 <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                             </svg>
-                         </button>
-                     </div>
-                 </div>
-                <div class="userscript-preview">
-                    <img src="img/cnmodular.png" alt="CN Modular Preview" class="preview-image">
-                </div>
-                <div class="userscript-description">
-                    <p>Imagine being able to move the table rows around.</p>
-                    <div class="update-info-tooltip">
-                        <div class="tooltip-trigger">
-                            <span class="tooltip-text">Disclaimer</span>
-                            <svg class="disclaimer-arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
-                                <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </div>
-                        <div class="tooltip-content" style="display: none;">
-                            <span class="tooltip-icon">!!!</span>
-                            <span class="tooltip-text">This script does have an update check and download function to keep it updated as I improve it. If you do not want this, you can delete the following lines:</span>
-                            <img src="img/updatedown.png" alt="Update and download function code lines" class="tooltip-image">
-                        </div>
-                    </div>
-                </div>
-                <div class="update-log-dropdown">
-                    <div class="update-log-content">
-                        <div class="update-entry">
-                            <div class="update-date">September 20th, 2025</div>
-                            <div class="update-message">v1.4 adds the following:<br>
-• Support for Webkit.<br>
-• Now able to see content of hidden rows.<br>
-• Better method for storing Nation ID.<br>
-• Additional support for CN Tools extension.<br>
-                            </div>
-                        </div>
-                        <div class="update-entry">
-                            <div class="update-date">September 2nd, 2025</div>
-                            <div class="update-message">v1.3f fixes the following:<br>
-• Fixed a localStorage issue where it'd create a separate localStorage listing for each nation you visited.<br>
-                            </div>
-                        <div class="update-entry">
-                            <div class="update-date">August 31st, 2025</div>
-                            <div class="update-message">v1.3e fixes the following:<br>
-• Fixed an issue where locked rows would not be locked.<br>
-• Fixed an issue where locked rows would not allow you to select text.<br>
-                            </div>
-                        </div>
-                        <div class="update-entry">
-                            <div class="update-date">August 16th, 2025</div>
-                            <div class="update-message">v1.3c & v1.3d fixes the following:<br>
-• (1.3c) Hiding rows with multiple rows will now hide all rows in that section.<br>
-• (1.3d) Fixed an issue where resetting the layout would reset hidden rows in unexpected ways.<br>
-                            </div>
-                        </div>
-                        <div class="update-entry">
-                            <div class="update-date">August 16th, 2025</div>
-                            <div class="update-message">v1.3b adds the following:<br>
-• 1.3b will reset your layout and hidden rows. This will be the only update that does that.<br>
-• Fixed a few bugs relating to 1.3 changes.<br>
-• Locked Ruler, Nation and Tax Collect rows for flag compatibility.<br>
-                            </div>
-                        </div>
-                        <div class="update-entry">
-                            <div class="update-date">August 16th, 2025</div>
-                            <div class="update-message">v1.3 adds the following:<br>
-• Added the option to hide rows and headers.<br>
-• Centralized the menu buttons with CSS Accordian.<br>
-• Numerous big fixes.<br>
-• Approved and Inspected by BacTalan.</div>
-                        </div>
-                        <div class="update-entry">
-                            <div class="update-date">August 11th, 2025</div>
-                            <div class="update-message">v1.1 adds the following:<br>
-• Fixed issue with modular affecting subrows in tables, creating a very weird nation page.<br>
-• Simplified some functions.</div>
-                        </div>
-                        <div class="update-entry">
-                            <div class="update-date">August 11th, 2025</div>
-                            <div class="update-message">Released 1.0 for TamperMonkey.</div>
-                        </div>
-                        <div class="update-entry">
-                            <div class="update-date">August 9th, 2025</div>
-                            <div class="update-message">I found it again and just need to polish it, I think.</div>
-                        </div>
-                        <div class="update-entry">
-                            <div class="update-date">Sometime in 2024</div>
-                            <div class="update-message">Mostly made this and left me with a load of bugs, thanks me.</div>
-                        </div>
-                    </div>
+            <div class="redirect-section">
+                <div class="redirect-box">
+                    <h2 class="redirect-title">Site Moved!</h2>
+                    <p class="redirect-text">Mochi's Lab has moved to a new location.</p>
+                    <p class="redirect-text">You will be automatically redirected to the new site in <span id="countdown">5</span> seconds.</p>
+                    <a href="https://robochi.dev/" class="redirect-button">
+                        <span class="redirect-button-text">Go to New Site</span>
+                    </a>
                 </div>
             </div>
         </main>
@@ -315,6 +43,195 @@
         <span class="footer-easter-egg">Made with <span class="heart">❤️</span> by Mochi</span>
     </div>
 
-    <script src="script.js?v=20250107030"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const footerCredit = document.querySelector('.footer-credit');
+            
+            footerCredit.addEventListener('click', function() {
+                this.classList.toggle('tapped');
+            });
+        });
+
+        let currentTheme = 'mochi';
+
+        function initializeTheme() {
+            const savedTheme = localStorage.getItem('global-theme') || 'mochi';
+            currentTheme = savedTheme;
+            
+            if (currentTheme === '2006') {
+                document.body.classList.add('theme-2006');
+                document.querySelector('.theme-toggle').classList.add('active');
+            }
+            updateThemeButtonText();
+        }
+
+        function updateThemeButtonText() {
+            const themeText = document.querySelector('.theme-text');
+            if (themeText) {
+                themeText.textContent = currentTheme === '2006' ? "Mochi's Theme" : '2006 Theme Beta';
+            }
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.querySelector('.theme-toggle');
+            
+            if (currentTheme === 'mochi') {
+                currentTheme = '2006';
+                body.classList.add('theme-2006');
+                themeToggle.classList.add('active');
+                localStorage.setItem('global-theme', '2006');
+            } else {
+                currentTheme = 'mochi';
+                body.classList.remove('theme-2006');
+                themeToggle.classList.remove('active');
+                localStorage.setItem('global-theme', 'mochi');
+            }
+            updateThemeButtonText();
+        }
+
+        // Countdown timer
+        let countdown = 5;
+        const countdownElement = document.getElementById('countdown');
+        
+        const timer = setInterval(() => {
+            countdown--;
+            countdownElement.textContent = countdown;
+            
+            if (countdown <= 0) {
+                clearInterval(timer);
+                window.location.href = 'https://robochi.dev/';
+            }
+        }, 1000);
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeTheme();
+            
+            const footerCredit = document.querySelector('.footer-credit');
+            const themeToggle = document.querySelector('.theme-toggle');
+            
+            footerCredit.addEventListener('click', function() {
+                this.classList.toggle('tapped');
+            });
+
+            if (themeToggle) {
+                themeToggle.addEventListener('click', toggleTheme);
+            }
+        });
+    </script>
+
+    <style>
+        .redirect-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 60vh;
+            animation: slideInUp .8s ease-out;
+        }
+
+        .redirect-box {
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-default);
+            border-radius: 8px;
+            padding: 3rem;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            transition: all .3s ease;
+        }
+
+        .redirect-box:hover {
+            border-color: #c9a8ff;
+            background: #c9a8ff1a;
+        }
+
+        .redirect-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #c9a8ff;
+            margin-bottom: 1.5rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .redirect-text {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .redirect-text:last-of-type {
+            margin-bottom: 2rem;
+        }
+
+        .redirect-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #c9a8ff;
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 6px;
+            padding: .75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all .3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .redirect-button:hover {
+            background: #b894ff;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-default);
+        }
+
+        .redirect-button-text {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* 2006 Theme Styles */
+        body.theme-2006 .redirect-box {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-default);
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        body.theme-2006 .redirect-title {
+            color: var(--accent-purple);
+            font-family: 'Verdana', Arial, sans-serif;
+            font-weight: 700;
+        }
+
+        body.theme-2006 .redirect-button {
+            background: var(--accent-purple);
+            border: 1px solid var(--border-default);
+            border-radius: 0;
+            font-family: 'Verdana', Arial, sans-serif;
+            color: #fff;
+        }
+
+        body.theme-2006 .redirect-button:hover {
+            background: #000060;
+            border-color: #000060;
+        }
+
+        @media (max-width: 768px) {
+            .redirect-box {
+                padding: 2rem;
+                margin: 1rem;
+            }
+            
+            .redirect-title {
+                font-size: 1.5rem;
+            }
+            
+            .redirect-text {
+                font-size: 1rem;
+            }
+        }
+    </style>
 </body>
 </html>

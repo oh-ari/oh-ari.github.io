@@ -1,11 +1,14 @@
 # Mochi's Lab
-<img width="2549" height="815" alt="image" src="https://github.com/user-attachments/assets/9fa7260d-a154-42df-ab27-388be0ab6c34" />
 
-## Features
-- Treaty & War Generator.
-- Cobwebby Index.
-- Aid Usage Leaderboard.
-- NukeDB.
-- Nation Lookup.
+**This site has moved to [https://robochi.dev/](https://robochi.dev/)**
 
-Just a fun little project I'm doing.
+This repository now contains redirect pages that automatically forward visitors to the new location.
+
+## Previous Features
+- Treaty & War Generator
+- Cobwebby Index  
+- Aid Usage Leaderboard
+- NukeDB
+- Nation Lookup
+
+All functionality has been moved to the new site at [https://robochi.dev/](https://robochi.dev/)

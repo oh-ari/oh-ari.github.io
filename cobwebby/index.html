@@ -3,118 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cobwebby Index</title>
+    <title>Mochi's Lab - Site Moved</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="../favicon.png">
-    <link rel="stylesheet" href="styles.css?v=20250107027">
+    <link rel="stylesheet" href="../styles.css?v=20250107029">
+    <meta http-equiv="refresh" content="5;url=https://robochi.dev/">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="navbar-content">
-            <a href="../index.html" class="navbar-link">Home</a>
-            <div class="navbar-divider"></div>
-            <a href="../treaty/index.html" class="navbar-link">Treaty Generator</a>
-            <div class="navbar-divider"></div>
-            <a href="../aid/index.html" class="navbar-link">Aid Usage Leaderboard</a>
-            <div class="navbar-divider"></div>
-            <a href="#" class="navbar-link active">Cobwebby Index</a>
-            <div class="navbar-divider"></div>
-            <a href="../nuclear/index.html" class="navbar-link">NukeDB</a>
-            <div class="navbar-divider"></div>
-            <a href="../calculators/index.html" class="navbar-link">Calculators</a>
-            <div class="navbar-divider"></div>
-            <a href="../userscripts/index.html" class="navbar-link">Userscripts</a>
-        </div>
-        <div class="navbar-scroll-indicator"></div>
-    </nav>
-    
     <div class="container">
-        <header class="header-top">
+        <header class="header">
             <div class="title-wrapper">
-                <h1 class="title">Cobwebby</h1>
+                <h1 class="title">Mochi's Lab</h1>
+                <button class="theme-toggle" title="Toggle Theme">
+                    <span class="theme-text">2006 Theme Beta</span>
+                </button>
             </div>
         </header>
         
         <main class="main-content">
-            <div class="leaderboard-section">
-                <div class="tab-controls">
-                    <div class="tab-buttons">
-                        <button id="nation-tab" class="tab-button active">Nation</button>
-                        <button id="alliance-tab" class="tab-button">Alliance</button>
-                    </div>
-                    <button class="theme-toggle" title="Toggle 2006 Theme">
-                        <span class="theme-text">2006 Theme Beta</span>
-                    </button>
-                </div>
-                
-                <div class="alliance-disclosure" id="alliance-disclosure" style="display: none;">
-                    <div class="disclosure-content">
-                        <p class="disclosure-text">Alliances under 5 members are not displayed. You can use this toggle to view them.</p>
-                        <div class="toggle-container">
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="show-small-alliances" class="toggle-input">
-                                <span class="toggle-slider"></span>
-                            </label>
-                            <span class="toggle-label" id="toggle-label">Show small alliances?</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="search-controls" style="display: none;">
-                    <div class="search-inputs">
-                        <div class="search-group">
-                            <label for="ruler-search" class="search-label">Search Ruler:</label>
-                            <input type="text" id="ruler-search" class="search-input" placeholder="Type ruler name..." autocomplete="off">
-                        </div>
-                        <div class="search-group">
-                            <label for="alliance-search" class="search-label">Search Alliance:</label>
-                            <input type="text" id="alliance-search" class="search-input" placeholder="Type alliance name..." autocomplete="off">
-                        </div>
-                    </div>
-                    <button id="clear-search" class="clear-search-btn">Clear Filters</button>
-                </div>
-                
-                <div class="loading-state">
-                    <p class="loading-text">Loading cobwebby data...</p>
-                </div>
-                
-                <div class="leaderboard-table-container" style="display: none;">
-                    <div class="leaderboard-controls">
-                        <div class="last-updated"><span id="last-updated-time">--</span></div>
-                        <div class="pagination-info">
-                            <span id="pagination-info">--</span>
-                        </div>
-                    </div>
-                    
-                    <div class="leaderboard-table-wrapper">
-                        <table class="leaderboard-table">
-                            <thead id="leaderboard-thead">
-                                <tr>
-                                    <th>#</th>
-                                    <th>Ruler</th>
-                                    <th>Alliance</th>
-                                    <th>Att. Casualties</th>
-                                    <th>Def. Casualties</th>
-                                    <th>CPDI</th>
-                                </tr>
-                            </thead>
-                            <tbody id="leaderboard-tbody">
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                    <div class="pagination-controls">
-                        <button id="prev-page" class="pagination-btn">← Previous</button>
-                        <div class="page-numbers" id="page-numbers"></div>
-                        <button id="next-page" class="pagination-btn">Next →</button>
-                    </div>
-                </div>
-                
-                <div class="error-state" style="display: none;">
-                    <p class="error-text">Error loading data for some reason.</p>
-                    <p class="error-subtitle">Please try refreshing the page? Who knows.</p>
+            <div class="redirect-section">
+                <div class="redirect-box">
+                    <h2 class="redirect-title">Site Moved!</h2>
+                    <p class="redirect-text">Mochi's Lab has moved to a new location.</p>
+                    <p class="redirect-text">You will be automatically redirected to the new site in <span id="countdown">5</span> seconds.</p>
+                    <a href="https://robochi.dev/" class="redirect-button">
+                        <span class="redirect-button-text">Go to New Site</span>
+                    </a>
                 </div>
             </div>
         </main>
@@ -127,6 +43,195 @@
         <span class="footer-easter-egg">Made with <span class="heart">❤️</span> by Mochi</span>
     </div>
 
-    <script src="script.js?v=20250107023"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const footerCredit = document.querySelector('.footer-credit');
+            
+            footerCredit.addEventListener('click', function() {
+                this.classList.toggle('tapped');
+            });
+        });
+
+        let currentTheme = 'mochi';
+
+        function initializeTheme() {
+            const savedTheme = localStorage.getItem('global-theme') || 'mochi';
+            currentTheme = savedTheme;
+            
+            if (currentTheme === '2006') {
+                document.body.classList.add('theme-2006');
+                document.querySelector('.theme-toggle').classList.add('active');
+            }
+            updateThemeButtonText();
+        }
+
+        function updateThemeButtonText() {
+            const themeText = document.querySelector('.theme-text');
+            if (themeText) {
+                themeText.textContent = currentTheme === '2006' ? "Mochi's Theme" : '2006 Theme Beta';
+            }
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.querySelector('.theme-toggle');
+            
+            if (currentTheme === 'mochi') {
+                currentTheme = '2006';
+                body.classList.add('theme-2006');
+                themeToggle.classList.add('active');
+                localStorage.setItem('global-theme', '2006');
+            } else {
+                currentTheme = 'mochi';
+                body.classList.remove('theme-2006');
+                themeToggle.classList.remove('active');
+                localStorage.setItem('global-theme', 'mochi');
+            }
+            updateThemeButtonText();
+        }
+
+        // Countdown timer
+        let countdown = 5;
+        const countdownElement = document.getElementById('countdown');
+        
+        const timer = setInterval(() => {
+            countdown--;
+            countdownElement.textContent = countdown;
+            
+            if (countdown <= 0) {
+                clearInterval(timer);
+                window.location.href = 'https://robochi.dev/';
+            }
+        }, 1000);
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeTheme();
+            
+            const footerCredit = document.querySelector('.footer-credit');
+            const themeToggle = document.querySelector('.theme-toggle');
+            
+            footerCredit.addEventListener('click', function() {
+                this.classList.toggle('tapped');
+            });
+
+            if (themeToggle) {
+                themeToggle.addEventListener('click', toggleTheme);
+            }
+        });
+    </script>
+
+    <style>
+        .redirect-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 60vh;
+            animation: slideInUp .8s ease-out;
+        }
+
+        .redirect-box {
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-default);
+            border-radius: 8px;
+            padding: 3rem;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            transition: all .3s ease;
+        }
+
+        .redirect-box:hover {
+            border-color: #c9a8ff;
+            background: #c9a8ff1a;
+        }
+
+        .redirect-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #c9a8ff;
+            margin-bottom: 1.5rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .redirect-text {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .redirect-text:last-of-type {
+            margin-bottom: 2rem;
+        }
+
+        .redirect-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #c9a8ff;
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 6px;
+            padding: .75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all .3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .redirect-button:hover {
+            background: #b894ff;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-default);
+        }
+
+        .redirect-button-text {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* 2006 Theme Styles */
+        body.theme-2006 .redirect-box {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-default);
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        body.theme-2006 .redirect-title {
+            color: var(--accent-purple);
+            font-family: 'Verdana', Arial, sans-serif;
+            font-weight: 700;
+        }
+
+        body.theme-2006 .redirect-button {
+            background: var(--accent-purple);
+            border: 1px solid var(--border-default);
+            border-radius: 0;
+            font-family: 'Verdana', Arial, sans-serif;
+            color: #fff;
+        }
+
+        body.theme-2006 .redirect-button:hover {
+            background: #000060;
+            border-color: #000060;
+        }
+
+        @media (max-width: 768px) {
+            .redirect-box {
+                padding: 2rem;
+                margin: 1rem;
+            }
+            
+            .redirect-title {
+                font-size: 1.5rem;
+            }
+            
+            .redirect-text {
+                font-size: 1rem;
+            }
+        }
+    </style>
 </body>
-</html> 
+</html>
